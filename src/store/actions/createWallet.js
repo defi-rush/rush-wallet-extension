@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { encrypt } from '../../utils/crypto'
 import buildConfig from '../../build.config'
 import { accountCreator, getNextAccountColor } from '@/utils/accounts'
-import { chains, assets as cryptoassets } from '@liquality/cryptoassets'
+import { assets as cryptoassets } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 import { shouldApplyRskLegacyDerivation } from '../utils'
 
 export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic }) => {
@@ -45,7 +46,6 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic 
             color: getNextAccountColor(chainId, 0)
           }
         })
-
       commit('CREATE_ACCOUNT', { network, walletId: id, account: _account })
     })
   })

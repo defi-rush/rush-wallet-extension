@@ -7,7 +7,7 @@
       <ChevronDownIcon v-else />
       <ul class="menu_list" id="list_of_networks" v-if="showNetworks" v-click-away="hideNetworks">
         <li id="mainnet_network" @click="switchNetwork('mainnet')">Mainnet</li>
-        <li id="testnet_network" @click="switchNetwork('testnet')">Testnet</li>
+        <!-- <li id="testnet_network" @click="switchNetwork('testnet')">Testnet</li> -->
       </ul>
     </div>
     <HeadMenu />

@@ -31,7 +31,7 @@ import {
   LEDGER_BITCOIN_OPTIONS
 } from '@/utils/ledger-bridge-provider'
 import { bitcoin } from '@liquality/types'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 
 import { isERC20 } from '@/utils/asset'
 import { BTC_ADDRESS_TYPE_TO_PREFIX } from '@/utils/address'

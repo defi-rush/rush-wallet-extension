@@ -21,7 +21,7 @@ import BN from 'bignumber.js'
 import { prettyFiatBalance } from '@/utils/coinFormatter'
 import { getNativeAsset } from '@/utils/asset'
 import cryptoassets from '@/utils/cryptoassets'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 
 export default {
   props: [

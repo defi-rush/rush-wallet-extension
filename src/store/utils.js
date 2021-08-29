@@ -122,7 +122,7 @@ export async function getPrices (baseCurrencies, toCurrency) {
   return symbolPrices
 }
 
-export const Networks = ['mainnet', 'testnet']
+export const Networks = ['mainnet']
 
 export const ChainNetworks = {
   bitcoin: {
@@ -152,5 +152,21 @@ export const ChainNetworks = {
   near: {
     testnet: NearNetworks.near_testnet,
     mainnet: NearNetworks.near_mainnet
+  },
+  localhost: {
+    testnet: {
+      chainId: 31337,
+      coinType: "60",
+      isTestnet: true,
+      name: "localhost",
+      networkId: 31337
+    },
+    mainnet: {
+      chainId: 31337,
+      coinType: "60",
+      isTestnet: false,
+      name: "localhost",
+      networkId: 31337
+    }
   }
 }

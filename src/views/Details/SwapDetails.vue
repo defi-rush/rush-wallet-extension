@@ -80,7 +80,7 @@
 import { mapActions, mapState, mapGetters } from 'vuex'
 import moment from '@/utils/moment'
 import cryptoassets from '@/utils/cryptoassets'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 
 import { prettyBalance, dpUI } from '@/utils/coinFormatter'
 import { calculateQuoteRate } from '@/utils/quotes'

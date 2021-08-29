@@ -4,7 +4,8 @@ import Script from './broker/Script'
 import { providerManager, ethereumProvider, overrideEthereum, bitcoinProvider, nearProvider, paymentUriHandler } from './inject'
 import buildConfig from './build.config'
 import { ChainNetworks } from './store/utils'
-import { chains, isEthereumChain } from '@liquality/cryptoassets'
+import { isEthereumChain } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 
 ;(new Script()).start()
 
@@ -25,7 +26,9 @@ chrome.storage.local.get(['liquality-wallet'], (storage) => {
   const state = storage['liquality-wallet']
 
   buildConfig.chains
-    .filter(isEthereumChain)
+    .filter(chain => {
+      return isEthereumChain(chain) || chain.toLowerCase() === 'localhost'
+    })
     .forEach(chain => {
       injectEthereum(state, chain)
     })

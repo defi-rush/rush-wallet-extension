@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { getAssetIcon } from '@/utils/asset'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 
 export const accountCreator = (payload) => {
   const { walletId, account } = payload
@@ -61,7 +61,8 @@ export const chainDefaultColors = {
   bsc: '#F7CA4F',
   near: '#000000',
   polygon: '#8247E5',
-  arbitrum: '#28A0EF'
+  arbitrum: '#28A0EF',
+  localhost: '#4F67E4'
 }
 
 export const getAccountIcon = (chain) => {
@@ -72,7 +73,8 @@ export const getAccountIcon = (chain) => {
     rsk: getAssetIcon('rsk_account'),
     near: getAssetIcon('NEAR'),
     polygon: getAssetIcon('polygon_account'),
-    arbitrum: getAssetIcon('ARBITRUM')
+    arbitrum: getAssetIcon('ARBITRUM'),
+    localhost: getAssetIcon('eth_account')
   }[chain]
 }
 

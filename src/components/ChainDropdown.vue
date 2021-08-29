@@ -61,7 +61,7 @@
 <script>
 import { getAssetColorStyle } from '@/utils/asset'
 import { getAccountIcon } from '@/utils/accounts'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 import SearchIcon from '@/assets/icons/search.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'

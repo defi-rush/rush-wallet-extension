@@ -105,7 +105,7 @@ import { getFeeLabel } from '@/utils/fees'
 import BN from 'bignumber.js'
 import { prettyFiatBalance } from '@/utils/coinFormatter'
 import cryptoassets from '@/utils/cryptoassets'
-import { chains } from '@liquality/cryptoassets'
+import { chains } from '@/utils/chains'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 
@@ -152,7 +152,8 @@ export default {
         rsk: 1,
         bsc: 1,
         polygon: 1,
-        near: 0.00001
+        near: 0.00001,
+        localhost: 1
       })[chainId] || 1
     }
   },

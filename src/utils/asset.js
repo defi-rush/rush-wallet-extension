@@ -18,6 +18,16 @@ const EXPLORERS = {
       address: 'https://etherscan.io/address/'
     }
   },
+  localhost: {
+    testnet: {
+      tx: 'https://ropsten.etherscan.io/tx/0x',
+      address: 'https://ropsten.etherscan.io/address/'
+    },
+    mainnet: {
+      tx: 'https://etherscan.io/tx/0x',
+      address: 'https://etherscan.io/address/'
+    }
+  },
   bitcoin: {
     testnet: {
       tx: 'https://blockstream.info/testnet/tx/',
@@ -150,6 +160,11 @@ export const getExplorerTransactionHash = (asset, hash) => {
 
 export const tokenDetailProviders = {
   ethereum: {
+    async getDetails (contractAddress) {
+      return await fetchTokenDetails(contractAddress, `https://mainnet.infura.io/v3/${buildConfig.infuraApiKey}`)
+    }
+  },
+  localhost: {
     async getDetails (contractAddress) {
       return await fetchTokenDetails(contractAddress, `https://mainnet.infura.io/v3/${buildConfig.infuraApiKey}`)
     }

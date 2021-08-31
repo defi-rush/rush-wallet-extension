@@ -1,6 +1,4 @@
-
-import { assets } from '@liquality/cryptoassets'
-import { chains as chainList } from '@/utils/chains'
+import { assets, chains as chainList } from '@/utils/chains'
 export const getLedgerAccounts = async (
   { getters },
   { network, walletId, asset, walletType, startingIndex, numAccounts }

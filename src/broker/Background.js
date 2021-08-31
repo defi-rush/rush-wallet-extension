@@ -1,7 +1,7 @@
 import { ChainNetworks } from '../store/utils'
 import buildConfig from '../build.config'
 import { BG_PREFIX, handleConnection, removeConnectId, getRootURL } from './utils'
-import { assets } from '@liquality/cryptoassets'
+import { assets } from '@/utils/chains'
 
 class Background {
   constructor (store) {

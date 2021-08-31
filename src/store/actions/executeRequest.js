@@ -1,4 +1,4 @@
-import { assets } from '@liquality/cryptoassets'
+import { assets } from '@/utils/chains'
 
 export const executeRequest = async ({ getters, dispatch, state, rootState }, { request }) => {
   // Send transactions through wallet managed action

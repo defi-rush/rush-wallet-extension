@@ -1,4 +1,4 @@
-import { assets as cryptoassets } from '@liquality/cryptoassets'
+import { assets as cryptoassets } from '@/utils/chains'
 
 export const injectEthereumAssetChain = { // Inject ethereum asset -> chain
   version: 9,

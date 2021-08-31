@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { random, findKey, mapKeys, mapValues } from 'lodash-es'
 import axios from 'axios'
-import { assets as cryptoassets } from '@liquality/cryptoassets'
+import { assets as cryptoassets } from '@/utils/chains'
 import { BitcoinNetworks } from '@liquality/bitcoin-networks'
 import { EthereumNetworks } from '@liquality/ethereum-networks'
 import { NearNetworks } from '@liquality/near-networks'

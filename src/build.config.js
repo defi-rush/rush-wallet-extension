@@ -17,7 +17,8 @@ export default {
       'MATIC',
       'PWETH',
       'ARBETH',
-      'FISH'
+      'FISH',
+      'LOCAL_ETH'
     ],
     testnet: [
       'BTC',

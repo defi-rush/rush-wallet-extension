@@ -1,4 +1,5 @@
-import { assets as cryptoassets, unitToCurrency } from '@liquality/cryptoassets'
+import { unitToCurrency } from '@liquality/cryptoassets'
+import { assets as cryptoassets } from '@/utils/chains'
 import { createClient } from './factory/client'
 import { createSwapProvider } from './factory/swapProvider'
 import { Object } from 'core-js'

@@ -1,4 +1,4 @@
-import { chains as originalChains } from '@liquality/cryptoassets'
+import { assets, chains as originalChains } from '@liquality/cryptoassets'
 
 /**
  * override chains
@@ -17,4 +17,9 @@ chains['localhost'] = {
   name: 'Localhost:8545'
 }
 
-export { chains }
+assets['LOCAL_ETH'] = {
+  ...assets['ETH'],
+  chain: 'localhost'
+}
+
+export { assets, chains }

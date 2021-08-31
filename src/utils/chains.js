@@ -14,7 +14,13 @@ whiteList.forEach((name) => {
 
 chains['localhost'] = {
   ...originalChains['ethereum'],
-  name: 'Localhost:8545'
+  name: 'Localhost',
+  code: 'ETH',  // TODO 这个有啥用，待定
+  nativeAsset: 'LOCAL_ETH',
+  fees: {
+    unit: 'gwei'
+  },
+  safeConfirmations: 3
 }
 
 assets['LOCAL_ETH'] = {

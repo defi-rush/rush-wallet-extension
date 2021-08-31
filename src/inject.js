@@ -23,7 +23,7 @@ class ProviderManager {
   proxy (type, data) {
     return new Promise((resolve, reject) => {
       const id = Date.now() + '.' + Math.random()
-  
+
       window.addEventListener(id, ({ detail }) => {
         const response = JSON.parse(detail)
         if (response.error) reject(new Error(response.error))
@@ -32,7 +32,7 @@ class ProviderManager {
         once: true,
         passive: true
       })
-  
+
       window.postMessage({
         id,
         type,
@@ -79,7 +79,7 @@ async function handleRequest (req) {
   if(req.method === 'eth_requestAccounts') {
     return await window[injectionName].enable()
   }
-  if(req.method === 'personal_sign') { 
+  if(req.method === 'personal_sign') {
     const sig = await eth.getMethod('wallet.signMessage')(req.params[0], req.params[1])
     return '0x' + sig
   }
@@ -94,7 +94,8 @@ async function handleRequest (req) {
   if(req.method === 'eth_accounts') {
     return getAddresses()
   }
-  return eth.getMethod('jsonrpc')(req.method, ...req.params)
+  const method = eth.getMethod('jsonrpc')
+  return method(req.method, ...req.params)
 }
 
 window[injectionName] = {

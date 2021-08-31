@@ -24,7 +24,7 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
         accountId
       })
     } else {
-    // Otherwise build client
+      // Otherwise build client
       const client = getters.client(
         {
           network,

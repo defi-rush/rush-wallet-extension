@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { createLogger } from 'vuex'
 import state from './state'
 import getters from './getters'
 import * as actions from './actions'
@@ -16,10 +15,7 @@ const store = new Vuex.Store({
   getters,
   actions,
   mutations,
-  plugins: [
-    broker.plugin,
-    createLogger()
-  ],
+  plugins: [ broker.plugin ],
   modules: {
     app: appModule
   }

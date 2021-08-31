@@ -209,7 +209,7 @@ function createArbitrumClient (asset, network, mnemonic, indexPath = 0) {
 
 function createLocalhostClient (asset, network, mnemonic, walletType, indexPath = 0) {
   const isTestnet = network === 'testnet'
-  const ethereumNetwork = ChainNetworks.ethereum[network]
+  const ethereumNetwork = ChainNetworks.localhost[network]
   const infuraApi = 'http://localhost:8545'
   const scraperApi = isTestnet ? 'https://liquality.io/eth-ropsten-api' : 'https://liquality.io/eth-mainnet-api'
   const feeProvider = isTestnet ? new EthereumRpcFeeProvider() : new EthereumGasNowFeeProvider()

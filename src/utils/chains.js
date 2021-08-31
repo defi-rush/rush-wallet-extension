@@ -19,7 +19,8 @@ chains['localhost'] = {
 
 assets['LOCAL_ETH'] = {
   ...assets['ETH'],
-  chain: 'localhost'
+  chain: 'localhost',
+  matchingAsset: 'ETH'
 }
 
 export { assets, chains }

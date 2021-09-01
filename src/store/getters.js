@@ -149,7 +149,7 @@ export default {
     const { accountFiatBalance, assetFiatBalance } = getters
     return accounts[activeWalletId]?.[activeNetwork]
       // TODO 暂时隐藏过滤的一步，因为 localhost network 还没有 assets
-      // .filter(account => account.assets && account.assets.length > 0)
+      .filter(account => account.assets && account.assets.length > 0)
       .map(account => {
         const totalFiatBalance = accountFiatBalance(activeWalletId, activeNetwork, account.id)
         const fiatBalances = Object.entries(account.balances)

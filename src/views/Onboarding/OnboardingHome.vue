@@ -1194,7 +1194,7 @@ export default {
   data: function () {
     return {
       analyticsAccepted: true,
-      scrolledToEnd: false
+      scrolledToEnd: true
     }
   },
   methods: {

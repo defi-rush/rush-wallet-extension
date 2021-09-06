@@ -18,7 +18,8 @@ export default {
       'PWETH',
       'ARBETH',
       'FISH',
-      'LOCAL_ETH'
+      'LOCAL_ETH',
+      'RUSH_ETH'
     ],
     testnet: [
       'BTC',
@@ -86,7 +87,8 @@ export default {
           ethereum: '0xaf2C465dC79DeDf7305CDe782439171D147Abac7',
           polygon: '0x3a712CC47aeb0F20A7C9dE157c05d74B11F172f5',
           bsc: '0x3a712CC47aeb0F20A7C9dE157c05d74B11F172f5',
-          localhost: '0xaf2C465dC79DeDf7305CDe782439171D147Abac7'
+          localhost: '0xaf2C465dC79DeDf7305CDe782439171D147Abac7',
+          rush: '0xaf2C465dC79DeDf7305CDe782439171D147Abac7',
         },
         referrerFee: 0.3
       },
@@ -100,5 +102,5 @@ export default {
   },
   discordUrl: 'https://discord.gg/Xsqw7PW8wk',
   networks: ['mainnet'],
-  chains: ['ethereum', 'bsc', 'polygon', 'localhost']
+  chains: ['ethereum', 'bsc', 'polygon', 'localhost', 'rush']
 }

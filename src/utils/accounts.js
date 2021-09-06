@@ -62,7 +62,8 @@ export const chainDefaultColors = {
   near: '#000000',
   polygon: '#8247E5',
   arbitrum: '#28A0EF',
-  localhost: '#4F67E4'
+  localhost: '#4F67E4',
+  rush: '#4F67E4',
 }
 
 export const getAccountIcon = (chain) => {
@@ -74,7 +75,8 @@ export const getAccountIcon = (chain) => {
     near: getAssetIcon('NEAR'),
     polygon: getAssetIcon('polygon_account'),
     arbitrum: getAssetIcon('ARBITRUM'),
-    localhost: getAssetIcon('eth_account')
+    localhost: getAssetIcon('eth_account'),
+    rush: getAssetIcon('eth_account'),
   }[chain]
 }
 

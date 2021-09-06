@@ -153,7 +153,8 @@ export default {
         bsc: 1,
         polygon: 1,
         near: 0.00001,
-        localhost: 1
+        localhost: 1,
+        rush: 1,
       })[chainId] || 1
     }
   },

@@ -23,6 +23,8 @@ import { NearJsWalletProvider } from '@liquality/near-js-wallet-provider'
 import { NearRpcProvider } from '@liquality/near-rpc-provider'
 import { NearSwapFindProvider } from '@liquality/near-swap-find-provider'
 
+import { createRuchClient } from './RushClient'
+
 import {
   BitcoinLedgerBridgeProvider,
   EthereumLedgerBridgeProvider,
@@ -225,6 +227,7 @@ export const createClient = (asset, network, mnemonic, walletType, indexPath = 0
   if (assetData.chain === 'arbitrum') return createArbitrumClient(asset, network, mnemonic, indexPath)
   if (assetData.chain === 'near') return createNearClient(network, mnemonic, indexPath)
   if (assetData.chain === 'localhost') return createLocalhostClient(asset, network, mnemonic, walletType, indexPath)
+  if (assetData.chain === 'rush') return createRuchClient(asset, network, mnemonic, walletType, indexPath)
 
   return createEthClient(asset, network, mnemonic, walletType, indexPath)
 }

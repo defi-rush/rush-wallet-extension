@@ -168,5 +168,21 @@ export const ChainNetworks = {
       name: "localhost",
       networkId: 31337
     }
+  },
+  rush: {
+    testnet: {
+      chainId: 31337,
+      coinType: "60",
+      isTestnet: true,
+      name: "rush",
+      networkId: 31337
+    },
+    mainnet: {
+      chainId: 31337,
+      coinType: "60",
+      isTestnet: false,
+      name: "rush",
+      networkId: 31337
+    }
   }
 }

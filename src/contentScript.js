@@ -27,7 +27,7 @@ chrome.storage.local.get(['liquality-wallet'], (storage) => {
 
   buildConfig.chains
     .filter(chain => {
-      return isEthereumChain(chain) || chain.toLowerCase() === 'localhost'
+      return isEthereumChain(chain) || chain.toLowerCase() === 'localhost' || chain.toLowerCase() === 'rush'
     })
     .forEach(chain => {
       injectEthereum(state, chain)

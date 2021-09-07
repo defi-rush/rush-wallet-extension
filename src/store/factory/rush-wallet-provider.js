@@ -20,17 +20,16 @@ export class RushWalletProvider extends EthereumRpcProvider {
   }
 
   sendRawTransaction(hash) {
-    console.log('@@@ RushWalletProvider.sendRawTransaction', hash)
     return super.sendRawTransaction(hash)
   }
 
-  sendTransaction(options) {
-    const toProxyData = rushWalletInterface.encodeFunctionData('encodeTransactionData', options)
-    const toProxyOptions = {
-      to: this.getProxyAddress(),
-      data: toProxyData
-    }
-    console.log('@@@ RushWalletProvider.sendTransaction', toProxyOptions)
-    return super.sendTransaction(toProxyOptions)
-  }
+  // sendTransaction(options) {
+  //   const toProxyData = rushWalletInterface.encodeFunctionData('encodeTransactionData', options)
+  //   const toProxyOptions = {
+  //     to: this.getProxyAddress(),
+  //     data: toProxyData
+  //   }
+  //   console.log('### RushWalletProvider.sendTransaction', toProxyOptions)
+  //   return super.sendTransaction(toProxyOptions)
+  // }
 }

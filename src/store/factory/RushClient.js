@@ -25,7 +25,7 @@ import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
 import { RushWalletProvider } from './rush-wallet-provider'
 
-const proxyAddress                  = '0x87CF2C0cC24f049E747f9F37f0a2678b2695e6f5'
+const proxyAddress                  = '0x1a609970Bb5daD3B6DE9F316a4c322519B562042'
 const rushWalletAddress             = '0xAbB12158488d9C9Bd52C14B9AE4C835eCE4A6e13'
 const rushWalletProxyFactoryAddress = '0x446C29FBFEF829F81E236a2376191F648dbEF995'
 

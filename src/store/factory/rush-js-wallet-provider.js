@@ -21,14 +21,16 @@ const proxyABI = [
 ]
 
 const rushWalletInterface = new ethers.utils.Interface(proxyABI)
+const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 
 /**
  * 创建 client 的时候会 addProvider，所以合约钱包的作用就是截取请求，统一发给 proxyAddress
  */
 export class RushJsWalletProvider extends EthereumJsWalletProvider {
-  constructor({ proxyAddress, ...restOptions }) {
+  constructor({ proxyAddress, wallet, ...restOptions }) {
     super(restOptions);
     this._proxyAddress = proxyAddress;
+    this.wallet = ethers.Wallet.fromMnemonic(wallet.mnemonic);
   }
 
   getProxyAddress() {
@@ -65,20 +67,28 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
       signatures
     ]
     // console.log('============= txData', txData)
+
     const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
     const toProxyOptions = {
       to: this.getProxyAddress(),
       data: toProxyData
     }
-    console.log('@@@ RushJsWalletProvider.sendTransaction', toProxyOptions.data)
-    // return super.sendTransaction(toProxyOptions)
-    return await this._tmp({
+
+    return await this._execSendTransaction({
       ...options,
       ...toProxyOptions,
-    })
+    }, txData)
   }
 
-  async _tmp(options) {
+  async _execEstimateGas(txData) {
+    const rushWalletProxy = new ethers.Contract(this.getProxyAddress(), proxyABI, provider)
+    let _estimateGas = await rushWalletProxy.estimateGas.execTransaction(...txData)
+    _estimateGas = numberToHex(Math.ceil(+_estimateGas * 2))
+    console.log('@@@ _estimateGas', _estimateGas)
+    return _estimateGas
+  }
+
+  async _execSendTransaction(options, execTransactionTxData) {
     const addresses = await this.getAddresses()
     const from = addresses[0].address
 
@@ -97,11 +107,12 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     }
 
     const txData = buildTransaction(txOptions)
-    const gas = await this.getMethod('estimateGas')(txData)
+    // const gas = await this.getMethod('estimateGas')(txData)
+    const gas = await this._execEstimateGas(execTransactionTxData)
+    console.log('======= rush-js-wallet-provider.sendTransaction.gas', +gas)
+    // txData.gas = numberToHex(100000) // TODO test for rushWalletProxy
     txData.gas = numberToHex(+gas)
-    // TODO test for rushWalletProxy
-    // txData.gas = numberToHex(1000000)
-    // console.log('-----txData', txData.gas, txData)
+    console.log('-----txData', txData.gas, txData)
 
     const serializedTx = await this.signTransaction(txData)
     const txHash = await this.getMethod('sendRawTransaction')(serializedTx)

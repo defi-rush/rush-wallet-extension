@@ -25,7 +25,7 @@ import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
 import { RushWalletProvider } from './rush-wallet-provider'
 
-const proxyAddress                  = '0x6370898c421499da635Ba4dCc8526bB152A686eC'
+const proxyAddress                  = '0x87CF2C0cC24f049E747f9F37f0a2678b2695e6f5'
 const rushWalletAddress             = '0xAbB12158488d9C9Bd52C14B9AE4C835eCE4A6e13'
 const rushWalletProxyFactoryAddress = '0x446C29FBFEF829F81E236a2376191F648dbEF995'
 
@@ -47,7 +47,8 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
   ethClient.addProvider(rushWalletProvider)
 
   const rskLegacyCoinType = ethereumNetwork.name === 'rsk_mainnet' ? '137' : '37310'
-  const { rskLegacyDerivation } = store.state
+  const { rskLegacyDerivation, wallets, activeWalletId } = store.state
+  const wallet = wallets.find(wallet => wallet.id === activeWalletId)
   let coinType = ethereumNetwork.coinType
 
   if (walletType === 'rsk_ledger') {
@@ -73,7 +74,7 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
     ethClient.addProvider(ledger)
   } else {
     ethClient.addProvider(new RushJsWalletProvider(
-      { network: ethereumNetwork, mnemonic, derivationPath, proxyAddress }
+      { network: ethereumNetwork, mnemonic, derivationPath, proxyAddress, wallet}
     ))
   }
 

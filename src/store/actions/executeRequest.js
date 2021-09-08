@@ -36,11 +36,15 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
       let methodFunc
       if (request.method.includes('.')) {
         const [namespace, fnName] = request.method.split('.')
-        methodFunc = client[namespace][fnName].bind(client[namespace])
+        if (fnName == 'estimateGas') {
+          // 单独处理 chain.estimateGas 请求，转发到 client 里的 provider 方法
+          methodFunc = client.getMethod('estimateGas').bind(client)
+        } else {
+          methodFunc = client[namespace][fnName].bind(client[namespace])
+        }
       } else {
         methodFunc = client.getMethod(request.method).bind(client)
       }
-
       call = methodFunc(...request.args)
     }
 

@@ -37,14 +37,7 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     return this._proxyAddress;
   }
 
-  // sendRawTransaction(hash) {
-  //   console.log('@@@ RushJsWalletProvider.sendRawTransaction', hash)
-  //   return super.sendRawTransaction(hash)
-  // }
-
   async sendTransaction(options) {
-    console.log('@@@ RushJsWalletProvider.sendTransaction.options', options)
-
     const { to, value, data } = options
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
@@ -66,7 +59,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
       refundReceiver,
       signatures
     ]
-    // console.log('============= txData', txData)
 
     const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
     const toProxyOptions = {
@@ -107,12 +99,10 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     }
 
     const txData = buildTransaction(txOptions)
-    // const gas = await this.getMethod('estimateGas')(txData)
-    const gas = await this._execEstimateGas(execTransactionTxData)
-    console.log('======= rush-js-wallet-provider.sendTransaction.gas', +gas)
+    const gas = await this.getMethod('estimateGas')(txData)
+    // const gas = await this._execEstimateGas(execTransactionTxData)
     // txData.gas = numberToHex(100000) // TODO test for rushWalletProxy
     txData.gas = numberToHex(+gas)
-    console.log('-----txData', txData.gas, txData)
 
     const serializedTx = await this.signTransaction(txData)
     const txHash = await this.getMethod('sendRawTransaction')(serializedTx)

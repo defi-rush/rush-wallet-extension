@@ -21,6 +21,7 @@ const CONFIRM_REQUIRED = [
 
 const ALLOWED = [
   ...CONFIRM_REQUIRED,
+  /^chain.estimateGas$/,
   /^wallet.getConnectedNetwork$/,
   /^wallet.getAddresses*$/,
   /^jsonrpc$/

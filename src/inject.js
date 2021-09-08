@@ -94,6 +94,13 @@ async function handleRequest (req) {
   if(req.method === 'eth_accounts') {
     return getAddresses()
   }
+  if(req.method === 'eth_estimateGas') {
+    const to = req.params[0].to
+    const value = req.params[0].value
+    const data = req.params[0].data
+    return await eth.getMethod('chain.estimateGas')({ to, value, data })
+  }
+  console.log('window.rush.handleRequest', req.method, req.params ? req.params[0] : {})
   const method = eth.getMethod('jsonrpc')
   return method(req.method, ...req.params)
 }

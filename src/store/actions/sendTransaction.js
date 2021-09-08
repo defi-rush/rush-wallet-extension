@@ -13,12 +13,13 @@ export const sendTransaction = async ({ dispatch, commit, getters }, { network, 
   )
 
   const originalEstimateGas = client._providers[0].estimateGas
-  if (gas) {
-    console.log('@@@ actions.sendTransaction.gas', gas)
-    client._providers[0].estimateGas = async () => {
-      return gas
-    }
-  }
+  // TODO 这里的用途待研究
+  // if (gas) {
+  //   console.log('@@@ actions.sendTransaction.gas', gas)
+  //   client._providers[0].estimateGas = async () => {
+  //     return gas
+  //   }
+  // }
 
   let tx
   try {

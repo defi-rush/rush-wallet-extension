@@ -1,6 +1,10 @@
 import { ethers } from 'ethers'
 import { EthereumJsWalletProvider } from '@liquality/ethereum-js-wallet-provider'
 
+import { WalletProvider } from '@liquality/wallet-provider'
+import { EthereumNetwork } from '@liquality/ethereum-networks'
+import hdkey from 'hdkey'
+
 import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@liquality/types'
 import {
   remove0x,
@@ -9,6 +13,9 @@ import {
   hexToNumber,
   normalizeTransactionObject
 } from '@liquality/ethereum-utils'
+
+import { hashPersonalMessage, ecsign, toRpcSig, privateToAddress, privateToPublic } from 'ethereumjs-util'
+
 import { addressToString } from '@liquality/utils'
 
 const proxyABI = [
@@ -31,6 +38,14 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     super(restOptions);
     this._proxyAddress = proxyAddress;
     this.wallet = ethers.Wallet.fromMnemonic(wallet.mnemonic);
+  }
+
+  async getAddresses() {
+    const address = new Address({
+      address: remove0x(this.getProxyAddress()),
+      derivationPath: this._derivationPath
+    })
+    return [ address ]
   }
 
   getProxyAddress() {
@@ -101,7 +116,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     const txData = buildTransaction(txOptions)
     const gas = await this.getMethod('estimateGas')(txData)
     // const gas = await this._execEstimateGas(execTransactionTxData)
-    // txData.gas = numberToHex(100000) // TODO test for rushWalletProxy
     txData.gas = numberToHex(+gas)
 
     const serializedTx = await this.signTransaction(txData)

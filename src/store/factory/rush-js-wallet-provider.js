@@ -48,6 +48,15 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     return [ address ]
   }
 
+  async signMessage(message) {
+    // TODO 合约钱包的的签名需要调用特定的合约方法来实现
+    return super.signMessage(message)
+    // const hdKey = await this.hdKey()
+    // const msgHash = hashPersonalMessage(Buffer.from(message))
+    // const { v, r, s } = ecsign(msgHash, hdKey.privateKey)
+    // return remove0x(toRpcSig(v, r, s))
+  }
+
   getProxyAddress() {
     return this._proxyAddress;
   }

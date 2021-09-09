@@ -28,7 +28,7 @@ const rushWalletInterface = new ethers.utils.Interface(proxyABI)
 const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 
 
-export class RushWalletProvider extends JsonRpcProvider {
+export class RushRpcProvider extends JsonRpcProvider {
 
   constructor(options) {
     super(options.uri, options.username, options.password)
@@ -117,6 +117,7 @@ export class RushWalletProvider extends JsonRpcProvider {
   }
 
   async sendRawTransaction(hash) {
+    console.log('@@@ RushRpcProvider.sendRawTransaction', hash)
     return this.rpc('eth_sendRawTransaction', ensure0x(hash))
   }
 

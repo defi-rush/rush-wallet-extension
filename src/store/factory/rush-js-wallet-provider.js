@@ -50,6 +50,7 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
 
   async signMessage(message) {
     // TODO 合约钱包的的签名需要调用特定的合约方法来实现
+    console.log('===== js-wallet-provider.signMessage', message)
     return super.signMessage(message)
     // const hdKey = await this.hdKey()
     // const msgHash = hashPersonalMessage(Buffer.from(message))
@@ -62,6 +63,7 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
   }
 
   async sendTransaction(options) {
+    console.log('---- RushJsWalletProvider.sendTransaction', options)
     const { to, value, data } = options
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
@@ -96,14 +98,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     }, txData)
   }
 
-  async _execEstimateGas(txData) {
-    const rushWalletProxy = new ethers.Contract(this.getProxyAddress(), proxyABI, provider)
-    let _estimateGas = await rushWalletProxy.estimateGas.execTransaction(...txData)
-    _estimateGas = numberToHex(Math.ceil(+_estimateGas * 2))
-    console.log('@@@ _estimateGas', _estimateGas)
-    return _estimateGas
-  }
-
   async _execSendTransaction(options, execTransactionTxData) {
     const addresses = await this.getAddresses()
     const from = addresses[0].address
@@ -124,7 +118,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
 
     const txData = buildTransaction(txOptions)
     const gas = await this.getMethod('estimateGas')(txData)
-    // const gas = await this._execEstimateGas(execTransactionTxData)
     txData.gas = numberToHex(+gas)
 
     const serializedTx = await this.signTransaction(txData)

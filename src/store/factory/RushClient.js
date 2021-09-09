@@ -23,7 +23,7 @@ import { isERC20 } from '@/utils/asset'
 import cryptoassets from '@/utils/cryptoassets'
 import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
-import { RushWalletProvider } from './rush-wallet-provider'
+import { RushRpcProvider } from './rush-rpc-provider'
 
 const proxyAddress                  = '0x1a609970Bb5daD3B6DE9F316a4c322519B562042'
 const rushWalletAddress             = '0xAbB12158488d9C9Bd52C14B9AE4C835eCE4A6e13'
@@ -37,14 +37,12 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
   const feeProvider = isTestnet ? new EthereumRpcFeeProvider() : new EthereumGasNowFeeProvider()
 
   const ethClient = new Client()
-  const rushWalletProvider = new RushWalletProvider({
+  const rushRpcProvider = new RushRpcProvider({
     proxyAddress,
-    rushWalletAddress,
-    rushWalletProxyFactoryAddress,
     uri: infuraApi
   })
 
-  ethClient.addProvider(rushWalletProvider)
+  ethClient.addProvider(rushRpcProvider)
 
   const rskLegacyCoinType = ethereumNetwork.name === 'rsk_mainnet' ? '137' : '37310'
   const { rskLegacyDerivation, wallets, activeWalletId } = store.state

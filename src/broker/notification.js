@@ -25,18 +25,6 @@ export const createNotification = config => browser.notifications.create({
   ...config
 })
 
-const createSwapNotification = item => {
-  const swapProvider = store.getters.swapProvider(item.network, item.provider)
-  const notificationFunction = swapProvider.statuses[item.status].notification
-  if (!notificationFunction) return
-  const notification = notificationFunction(item)
-
-  return createNotification({
-    title: `${item.from} -> ${item.to}`,
-    ...notification
-  })
-}
-
 const createSendNotification = item => {
   if (!(item.status in SEND_STATUS_MAP)) return
   const notification = SEND_STATUS_MAP[item.status](item)
@@ -49,5 +37,4 @@ const createSendNotification = item => {
 
 export const createHistoryNotification = item => {
   if (item.type === 'SEND') return createSendNotification(item)
-  else if (item.type === 'SWAP') return createSwapNotification(item)
 }

@@ -57,7 +57,6 @@ export default {
   props: ['transactions'],
   computed: {
     ...mapState(['fiatRates']),
-    ...mapGetters(['swapProvider'])
   },
   methods: {
     getItemIcon,
@@ -65,8 +64,6 @@ export default {
     prettyFiatBalance,
     getTitle (item) {
       switch (item.type) {
-        case 'SWAP':
-          return `${item.from} to ${item.to}`
         case 'SEND':
           return `Send ${item.from}`
         case 'RECEIVE':
@@ -97,15 +94,11 @@ export default {
     getUIStatus (item) {
       if (item.type === 'SEND') {
         return SEND_STATUS_FILTER_MAP[item.status]
-      } else if (item.type === 'SWAP') {
-        const swapProvider = this.swapProvider(item.network, item.provider)
-        return swapProvider.statuses[item.status].filterStatus
       }
     },
     getDetailsUrl (item) {
       return {
         SEND: `/details/transaction/${item.id}`,
-        SWAP: `/details/swap/${item.id}`
       }[item.type]
     },
     getTypeIcon (type) {
@@ -119,10 +112,6 @@ export default {
       switch (item.type) {
         case 'SEND':
           return 2
-        case 'SWAP': {
-          const swapProvider = this.swapProvider(item.network, item.provider)
-          return swapProvider.totalSteps
-        }
         default:
           return 0
       }

@@ -14,7 +14,6 @@ store.subscribe(async ({ type, payload }, state) => {
     case 'CHANGE_ACTIVE_NETWORK':
       store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
       store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
-      store.dispatch('updateMarketData', { network: state.activeNetwork })
       break
 
     case 'UNLOCK_WALLET':
@@ -30,7 +29,6 @@ store.subscribe(async ({ type, payload }, state) => {
       store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
       store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
       store.dispatch('updateFiatRates', { assets: store.getters.allNetworkAssets })
-      store.dispatch('updateMarketData', { network: state.activeNetwork })
       store.dispatch('checkPendingActions', { walletId: state.activeWalletId })
 
       store.commit('app/SET_USB_BRIDGE_TRANSPORT_CREATED', { created: false })
@@ -43,11 +41,6 @@ store.subscribe(async ({ type, payload }, state) => {
 
       asyncLoop(
         () => store.dispatch('updateFiatRates', { assets: Object.keys(state.fiatRates) }),
-        () => random(40000, 60000)
-      )
-
-      asyncLoop(
-        () => store.dispatch('updateMarketData', { network: state.activeNetwork }),
         () => random(40000, 60000)
       )
 

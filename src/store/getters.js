@@ -1,7 +1,7 @@
 import { unitToCurrency } from '@liquality/cryptoassets'
 import { assets as cryptoassets } from '@/utils/chains'
 import { createClient } from './factory/client'
-import { createSwapProvider } from './factory/swapProvider'
+
 import { Object } from 'core-js'
 import BN from 'bignumber.js'
 import { cryptoToFiat } from '@/utils/coinFormatter'
@@ -9,7 +9,6 @@ import { Networks } from './utils'
 import { uniq } from 'lodash-es'
 
 const clientCache = {}
-const swapProviderCache = {}
 
 const TESTNET_CONTRACT_ADDRESSES = {
   DAI: '0xad6d458402f60fd3bd25163575031acdce07538d',
@@ -57,19 +56,6 @@ export default {
       clientCache[cacheKey] = client
 
       return client
-    }
-  },
-  swapProvider (state) {
-    return (network, providerId) => {
-      const cacheKey = [network, providerId]
-
-      const cachedSwapProvider = swapProviderCache[cacheKey]
-      if (cachedSwapProvider) return cachedSwapProvider
-
-      const swapProvider = createSwapProvider(network, providerId)
-      swapProviderCache[cacheKey] = swapProvider
-
-      return swapProvider
     }
   },
   historyItemById (state) {

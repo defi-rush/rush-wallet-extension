@@ -7,11 +7,9 @@ import ImportWallet from '@/views/ImportWallet.vue'
 import UnlockWallet from '@/views/UnlockWallet.vue'
 import Wallet from '@/views/Wallet/Wallet.vue'
 import Account from '@/views/Account.vue'
-import SwapDetails from '@/views/Details/SwapDetails.vue'
 import TransactionDetails from '@/views/Details/TransactionDetails.vue'
 import Send from '@/views/Send/Send.vue'
 import Receive from '@/views/Receive.vue'
-import Swap from '@/views/Swap/Swap.vue'
 
 import Settings from '@/views/Settings'
 import ManageAssets from '@/views/ManageAssets'
@@ -97,12 +95,6 @@ const routes = [
   },
   // Details
   {
-    path: '/details/swap/:id',
-    component: SwapDetails,
-    name: 'SwapDetails',
-    props: true
-  },
-  {
     path: '/details/transaction/:id',
     component: TransactionDetails,
     name: 'TransactionDetails',
@@ -143,13 +135,6 @@ const routes = [
     component: Receive,
     props: true
   },
-  {
-    name: 'Swap',
-    path: '/accounts/:accountId/:routeAsset/swap',
-    component: Swap,
-    props: true
-  },
-
   // Assets list
   {
     path: '/assets/:action',

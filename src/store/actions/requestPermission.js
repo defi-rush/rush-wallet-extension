@@ -10,13 +10,6 @@ const CONFIRM_REQUIRED = [
   /^chain.sendBatchTransaction$/,
   /^chain.updateTransactionFee$/,
   /^wallet.signMessage*$/,
-  /^swap.generateSecret$/,
-  /^swap.initiateSwap$/,
-  /^swap.claimSwap$/,
-  /^swap.refundSwap$/,
-
-  // Bitcoin
-  /^signPSBT$/
 ]
 
 const ALLOWED = [

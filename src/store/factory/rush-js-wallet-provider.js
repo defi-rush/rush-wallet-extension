@@ -41,7 +41,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
   }
 
   async getProxyAddresses() {
-    console.log('===== RushJsWalletProvider.getProxyAddresses')
     const address = new Address({
       address: remove0x(this.getProxyAddress()),
       derivationPath: this._derivationPath
@@ -51,7 +50,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
 
   async signMessage(message) {
     // TODO 合约钱包的的签名需要调用特定的合约方法来实现
-    console.log('===== RushJsWalletProvider.signMessage', message)
     return super.signMessage(message)
     // const hdKey = await this.hdKey()
     // const msgHash = hashPersonalMessage(Buffer.from(message))
@@ -64,7 +62,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
   }
 
   async sendTransaction(options) {
-    console.log('---- RushJsWalletProvider.sendTransaction', options)
     const { to, value, data } = options
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
@@ -102,12 +99,10 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
   async _execSendTransaction(options) {
     const addresses = await this.getAddresses()
     const from = addresses[0].address
-    console.log('========= _execSendTransaction.from', from)
     const [nonce, gasPrice] = await Promise.all([
       this.getMethod('getTransactionCount')(remove0x(from), 'pending'),
       options.fee ? Promise.resolve(new BigNumber(options.fee)) : this.getMethod('getGasPrice')()
     ])
-    console.log('========= _execSendTransaction.nonce', nonce)
 
     const txOptions = {
       from,

@@ -62,7 +62,6 @@ export class RushRpcProvider extends JsonRpcProvider {
   }
 
   async sendTransaction(options){
-    // TODO rushWalletInterface.encodeFunctionData('execTransaction', txOptions) 可能可以直接从这里做
     const addresses = await this.getAddresses()
     const from = addresses[0].address
 
@@ -117,7 +116,7 @@ export class RushRpcProvider extends JsonRpcProvider {
   }
 
   async sendRawTransaction(hash) {
-    console.log('@@@ RushRpcProvider.sendRawTransaction', hash)
+    // 这里是最终发送 txData 到 rpc节点的地方
     return this.rpc('eth_sendRawTransaction', ensure0x(hash))
   }
 

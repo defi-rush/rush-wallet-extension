@@ -24,6 +24,7 @@ const ALLOWED = [
   /^chain.estimateGas$/,
   /^wallet.getConnectedNetwork$/,
   /^wallet.getAddresses*$/,
+  /^wallet.getProxyAddresses*$/,
   /^jsonrpc$/
 ]
 

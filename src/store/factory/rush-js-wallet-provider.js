@@ -40,7 +40,8 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     this.wallet = ethers.Wallet.fromMnemonic(wallet.mnemonic);
   }
 
-  async getAddresses() {
+  async getProxyAddresses() {
+    console.log('===== RushJsWalletProvider.getProxyAddresses')
     const address = new Address({
       address: remove0x(this.getProxyAddress()),
       derivationPath: this._derivationPath
@@ -101,11 +102,12 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
   async _execSendTransaction(options) {
     const addresses = await this.getAddresses()
     const from = addresses[0].address
-
+    console.log('========= _execSendTransaction.from', from)
     const [nonce, gasPrice] = await Promise.all([
       this.getMethod('getTransactionCount')(remove0x(from), 'pending'),
       options.fee ? Promise.resolve(new BigNumber(options.fee)) : this.getMethod('getGasPrice')()
     ])
+    console.log('========= _execSendTransaction.nonce', nonce)
 
     const txOptions = {
       from,

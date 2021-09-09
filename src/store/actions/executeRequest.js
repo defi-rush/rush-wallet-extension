@@ -36,9 +36,13 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
       let methodFunc
       if (request.method.includes('.')) {
         const [namespace, fnName] = request.method.split('.')
-        if (fnName == 'estimateGas') {
+        console.log('@@@ executeRequest', { namespace, fnName })
+        if (fnName === 'estimateGas') {
           // 单独处理 chain.estimateGas 请求，转发到 client 里的 provider 方法
           methodFunc = client.getMethod('estimateGas').bind(client)
+        } else if (fnName === 'getProxyAddresses') {
+          // 这里直接调用 RushJsWalletProvider.getProxyAddresses 返回 proxyAddress
+          methodFunc = client.getMethod('getProxyAddresses').bind(client)
         } else {
           methodFunc = client[namespace][fnName].bind(client[namespace])
         }

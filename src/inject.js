@@ -66,7 +66,7 @@ const injectionName = window.providerManager.getInjectionName('${chain}')
 
 async function getAddresses () {
   const eth = window.providerManager.getProviderFor('${asset}')
-  let addresses = await eth.getMethod('wallet.getAddresses')()
+  let addresses = await eth.getMethod('wallet.getProxyAddresses')()
   addresses = addresses.map(a => '0x' + a.address)
   window[injectionName].selectedAddress = addresses[0]
   return addresses
@@ -100,10 +100,10 @@ async function handleRequest (req) {
     const data = req.params[0].data
     return await eth.getMethod('chain.estimateGas')({ to, value, data })
   }
-  console.log('window.rush.handleRequest', req.method, req.params ? req.params[0] : {})
   const method = eth.getMethod('jsonrpc')
   return method(req.method, ...req.params)
 }
+
 
 window[injectionName] = {
   isLiquality: true,

@@ -26,8 +26,6 @@ import store from '../../store'
 import { RushRpcProvider } from './rush-rpc-provider'
 
 const proxyAddress                  = '0x1a609970Bb5daD3B6DE9F316a4c322519B562042'
-const rushWalletAddress             = '0xAbB12158488d9C9Bd52C14B9AE4C835eCE4A6e13'
-const rushWalletProxyFactoryAddress = '0x446C29FBFEF829F81E236a2376191F648dbEF995'
 
 export function createRuchClient (asset, network, mnemonic, walletType, indexPath) {
   const isTestnet = network === 'testnet'

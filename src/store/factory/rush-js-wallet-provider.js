@@ -50,7 +50,7 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
 
   async signMessage(message) {
     // TODO 合约钱包的的签名需要调用特定的合约方法来实现
-    console.log('===== js-wallet-provider.signMessage', message)
+    console.log('===== RushJsWalletProvider.signMessage', message)
     return super.signMessage(message)
     // const hdKey = await this.hdKey()
     // const msgHash = hashPersonalMessage(Buffer.from(message))
@@ -95,10 +95,10 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
     return await this._execSendTransaction({
       ...options,
       ...toProxyOptions,
-    }, txData)
+    })
   }
 
-  async _execSendTransaction(options, execTransactionTxData) {
+  async _execSendTransaction(options) {
     const addresses = await this.getAddresses()
     const from = addresses[0].address
 

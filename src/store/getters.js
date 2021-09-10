@@ -51,8 +51,8 @@ export default {
         if (cachedClient) return cachedClient
       }
 
-      const { mnemonic } = state.wallets.find(w => w.id === walletId)
-      const client = createClient(asset, network, mnemonic, accountType, accountIndex)
+      const { mnemonic, proxyAddress } = state.wallets.find(w => w.id === walletId)
+      const client = createClient(asset, network, mnemonic, accountType, accountIndex, proxyAddress)
       clientCache[cacheKey] = client
 
       return client

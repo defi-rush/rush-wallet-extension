@@ -28,7 +28,6 @@ const proxyABI = [
 ]
 
 const rushWalletInterface = new ethers.utils.Interface(proxyABI)
-const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
 
 /**
  * 创建 client 的时候会 addProvider，所以合约钱包的作用就是截取请求，统一发给 proxyAddress

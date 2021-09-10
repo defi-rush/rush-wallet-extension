@@ -218,7 +218,7 @@ function createLocalhostClient (asset, network, mnemonic, walletType, indexPath 
 
   return createEthereumClient(asset, network, ethereumNetwork, infuraApi, scraperApi, feeProvider, mnemonic, walletType, indexPath)
 }
-export const createClient = (asset, network, mnemonic, walletType, indexPath = 0) => {
+export const createClient = (asset, network, mnemonic, walletType, indexPath = 0, proxyAddress) => {
   const assetData = cryptoassets[asset]
   if (assetData.chain === 'bitcoin') return createBtcClient(network, mnemonic, walletType, indexPath)
   if (assetData.chain === 'rsk') return createRskClient(asset, network, mnemonic, walletType, indexPath)
@@ -227,7 +227,7 @@ export const createClient = (asset, network, mnemonic, walletType, indexPath = 0
   if (assetData.chain === 'arbitrum') return createArbitrumClient(asset, network, mnemonic, indexPath)
   if (assetData.chain === 'near') return createNearClient(network, mnemonic, indexPath)
   if (assetData.chain === 'localhost') return createLocalhostClient(asset, network, mnemonic, walletType, indexPath)
-  if (assetData.chain === 'rush') return createRuchClient(asset, network, mnemonic, walletType, indexPath)
+  if (assetData.chain === 'rush') return createRuchClient(asset, network, mnemonic, walletType, indexPath, proxyAddress)
 
   return createEthClient(asset, network, mnemonic, walletType, indexPath)
 }

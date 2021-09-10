@@ -174,7 +174,6 @@ class Background {
           })
           return
         }
-
         this.storeProxy(id, connection, 'requestOriginAccess', { origin, chain })
         break
 

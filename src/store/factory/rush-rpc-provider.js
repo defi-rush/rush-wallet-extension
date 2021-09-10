@@ -25,8 +25,6 @@ const proxyABI = [
 ]
 
 const rushWalletInterface = new ethers.utils.Interface(proxyABI)
-const provider = new ethers.providers.JsonRpcProvider('http://localhost:8545')
-
 
 export class RushRpcProvider extends JsonRpcProvider {
 

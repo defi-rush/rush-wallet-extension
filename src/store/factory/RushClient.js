@@ -25,9 +25,7 @@ import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
 import { RushRpcProvider } from './rush-rpc-provider'
 
-const proxyAddress                  = '0x1a609970Bb5daD3B6DE9F316a4c322519B562042'
-
-export function createRuchClient (asset, network, mnemonic, walletType, indexPath) {
+export function createRuchClient (asset, network, mnemonic, walletType, indexPath, proxyAddress) {
   const isTestnet = network === 'testnet'
   const ethereumNetwork = ChainNetworks.localhost[network]
   const infuraApi = 'http://localhost:8545'

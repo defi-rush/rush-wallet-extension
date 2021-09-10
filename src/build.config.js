@@ -44,5 +44,5 @@ export default {
   },
   discordUrl: 'https://discord.gg/Xsqw7PW8wk',
   networks: ['mainnet'],
-  chains: ['ethereum', 'bsc', 'polygon', 'localhost', 'rush']
+  chains: ['rush']
 }

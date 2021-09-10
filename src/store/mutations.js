@@ -263,5 +263,12 @@ export default {
   },
   SET_RSK_LEGACY_DERIVATION_PATH_FLAG (state, { rskLegacyDerivation }) {
     state.rskLegacyDerivation = rskLegacyDerivation
-  }
+  },
+
+  UPDATE_PENDING_PROXY_ADDRESS (state, value = '') {
+    state.pendingProxyAddress = value
+  },
+  CLEAR_PENDING_PROXY_ADDRESS (state) {
+    state.pendingProxyAddress = ''
+  },
 }

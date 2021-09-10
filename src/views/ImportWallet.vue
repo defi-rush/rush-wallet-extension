@@ -3,7 +3,35 @@
     <div class="login-header">
       <LogoWallet />
     </div>
-    <template v-if="currStep === 1" >
+    <!-- 输入 proxyAddress -->
+    <template v-if="currStep === 1">
+      <div class="import-wallet_top" id="import-wallet_top">
+        <h2>Input Proxy Address</h2>
+        <p>Enter Rush Wallet proxy address.</p>
+      </div>
+      <div class="import-wallet_bottom">
+        <form class="form import-wallet_address" autocomplete="off">
+          <div>
+            <input
+              type="text"
+              class="form-control form-control-sm"
+              id="input_proxy_address"
+              autocomplete="off"
+              required
+              v-model="proxyAddress"
+              @input="updatePendingProxyAddress"/>
+          </div>
+        </form>
+      </div>
+      <div class="footer-container bg-white">
+          <div class="footer-content">
+            <button id="import_wallet_cancel_button" class="btn btn-light btn-outline-primary btn-lg btn-footer btn-icon" @click="$router.go(-1)">Cancel</button>
+            <button id="import_wallet_continue_button" class="btn btn-primary btn-lg btn-footer ml-2" :disabled="disableSwitchStep2" @click="currStep = 2">Continue</button>
+          </div>
+      </div>
+    </template>
+
+    <template v-else>
       <div class="import-wallet_top" id="import-wallet_top">
         <h2>Import wallet</h2>
         <p>Enter the seed phrase, in the same order saved when creating your wallet.</p>
@@ -33,35 +61,17 @@
       </div>
       <div class="footer-container bg-white">
           <div class="footer-content">
-            <button id="import_wallet_cancel_button" class="btn btn-light btn-outline-primary btn-lg btn-footer btn-icon" @click="$router.go(-1)">Cancel</button>
-            <button id="import_wallet_continue_button" class="btn btn-primary btn-lg btn-footer ml-2" :disabled="disableSwitchStep2" @click="currStep = 2">Continue</button>
-          </div>
-      </div>
-    </template>
-    <!-- 输入 proxyAddress -->
-    <template v-else>
-      <div class="import-wallet_top" id="import-wallet_top">
-        <h2>Input Proxy Address</h2>
-        <p>Enter Rush Wallet proxy address.</p>
-      </div>
-      <div class="import-wallet_bottom">
-        <form class="form import-wallet_address" autocomplete="off">
-          <div>
-            <input type="text" class="form-control form-control-sm" id="input_proxy_address" v-model="proxyAddress" autocomplete="off" required />
-          </div>
-        </form>
-      </div>
-      <div class="footer-container bg-white">
-          <div class="footer-content">
             <button id="import_wallet_cancel_button" class="btn btn-light btn-outline-primary btn-lg btn-footer btn-icon" @click="currStep = 1">Back</button>
             <button id="import_wallet_continue_button" class="btn btn-primary btn-lg btn-footer ml-2" :disabled="disableNext" @click="next">Continue</button>
           </div>
       </div>
     </template>
+
   </div>
 </template>
 
 <script>
+import _ from 'lodash'
 import { mapState } from 'vuex'
 import LogoWallet from '@/assets/icons/logo_wallet.svg'
 
@@ -71,43 +81,46 @@ export default {
   },
   data: function () {
     return {
-      currStep: 1, // 1: passphrase 2: proxyAddress
+      currStep: 1, //  1: proxyAddress, 2: passphrase
       wordList: Array(12).fill(''),
       numWords: 12,
       proxyAddress: ''
+    }
+  },
+  mounted() {
+    if (this.pendingProxyAddress) {
+      this.proxyAddress = this.pendingProxyAddress
+      this.currStep = 2
     }
   },
   updated: function () {
   },
   watch: {
     wordList: function (newList, oldList) {
-      console.log(newList[0])
       var words = newList[0].replaceAll('\n', ' ').replace(/\s+/g, ' ').split(' ')
       if (words.length === this.numWords) {
         for (var m = 0; m < words.length; m++) {
           this.wordList[m] = words[m]
         }
-      } else if (words.length === this.numWords + 1) {
-        for (var m = 0; m < this.numWords; m++) {
-          this.wordList[m] = words[m]
-        }
-        this.proxyAddress = words[this.numWords]
       }
     }
   },
   computed: {
-    ...mapState(['wallets', 'activeWalletId']),
+    ...mapState(['wallets', 'activeWalletId', 'pendingProxyAddress']),
     wallet: function () {
       return this.wallets.find(wallet => wallet.id === this.activeWalletId)
     },
     disableSwitchStep2: function () {
-      return this.wordList.filter(word => word === '' || /\s/.test(word)).length > 0 // TODO: this should actually validate bip39
+      return !this.proxyAddress
     },
     disableNext: function () {
-      return this.disableSwitchStep2 || !this.proxyAddress
+      return this.disableSwitchStep2 || this.wordList.filter(word => word === '' || /\s/.test(word)).length > 0 // TODO: this should actually validate bip39
     }
   },
   methods: {
+    updatePendingProxyAddress: _.debounce(function () {
+      this.$store.commit('UPDATE_PENDING_PROXY_ADDRESS', this.proxyAddress)
+    }, 200),
     next () {
       const passphrase = this.wordList.join(' ')
       const proxyAddress = this.proxyAddress

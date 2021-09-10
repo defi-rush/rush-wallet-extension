@@ -11,7 +11,7 @@
     <div class="footer-container">
       <router-link to="/onboarding/import"><p class="text-center" id="import_with_seed_phrase_option">Import with seed phrase</p></router-link>
       <p v-if="keyUpdatedAt"><router-link to="/open"><button class="btn btn-light btn-lg btn-block btn-icon" id="open_wallet_option">Open wallet</button></router-link></p>
-      <p v-if="!keyUpdatedAt"><router-link to="/onboarding/setup"><button class="btn btn-primary btn-lg btn-block btn-icon" id="create_new_wallet_option">Create a new wallet</button></router-link></p>
+      <!-- <p v-if="!keyUpdatedAt"><router-link to="/onboarding/setup"><button class="btn btn-primary btn-lg btn-block btn-icon" id="create_new_wallet_option">Create a new wallet</button></router-link></p> -->
     </div>
   </div>
 </template>
@@ -26,10 +26,12 @@ export default {
     Logo,
     WalletText
   },
-  computed: mapState(['keyUpdatedAt']),
+  computed: mapState(['keyUpdatedAt', 'pendingProxyAddress']),
   created () {
     if (this.keyUpdatedAt) {
       this.$router.replace('/open')
+    } else if (this.pendingProxyAddress) {
+      this.$router.replace('/onboarding/import')
     }
   }
 }

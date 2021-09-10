@@ -13,6 +13,8 @@ export default {
   unlockedAt: null,
   // </do not keep these in localStorage>
 
+  pendingProxyAddress: '',  // 用于在创建wallet的中途记录 proxyAddress
+
   brokerReady: true,
 
   encryptedWallets: null,

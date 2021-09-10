@@ -63,22 +63,10 @@ export default {
   },
   methods: {
     ...mapActions(['setupWallet', 'createWallet', 'unlockWallet']),
-
-    async verifyOwnerOfProxyAddress(mnemonic, proxyAddress) {
-      const _wallet = _ethers.Wallet.fromMnemonic(mnemonic)
-      const eoaAddress = await _wallet.getAddress()
-      // TODO 通过合约验证 proxyAddress 的 owner 是不是 eoaAddress
-      return true
-    },
-
     async confirmMnemonic () {
-
-      await this.verifyOwnerOfProxyAddress(this.mnemonic, this.proxyAddress)
-
       this.currentStep = 'congrats'
       await this.setupWallet({ key: this.password })
       await this.createWallet({ key: this.password, mnemonic: this.mnemonic, proxyAddress: this.proxyAddress }) // mnemonic prop can be null to generate new seed
-      this.$store.commit('CLEAR_PENDING_PROXY_ADDRESS')
       setTimeout(() => {
         this.unlockWallet({ key: this.password })
       }, 1650)

@@ -6,11 +6,12 @@ import { assets as cryptoassets } from '@/utils/chains'
 import { chains } from '@/utils/chains'
 import { shouldApplyRskLegacyDerivation } from '../utils'
 
-export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic }) => {
+export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic, proxyAddress }) => {
+  // 这里多加一步，输入助记词之后需要再加入 proxyAddress，然后和wallet 一起encrypt
   const id = uuidv4()
   const at = Date.now()
   const name = 'Account 1'
-  const wallet = { id, name, mnemonic, at, imported: false }
+  const wallet = { id, name, mnemonic, at, imported: false, proxyAddress }
   const { networks, defaultAssets } = buildConfig
   const { encrypted: encryptedWallets, keySalt } = await encrypt(
     JSON.stringify([wallet]),

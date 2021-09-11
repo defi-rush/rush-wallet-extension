@@ -33,20 +33,6 @@ export class RushRpcProvider extends JsonRpcProvider {
     this._usedAddressCache = {}
     this._proxyAddress = options.proxyAddress
   }
-  /**
-   * override JsonRpcProvider._prepareRequest to fix "invalid request" error cause by missed '"jsonrpc": "2.0"'
-   * @param {string} method
-   * @param {array} params
-   * @returns
-   */
-  _prepareRequest(method, params) {
-    const id = Date.now()
-    const req = { id, method, params, "jsonrpc": "2.0" }
-
-    // debug('jsonrpc request', req)
-
-    return req
-  }
 
   async rpc(method, ...params) {
     const result = await this.jsonrpc(method, ...params)

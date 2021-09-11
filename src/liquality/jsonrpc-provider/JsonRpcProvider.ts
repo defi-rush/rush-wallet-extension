@@ -25,9 +25,15 @@ export default class JsonRpcProvider extends NodeProvider {
     super(config)
   }
 
+  /**
+   * override JsonRpcProvider._prepareRequest to fix "invalid request" error cause by missed '"jsonrpc": "2.0"'
+   * @param method
+   * @param params
+   * @returns
+   */
   _prepareRequest(method: string, params: any[]) {
     const id = Date.now()
-    const req = { id, method, params }
+    const req = { id, method, params, "jsonrpc": "2.0" }
 
     debug('jsonrpc request', req)
 

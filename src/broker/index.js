@@ -10,7 +10,7 @@ import { isMigrationNeeded, processMigrations } from '../store/migrations'
 const Broker = state => {
   if (isBackgroundScript(window)) {
     const vuexPersist = new VuexPersist({
-      key: 'liquality-wallet',
+      key: 'rush-wallet',
       storage: Storage,
       asyncStorage: true,
       reducer: s => omit(s, ['key', 'wallets', 'unlockedAt', 'app']) // do not persist these states
@@ -22,10 +22,10 @@ const Broker = state => {
      */
     const restoreState = vuexPersist.restoreState
     vuexPersist.restoreState = async (key, storage) => {
-      const currentState = await Storage.getItem('liquality-wallet')
+      const currentState = await Storage.getItem('rush-wallet')
       if (currentState && isMigrationNeeded(currentState)) {
         const newState = await processMigrations(currentState)
-        await Storage.setItem('liquality-wallet', newState)
+        await Storage.setItem('rush-wallet', newState)
       }
       const state = await restoreState(key, storage)
       vuexPersist.restoreState = restoreState // Remove hook

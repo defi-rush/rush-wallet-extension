@@ -1,7 +1,9 @@
-$brand-gradient-primary: linear-gradient(180deg, #302E78 0%, #4866D3 52.08%, #2FAFCA 100%);
-$brand-gradient-secondary: linear-gradient(360deg, #1CE4C3 -10.66%, #4866D3 31.99%, #302E78 81.56%);
+$brand-gradient-primary: linear-gradient(180deg, #302E78 0%, #033fff 52.08%, #2FAFCA 100%);
+$brand-gradient-secondary: linear-gradient(360deg, #03a9f4 -10.66%, #2196f3 31.99%, #033fff 81.56%);
+// linear-gradient(360deg, #1CE4C3 -10.66%, #4866D3 31.99%, #302E78 81.56%);
 
-$color-primary: #9D4DFA;
+
+$color-primary: #033fff;
 $color-secondary: #2CD2CF;
 
 $danger:        #F12274;

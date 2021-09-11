@@ -35,7 +35,7 @@
 
 <script>
 
-import LogoWallet from '@/assets/icons/logo_wallet.svg'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg'
 
 export default {
   data () {

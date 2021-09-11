@@ -73,7 +73,9 @@
 <script>
 import _ from 'lodash'
 import { mapState } from 'vuex'
-import LogoWallet from '@/assets/icons/logo_wallet.svg'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg'
+
+console.log(1234, LogoWallet)
 
 export default {
   components: {

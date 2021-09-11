@@ -1,4 +1,4 @@
-# Liquality Wallet <img align="right" src="https://raw.githubusercontent.com/liquality/chainabstractionlayer/master/liquality-logo.png" height="80px" />
+# Rush Wallet <img align="right" src="https://raw.githubusercontent.com/liquality/chainabstractionlayer/master/liquality-logo.png" height="80px" />
 
 ## Getting started
 - Install [NVM](https://github.com/nvm-sh/nvm#installing-and-updating)

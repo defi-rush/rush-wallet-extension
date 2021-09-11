@@ -141,7 +141,7 @@ window[injectionName] = {
   },
   on: (method, callback) => {
     if (method === 'chainChanged') {
-      window.addEventListener('liqualityChainChanged', ({ detail }) => {
+      window.addEventListener('rushChainChanged', ({ detail }) => {
         const result = JSON.parse(detail)
         callback('0x' + result.chainIds['${chain}'].toString(16))
       })
@@ -158,11 +158,11 @@ function proxyEthereum(chain) {
     get: function (target, prop, receiver) {
       if (prop === 'on') {
         return (method, callback) => {
-          window.addEventListener('liqualityChainChanged', ({ detail }) => {
+          window.addEventListener('rushChainChanged', ({ detail }) => {
             const result = JSON.parse(detail)
             callback('0x' + result.chainIds[window.ethereumProxyChain].toString(16))
           })
-          window.addEventListener('liqualityEthereumOverrideChanged', ({ detail }) => {
+          window.addEventListener('rushEthereumOverrideChanged', ({ detail }) => {
             const result = JSON.parse(detail)
             callback('0x' + result.chainIds[result.chain].toString(16))
           })
@@ -176,7 +176,7 @@ function proxyEthereum(chain) {
 }
 
 function overrideEthereum(chain) {
-  window.addEventListener('liqualityEthereumOverrideChanged', ({ detail }) => {
+  window.addEventListener('rushEthereumOverrideChanged', ({ detail }) => {
     const result = JSON.parse(detail)
     proxyEthereum(result.chain)
   })

@@ -20,8 +20,8 @@ function injectEthereum (state, chain) {
   }))
 }
 
-chrome.storage.local.get(['liquality-wallet'], (storage) => {
-  const state = storage['liquality-wallet']
+chrome.storage.local.get(['rush-wallet'], (storage) => {
+  const state = storage['rush-wallet']
 
   buildConfig.chains
     .filter(chain => {

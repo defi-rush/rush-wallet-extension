@@ -49,7 +49,7 @@ class Background {
       if (mutation.type === 'CHANGE_ACTIVE_NETWORK') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
-            id: 'liqualityChainChanged',
+            id: 'rushChainChanged',
             data: { chainIds: this.getChainIds(state.activeNetwork) }
           })
         })
@@ -57,7 +57,7 @@ class Background {
       if (mutation.type === 'SET_ETHEREUM_INJECTION_CHAIN') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
-            id: 'liqualityEthereumOverrideChanged',
+            id: 'rushEthereumOverrideChanged',
             data: { chain: state.injectEthereumChain, chainIds: this.getChainIds(state.activeNetwork) }
           })
         })

@@ -18,7 +18,8 @@
 
 <script>
 import { mapState } from 'vuex'
-import Logo from '@/assets/icons/logo.svg'
+// import Logo from '@/assets/icons/logo.svg'
+import Logo from '@/assets/icons/rush/logo-white.svg'
 import WalletText from '@/assets/icons/wallet_text.svg'
 
 export default {

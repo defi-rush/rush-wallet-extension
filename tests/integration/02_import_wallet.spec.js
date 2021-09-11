@@ -18,7 +18,7 @@ const seedWordsPage = new SeedWordsPage()
 let browser, page
 const password = '123123123'
 
-describe('Liquality wallet- Import wallet-["mainnet"]', async () => {
+describe('Rush wallet- Import wallet-["mainnet"]', async () => {
   beforeEach(async () => {
     browser = await puppeteer.launch(testUtil.getChromeOptions())
     page = await browser.newPage()

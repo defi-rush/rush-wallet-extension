@@ -43,7 +43,7 @@ export const accountColors = [
   '#1CE5C3',
   '#007AFF',
   '#4F67E4',
-  '#9D4DFA',
+  '#033fff',
   '#D421EB',
   '#FF287D',
   '#FE7F6B',

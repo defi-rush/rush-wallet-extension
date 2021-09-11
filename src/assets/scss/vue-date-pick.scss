@@ -1,4 +1,4 @@
-$vdpColor: #9D4DFA;
+$vdpColor: #033fff;
 @import 'vue-date-pick/src/vueDatePick.scss';
 
 .vdpComponent {
@@ -12,7 +12,7 @@ $vdpColor: #9D4DFA;
 
         .vdpArrowPrev:after {
             border-right-color: #646F85;
-         
+
         }
         .vdpArrowNext:after {
             border-left-color: #646F85;
@@ -27,7 +27,7 @@ $vdpColor: #9D4DFA;
     .vdpInnerWrap {
         border-radius: 0 !important;
     }
-    .vdpTable { 
+    .vdpTable {
         font-weight: $font-weight-light;
     }
     .vdpCell.selectable:hover .vdpCellContent,

@@ -6,8 +6,7 @@
     <div class="onboading-home_tnc">
       <h4 class="mb-3 font-weight-normal">Terms &amp; Privacy</h4>
       <div class="onboading-home_tnc__text mb-3"
-          id="onboarding_home_text_container"
-           @scroll="handleScroll">
+          id="onboarding_home_text_container">
         <p class="c7" id="h.gjdgxs">
           <span class="c14 c3">
             THIS IS THE BETA VERSION OF THE LIQUALITY PLATFORM WHICH IS STILL
@@ -1185,7 +1184,7 @@
 <script>
 import { mapActions } from 'vuex'
 
-import LogoWallet from '@/assets/icons/logo_wallet.svg'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg'
 
 export default {
   components: {

@@ -30,7 +30,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { getAssetIcon } from '@/utils/asset'
-import LogoWallet from '@/assets/icons/logo_wallet.svg?inline'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 import SpinnerIcon from '@/assets/icons/spinner.svg'
 
 export default {

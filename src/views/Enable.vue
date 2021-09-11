@@ -36,7 +36,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import LogoWallet from '@/assets/icons/logo_wallet.svg?inline'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 import NetworkAccounts from '@/components/NetworkAccounts'
 
 export default {

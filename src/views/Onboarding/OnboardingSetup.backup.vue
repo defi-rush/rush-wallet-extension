@@ -27,7 +27,7 @@ import { generateMnemonic } from 'bip39'
 import ConfirmSeed from './SeedPhrase/ConfirmSeed'
 import Congratulations from './SeedPhrase/Congratulations.vue'
 import OnboardingPassword from './OnboardingPassword'
-import LogoWallet from '@/assets/icons/logo_wallet.svg?inline'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 
 export default {
   data () {

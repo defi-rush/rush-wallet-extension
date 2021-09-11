@@ -42,7 +42,7 @@
 <script>
 
 import { mapActions } from 'vuex'
-import LogoWallet from '@/assets/icons/logo_wallet.svg?inline'
+import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 
 export default {
   data () {

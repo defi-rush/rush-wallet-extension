@@ -18,7 +18,7 @@
 import { mapActions, mapState } from 'vuex'
 
 import clickAway from '@/directives/clickAway'
-import LogoIcon from '@/assets/icons/logo_icon.svg'
+import LogoIcon from '@/assets/icons/rush/logo.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import HeadMenu from '@/components/HeadMenu'

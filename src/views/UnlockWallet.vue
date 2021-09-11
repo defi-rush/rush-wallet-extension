@@ -38,7 +38,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import LogoWalletMain from '@/assets/icons/logo_wallet_main.svg'
+import LogoWalletMain from '@/assets/icons/rush/logo-white.svg'
 import WalletTitle from '@/assets/icons/wallet_title.svg'
 import SpinnerIcon from '@/assets/icons/spinner.svg'
 

@@ -7,7 +7,6 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "target": "es5",
-    "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",

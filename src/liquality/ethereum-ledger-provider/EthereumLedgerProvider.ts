@@ -35,7 +35,7 @@ export default class EthereumLedgerProvider extends LedgerProvider<HwAppEthereum
     const hex = Buffer.from(message).toString('hex')
     const { v, r, s } = await app.signPersonalMessage(address.derivationPath, hex)
 
-    return remove0x(toRpcSig(v, Buffer.from(r, 'hex'), Buffer.from(s, 'hex')))
+    return remove0x(toRpcSig(+v, Buffer.from(r, 'hex'), Buffer.from(s, 'hex')))
   }
 
   async getAddresses() {

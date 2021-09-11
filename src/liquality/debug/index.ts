@@ -1,5 +1,5 @@
 import _debug from 'debug'
-import { version } from '../package.json'
+import { version } from '../../../package.json'
 
 const FORMAT_ARGS_BACKUP_KEY = '__formatArgs'
 // TODO: types?

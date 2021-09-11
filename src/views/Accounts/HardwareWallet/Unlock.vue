@@ -5,36 +5,6 @@
           <div class="step-number">2</div>
           <div class="step-name">Unlock Account</div>
         </div>
-        <div
-          class="step-text"
-          v-if="selectedAsset && selectedAsset.chain === 'BTC'"
-        >
-          <div>
-            If you don’t see your existing Ledger accounts below, switch path to
-            Legacy vs Native Segwit
-          </div>
-          <div
-          class="step-path"
-          v-if="selectedAsset && selectedAsset.chain === 'BTC'"
-        >
-        <div class="btn-group" v-click-away="hideLedgerBitcoinOptions">
-          <button class="btn dropdown-toggle custom-dropdown-toggle"
-                  :disabled="loading"
-                  @click="toggleLedgerBitcoinOptions">
-            BTC Version (HD Path): {{ ledgerBitcoinOption.label }}
-            <ChevronUpIcon v-if="ledgerBitcoinOptionsOpen" />
-            <ChevronDownIcon v-else />
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end custom-dropdown-menu" :class="{ show: ledgerBitcoinOptionsOpen }">
-            <li v-for="option in ledgerBitcoinOptions" :key="option.addressType">
-              <a class="dropdown-item custom-dropdown-item" href="#" @click="selectLedgerBitcoinOption(option)">
-                 {{ option.label }}
-              </a>
-            </li>
-          </ul>
-        </div>
-        </div>
-        </div>
         <div v-if="loading" class="progress-container">
           <CircleProgressBar class="circle-progress infinity-rotate" />
           <div class="loading-message">
@@ -124,7 +94,6 @@
 </template>
 <script>
 import SpinnerIcon from '@/assets/icons/spinner.svg'
-import { LEDGER_BITCOIN_OPTIONS } from '@/utils/ledger-bridge-provider'
 import clickAway from '@/directives/clickAway'
 import { getAccountIcon } from '@/utils/accounts'
 import CircleProgressBar from '@/assets/icons/circle_progress_bar.svg'
@@ -154,12 +123,9 @@ export default {
   ],
   data () {
     return {
-      ledgerBitcoinOption: null,
-      ledgerBitcoinOptionsOpen: false
     }
   },
   created () {
-    this.ledgerBitcoinOption = this.ledgerBitcoinOptions[0]
   },
   methods: {
     getAccountIcon,
@@ -194,43 +160,19 @@ export default {
     cancel () {
       this.$emit('on-cancel')
     },
-    selectLedgerBitcoinOption (option) {
-      this.ledgerBitcoinOption = option
-      this.hideLedgerBitcoinOptions()
-    },
-    toggleLedgerBitcoinOptions () {
-      this.ledgerBitcoinOptionsOpen = !this.ledgerBitcoinOptionsOpen
-    },
-    hideLedgerBitcoinOptions () {
-      this.ledgerBitcoinOptionsOpen = false
-    },
     getWalletType () {
       return {
-        BTC: this.ledgerBitcoinOption?.name,
         ETH: null
       }[this.selectedAsset?.chain]
     }
   },
   computed: {
-    ledgerBitcoinOptions () {
-      return LEDGER_BITCOIN_OPTIONS.filter(
-        o => o.name !== this.ledgerBitcoinOption?.name
-      )
-    },
     accountsLabel () {
       return {
-        BTC: 'Bitcoin',
         ETH: 'Ethereum'
       }[this.selectedAsset?.chain]
     }
   },
-  watch: {
-    ledgerBitcoinOption: async function (val) {
-      if (!this.loading) {
-        await this.connect(1)
-      }
-    }
-  }
 }
 </script>
 

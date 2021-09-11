@@ -17,11 +17,11 @@
             <SendIcon/>
             Send
           </router-link>
-          <router-link to="/assets/swap.send"
+          <!-- <router-link to="/assets/swap.send"
                        class="wallet-actions-item swap-action" id="swap_action">
             <SwapIcon/>
             Swap
-          </router-link>
+          </router-link> -->
           <router-link to="/assets/receive"
                        class="wallet-actions-item receive-action" id="receive_action">
             <ReceiveIcon/>

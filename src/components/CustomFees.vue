@@ -147,7 +147,6 @@ export default {
     stepSize () {
       const chainId = cryptoassets[this.asset].chain
       return ({
-        bitcoin: 1,
         ethereum: 1,
         rsk: 1,
         bsc: 1,

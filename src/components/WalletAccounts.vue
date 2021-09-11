@@ -1,37 +1,7 @@
 <template>
   <div>
     <div v-for="account in filteredItems" :key="account.id" :id="account.chain.toUpperCase()">
-      <ListItem v-if="account.chain === 'bitcoin'"
-                @item-selected="selectItem(account)">
-          <template #prefix>
-            <div class="account-color"
-                 :style="{'background-color': account.color}">
-            </div>
-          </template>
-          <template #icon>
-            <img :src="getAccountIcon(account.chain)"
-                 class="asset-icon" />
-          </template>
-          {{ account.name }}
-          <template #sub-title>
-            {{ account.addresses && account.addresses[0] ? shortenAddress(account.addresses[0]) : '' }}
-          </template>
-          <template #detail>
-            <div class="detail-content">
-              <div class="ledger-tag"
-                   v-if="account.type && account.type.includes('ledger')">
-              Ledger
-            </div>
-            <div :id="account.assets[0]">
-              {{ prettyBalance(account.balances[account.assets[0]], account.assets[0]) }} {{account.assets[0]}}
-            </div>
-            </div>
-          </template>
-          <template #detail-sub v-if="account.totalFiatBalance">
-            ${{ formatFiat(account.totalFiatBalance) }}
-          </template>
-      </ListItem>
-      <div v-else>
+      <div>
         <ListItem
           @item-selected="toggleExpandedAccounts(account.id)"
         >
@@ -62,30 +32,30 @@
           <template #detail-sub v-if="account.totalFiatBalance">
             ${{ formatFiat(account.totalFiatBalance) }}
           </template>
-      </ListItem>
-      <div class="account-assets"
-           :class="{ active: shouldExpandAccount(account) }">
-        <ListItem v-for="asset in account.assets"
-                  :id="asset"
-                 :key="asset"
-                 @item-selected="selectItem(account, asset)">
-          <template #prefix>
-             <div class="account-color"
-                 :style="{'background-color': account.color}">
-            </div>
-          </template>
-          <template #icon class="account-asset-item">
-            <img :src="getAssetIcon(asset)" class="asset-icon" />
-          </template>
-          {{ getAssetName(asset) }}
-          <template #detail>
-            {{ prettyBalance(account.balances[asset], asset) }} {{asset}}
-          </template>
-          <template #detail-sub v-if="account.fiatBalances[asset]">
-            ${{ formatFiat(account.fiatBalances[asset]) }}
-          </template>
-      </ListItem>
-      </div>
+        </ListItem>
+        <div class="account-assets"
+            :class="{ active: shouldExpandAccount(account) }">
+          <ListItem v-for="asset in account.assets"
+                    :id="asset"
+                  :key="asset"
+                  @item-selected="selectItem(account, asset)">
+            <template #prefix>
+              <div class="account-color"
+                  :style="{'background-color': account.color}">
+              </div>
+            </template>
+            <template #icon class="account-asset-item">
+              <img :src="getAssetIcon(asset)" class="asset-icon" />
+            </template>
+            {{ getAssetName(asset) }}
+            <template #detail>
+              {{ prettyBalance(account.balances[asset], asset) }} {{asset}}
+            </template>
+            <template #detail-sub v-if="account.fiatBalances[asset]">
+              ${{ formatFiat(account.fiatBalances[asset]) }}
+            </template>
+        </ListItem>
+        </div>
       </div>
     </div>
   </div>

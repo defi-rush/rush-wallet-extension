@@ -55,7 +55,6 @@ export const accountColors = [
 ]
 
 export const chainDefaultColors = {
-  bitcoin: '#EAB300',
   ethereum: '#4F67E4',
   rsk: '#3AB24D',
   bsc: '#F7CA4F',
@@ -68,7 +67,6 @@ export const chainDefaultColors = {
 
 export const getAccountIcon = (chain) => {
   return {
-    bitcoin: getAssetIcon('BTC'),
     ethereum: getAssetIcon('eth_account'),
     bsc: getAssetIcon('bnb_account', 'png'),
     rsk: getAssetIcon('rsk_account'),
@@ -100,12 +98,5 @@ export const ACCOUNT_TYPE_OPTIONS = [
     type: 'ethereum_imported',
     chain: 'ethereum',
     blockchain: 'Ethereum Blockchain'
-  },
-  {
-    name: 'BTC',
-    label: 'BTC',
-    type: 'bitcoin_imported',
-    chain: 'bitcoin',
-    blockchain: 'Bitcoin Blockchain'
   }
 ]

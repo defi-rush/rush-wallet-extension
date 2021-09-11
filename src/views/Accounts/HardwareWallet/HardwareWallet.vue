@@ -33,7 +33,6 @@ import NavBar from '@/components/NavBar'
 import Connect from './Connect'
 import Unlock from './Unlock'
 import {
-  LEDGER_BITCOIN_OPTIONS,
   LEDGER_OPTIONS
 } from '@/utils/ledger-bridge-provider'
 import { getAssetIcon } from '@/utils/asset'
@@ -76,9 +75,6 @@ export default {
     ...mapGetters(['networkAccounts']),
     ledgerOptions () {
       return LEDGER_OPTIONS
-    },
-    bitcoinOptions () {
-      return LEDGER_BITCOIN_OPTIONS
     }
   },
   methods: {

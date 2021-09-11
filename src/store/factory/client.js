@@ -1,12 +1,5 @@
 import { Client } from '@liquality/client'
 
-import { BitcoinSwapProvider } from '@liquality/bitcoin-swap-provider'
-import { BitcoinJsWalletProvider } from '@liquality/bitcoin-js-wallet-provider'
-import { BitcoinEsploraBatchApiProvider } from '@liquality/bitcoin-esplora-batch-api-provider'
-import { BitcoinEsploraSwapFindProvider } from '@liquality/bitcoin-esplora-swap-find-provider'
-import { BitcoinFeeApiProvider } from '@liquality/bitcoin-fee-api-provider'
-import { BitcoinRpcFeeProvider } from '@liquality/bitcoin-rpc-fee-provider'
-
 import { EthereumRpcProvider } from '@liquality/ethereum-rpc-provider'
 import { EthereumJsWalletProvider } from '@liquality/ethereum-js-wallet-provider'
 import { EthereumSwapProvider } from '@liquality/ethereum-swap-provider'
@@ -26,61 +19,16 @@ import { NearSwapFindProvider } from '@liquality/near-swap-find-provider'
 import { createRuchClient } from './RushClient'
 
 import {
-  BitcoinLedgerBridgeProvider,
   EthereumLedgerBridgeProvider,
-  BitcoinLedgerBridgeApp,
   EthereumLedgerBridgeApp,
-  LEDGER_BITCOIN_OPTIONS
 } from '@/utils/ledger-bridge-provider'
-import { bitcoin } from '@liquality/types'
 import { chains } from '@/utils/chains'
 
 import { isERC20 } from '@/utils/asset'
-import { BTC_ADDRESS_TYPE_TO_PREFIX } from '@/utils/address'
 import cryptoassets from '@/utils/cryptoassets'
 import buildConfig from '../../build.config'
 import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
-
-function createBtcClient (network, mnemonic, walletType, indexPath = 0) {
-  const isTestnet = network === 'testnet'
-  const bitcoinNetwork = ChainNetworks.bitcoin[network]
-  const esploraApi = buildConfig.exploraApis[network]
-  const batchEsploraApi = buildConfig.batchEsploraApis[network]
-
-  const btcClient = new Client()
-  btcClient.addProvider(new BitcoinEsploraBatchApiProvider(
-    { batchUrl: batchEsploraApi, url: esploraApi, network: bitcoinNetwork, numberOfBlockConfirmation: 2 }
-  ))
-
-  if (walletType.includes('bitcoin_ledger')) {
-    const option = LEDGER_BITCOIN_OPTIONS.find(o => o.name === walletType)
-    const { addressType } = option
-    const baseDerivationPath = `${BTC_ADDRESS_TYPE_TO_PREFIX[addressType]}'/${bitcoinNetwork.coinType}'/${indexPath}'`
-    const bitcoinLedgerApp = new BitcoinLedgerBridgeApp(network)
-    const ledger = new BitcoinLedgerBridgeProvider(
-      {
-        network: bitcoinNetwork,
-        addressType,
-        baseDerivationPath
-      },
-      bitcoinLedgerApp
-    )
-    btcClient.addProvider(ledger)
-  } else {
-    const baseDerivationPath = `${BTC_ADDRESS_TYPE_TO_PREFIX[bitcoin.AddressType.BECH32]}'/${bitcoinNetwork.coinType}'/${indexPath}'`
-    btcClient.addProvider(new BitcoinJsWalletProvider(
-      { network: bitcoinNetwork, mnemonic, baseDerivationPath }
-    ))
-  }
-
-  btcClient.addProvider(new BitcoinSwapProvider({ network: bitcoinNetwork }))
-  btcClient.addProvider(new BitcoinEsploraSwapFindProvider(esploraApi))
-  if (isTestnet) btcClient.addProvider(new BitcoinRpcFeeProvider())
-  else btcClient.addProvider(new BitcoinFeeApiProvider('https://liquality.io/swap/mempool/v1/fees/recommended'))
-
-  return btcClient
-}
 
 function createEthereumClient (
   asset,
@@ -220,7 +168,6 @@ function createLocalhostClient (asset, network, mnemonic, walletType, indexPath 
 }
 export const createClient = (asset, network, mnemonic, walletType, indexPath = 0, proxyAddress) => {
   const assetData = cryptoassets[asset]
-  if (assetData.chain === 'bitcoin') return createBtcClient(network, mnemonic, walletType, indexPath)
   if (assetData.chain === 'rsk') return createRskClient(asset, network, mnemonic, walletType, indexPath)
   if (assetData.chain === 'bsc') return createBSCClient(asset, network, mnemonic, indexPath)
   if (assetData.chain === 'polygon') return createPolygonClient(asset, network, mnemonic, indexPath)

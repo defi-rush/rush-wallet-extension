@@ -9,7 +9,6 @@ export const handlePaymentUri = async ({ dispatch }, { data }) => {
 
   const asset = {
     ethereum: 'ETH',
-    bitcoin: 'BTC'
   }[parsed.protocol.replace(':', '')]
 
   if (!asset) throw new Error('Unsupported payment URI')

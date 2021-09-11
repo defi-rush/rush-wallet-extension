@@ -2,7 +2,6 @@
 export default {
   defaultAssets: {
     mainnet: [
-      'BTC',
       'ETH',
       'DAI',
       'USDC',
@@ -21,7 +20,6 @@ export default {
       'RUSH_ETH'
     ],
     testnet: [
-      'BTC',
       'ETH',
       'DAI',
       'RBTC',

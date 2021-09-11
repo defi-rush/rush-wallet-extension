@@ -400,21 +400,6 @@ export default {
           const feePrice = fee.fee
           sendFees[speed] = getSendFee(this.assetChain, feePrice)
         }
-        if (this.asset === 'BTC') {
-          const client = this.client(this.activeNetwork, this.activeWalletId, this.asset)
-          const feePerBytes = Object.values(this.assetFees).map(fee => fee.fee)
-          const value = getMax ? undefined : currencyToUnit(cryptoassets[this.asset], BN(amount))
-          try {
-            const txs = feePerBytes.map(fee => ({ value, fee }))
-            const totalFees = await client.getMethod('getTotalFees')(txs, getMax)
-            for (const [speed, fee] of Object.entries(this.assetFees)) {
-              const totalFee = unitToCurrency(cryptoassets[this.asset], totalFees[fee.fee])
-              sendFees[speed] = totalFee
-            }
-          } catch (e) {
-            console.error(e)
-          }
-        }
 
         if (getMax) {
           this.maxSendFees = sendFees

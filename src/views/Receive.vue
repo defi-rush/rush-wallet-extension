@@ -94,7 +94,6 @@ export default {
     },
     chainName () {
       return ({
-        bitcoin: 'bitcoin',
         ethereum: 'ethereum',
         near: 'near',
         rsk: 'ethereum',
@@ -105,7 +104,6 @@ export default {
     faucet () {
       if (this.activeNetwork === 'testnet') {
         return ({
-          BTC: { name: 'Bitcoin', url: 'https://testnet-faucet.mempool.co/' },
           ETH: { name: 'Ethererum Ropsten', url: 'https://faucet.dimensions.network/' },
           RBTC: { name: 'RBTC/RSK', url: 'https://faucet.rsk.co/' },
           BNB: { name: 'BNB', url: 'https://testnet.binance.org/faucet-smart/' },

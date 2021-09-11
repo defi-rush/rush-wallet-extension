@@ -22,15 +22,6 @@ export const LEDGER_OPTIONS = [
     chain: 'ethereum'
   },
   {
-    name: 'BTC',
-    label: 'BTC',
-    types: [
-      'bitcoin_ledger_nagive_segwit',
-      'bitcoin_ledger_legacy'
-    ],
-    chain: 'bitcoin'
-  },
-  {
     name: 'RBTC',
     label: 'RSK',
     types: ['rsk_ledger'],

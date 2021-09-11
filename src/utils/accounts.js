@@ -58,9 +58,7 @@ export const chainDefaultColors = {
   ethereum: '#4F67E4',
   rsk: '#3AB24D',
   bsc: '#F7CA4F',
-  near: '#000000',
   polygon: '#8247E5',
-  arbitrum: '#28A0EF',
   localhost: '#4F67E4',
   rush: '#4F67E4',
 }
@@ -70,9 +68,7 @@ export const getAccountIcon = (chain) => {
     ethereum: getAssetIcon('eth_account'),
     bsc: getAssetIcon('bnb_account', 'png'),
     rsk: getAssetIcon('rsk_account'),
-    near: getAssetIcon('NEAR'),
     polygon: getAssetIcon('polygon_account'),
-    arbitrum: getAssetIcon('ARBITRUM'),
     localhost: getAssetIcon('eth_account'),
     rush: getAssetIcon('eth_account'),
   }[chain]

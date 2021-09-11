@@ -26,7 +26,7 @@
                    Ethereum
                 </a>
               </li>
-              <li>
+              <!-- <li>
                 <a class="dropdown-item"
                    id="rsk_chain"
                    href="#"
@@ -52,16 +52,7 @@
                    :class="{active: chain === 'polygon'}">
                    POLYGON
                 </a>
-              </li>
-              <li>
-                <a class="dropdown-item"
-                   id="arbitrum_chain"
-                   href="#"
-                   @click="selectChain('arbitrum')"
-                   :class="{active: chain === 'arbitrum'}">
-                   ARBITRUM
-                </a>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

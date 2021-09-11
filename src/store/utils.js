@@ -140,14 +140,6 @@ export const ChainNetworks = {
     testnet: EthereumNetworks.polygon_testnet,
     mainnet: EthereumNetworks.polygon_mainnet
   },
-  arbitrum: {
-    testnet: EthereumNetworks.arbitrum_testnet,
-    mainnet: EthereumNetworks.arbitrum_mainnet
-  },
-  near: {
-    testnet: NearNetworks.near_testnet,
-    mainnet: NearNetworks.near_mainnet
-  },
   localhost: {
     testnet: {
       chainId: 31337,

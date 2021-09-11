@@ -38,16 +38,6 @@ const EXPLORERS = {
       address: 'https://etherscan.io/address/'
     }
   },
-  bitcoin: {
-    testnet: {
-      tx: 'https://blockstream.info/testnet/tx/',
-      address: 'https://blockstream.info/testnet/address/'
-    },
-    mainnet: {
-      tx: 'https://blockstream.info/tx/',
-      address: 'https://blockstream.info/address/'
-    }
-  },
   rsk: {
     testnet: {
       tx: 'https://explorer.testnet.rsk.co/tx/0x',
@@ -78,26 +68,6 @@ const EXPLORERS = {
       address: 'https://polygonscan.com/address/'
     }
   },
-  near: {
-    testnet: {
-      tx: 'https://explorer.testnet.near.org/transactions/',
-      address: 'https://explorer.testnet.near.org/accounts/'
-    },
-    mainnet: {
-      tx: 'https://explorer.mainnet.near.org/transactions/',
-      address: 'https://explorer.mainnet.near.org/accounts/'
-    }
-  },
-  arbitrum: {
-    testnet: {
-      tx: 'https://rinkeby-explorer.arbitrum.io/tx/0x',
-      address: 'https://rinkeby-explorer.arbitrum.io/address/0x'
-    },
-    mainnet: {
-      tx: 'https://explorer.arbitrum.io/tx/0x',
-      address: 'https://explorer.arbitrum.io/address/0x'
-    }
-  }
 }
 
 export const isERC20 = asset => {

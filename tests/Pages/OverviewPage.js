@@ -108,11 +108,6 @@ class OverviewPage {
   async SelectChain (page, chain) {
     await page.waitForSelector('.wallet-tab-content', { visible: true })
     switch (chain) {
-      case 'BTC': {
-        await page.waitForSelector(`#${chain}`, { visible: true })
-        await page.click(`#${chain}`)
-        break
-      }
 
       case 'DAI':
       case 'ETH': {
@@ -131,21 +126,6 @@ class OverviewPage {
         break
       }
 
-      case 'NEAR': {
-        await page.waitForSelector(`#${chain}`, { visible: true })
-        await page.click(`#${chain}`)
-        const eth = await page.waitForSelector('#NEAR', { visible: true })
-        await eth.click()
-        break
-      }
-
-      case 'ARBETH': {
-        const eth = await page.waitForSelector('#ARBITRUM', { visible: true })
-        await eth.click()
-        await page.waitForSelector(`#${chain}`, { visible: true })
-        await page.click(`#${chain}`)
-        break
-      }
 
       case 'SOV':
       case 'RBTC': {

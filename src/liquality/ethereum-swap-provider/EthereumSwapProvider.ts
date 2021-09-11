@@ -1,6 +1,6 @@
-import { Provider } from '@liquality/provider'
-import { padHexStart } from '@liquality/crypto'
-import { SwapProvider, SwapParams, BigNumber, Transaction, Block, ethereum } from '@liquality/types'
+import { Provider } from '@/liquality/provider'
+import { padHexStart } from '@/liquality/crypto'
+import { SwapProvider, SwapParams, BigNumber, Transaction, Block, ethereum } from '@/liquality/types'
 import {
   addressToString,
   caseInsensitiveEqual,
@@ -8,9 +8,9 @@ import {
   validateSecret,
   validateSecretHash,
   validateSecretAndHash
-} from '@liquality/utils'
-import { remove0x, hexToNumber, validateAddress, validateExpiration } from '@liquality/ethereum-utils'
-import { PendingTxError, TxNotFoundError, BlockNotFoundError } from '@liquality/errors'
+} from '@/liquality/utils'
+import { remove0x, hexToNumber, validateAddress, validateExpiration } from '@/liquality/ethereum-utils'
+import { PendingTxError, TxNotFoundError, BlockNotFoundError } from '@/liquality/errors'
 
 export default class EthereumSwapProvider extends Provider implements Partial<SwapProvider> {
   createSwapScript(swapParams: SwapParams) {

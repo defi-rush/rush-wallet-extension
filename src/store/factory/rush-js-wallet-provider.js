@@ -1,22 +1,22 @@
 import { ethers } from 'ethers'
-import { EthereumJsWalletProvider } from '@liquality/ethereum-js-wallet-provider'
+import { EthereumJsWalletProvider } from '@/liquality/ethereum-js-wallet-provider'
 
-import { WalletProvider } from '@liquality/wallet-provider'
-import { EthereumNetwork } from '@liquality/ethereum-networks'
+import { WalletProvider } from '@/liquality/wallet-provider'
+import { EthereumNetwork } from '@/liquality/ethereum-networks'
 import hdkey from 'hdkey'
 
-import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@liquality/types'
+import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@/liquality/types'
 import {
   remove0x,
   buildTransaction,
   numberToHex,
   hexToNumber,
   normalizeTransactionObject
-} from '@liquality/ethereum-utils'
+} from '@/liquality/ethereum-utils'
 
 import { hashPersonalMessage, ecsign, toRpcSig, privateToAddress, privateToPublic } from 'ethereumjs-util'
 
-import { addressToString } from '@liquality/utils'
+import { addressToString } from '@/liquality/utils'
 
 const proxyABI = [
   'event ExecutionFailure(bytes32 txHash, uint256 payment)',

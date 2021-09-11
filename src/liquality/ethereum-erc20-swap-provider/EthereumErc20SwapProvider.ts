@@ -1,5 +1,5 @@
-import { Provider } from '@liquality/provider'
-import { padHexStart } from '@liquality/crypto'
+import { Provider } from '@/liquality/provider'
+import { padHexStart } from '@/liquality/crypto'
 import {
   addressToString,
   caseInsensitiveEqual,
@@ -7,9 +7,9 @@ import {
   validateSecret,
   validateSecretHash,
   validateSecretAndHash
-} from '@liquality/utils'
-import { remove0x, ensure0x, validateAddress, validateExpiration } from '@liquality/ethereum-utils'
-import { SwapProvider, SwapParams, Block, Transaction, BigNumber, Address, ethereum } from '@liquality/types'
+} from '@/liquality/utils'
+import { remove0x, ensure0x, validateAddress, validateExpiration } from '@/liquality/ethereum-utils'
+import { SwapProvider, SwapParams, Block, Transaction, BigNumber, Address, ethereum } from '@/liquality/types'
 import {
   PendingTxError,
   TxNotFoundError,
@@ -17,7 +17,7 @@ import {
   BlockNotFoundError,
   InvalidDestinationAddressError,
   InsufficientBalanceError
-} from '@liquality/errors'
+} from '@/liquality/errors'
 
 const SOL_CLAIM_FUNCTION = '0xbd66528a' // claim(bytes32)
 const SOL_REFUND_FUNCTION = '0x590e1ae3' // refund()

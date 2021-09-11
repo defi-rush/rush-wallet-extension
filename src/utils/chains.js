@@ -1,4 +1,4 @@
-import { assets, chains } from '@liquality/cryptoassets'
+import { assets, chains } from '@/liquality/cryptoassets'
 
 /**
  * override chains

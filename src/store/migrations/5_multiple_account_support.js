@@ -1,6 +1,6 @@
 import buildConfig from '../../build.config'
 import { accountCreator, getNextAccountColor } from '@/utils/accounts'
-import { chains, assets as cryptoassets } from '@liquality/cryptoassets'
+import { chains, assets as cryptoassets } from '@/liquality/cryptoassets'
 
 export const multipleAccountSupport = { // multiple account support
   version: 5,

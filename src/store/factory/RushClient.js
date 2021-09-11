@@ -1,16 +1,16 @@
-import { Client } from '@liquality/client'
+import { Client } from '@/liquality/client'
 
-// import { EthereumRpcProvider } from '@liquality/ethereum-rpc-provider'
-// import { EthereumJsWalletProvider } from '@liquality/ethereum-js-wallet-provider'
+// import { EthereumRpcProvider } from '@/liquality/ethereum-rpc-provider'
+// import { EthereumJsWalletProvider } from '@/liquality/ethereum-js-wallet-provider'
 import { RushJsWalletProvider } from './rush-js-wallet-provider'
-import { EthereumSwapProvider } from '@liquality/ethereum-swap-provider'
-import { EthereumScraperSwapFindProvider } from '@liquality/ethereum-scraper-swap-find-provider'
-import { EthereumGasNowFeeProvider } from '@liquality/ethereum-gas-now-fee-provider'
-import { EthereumRpcFeeProvider } from '@liquality/ethereum-rpc-fee-provider'
+import { EthereumSwapProvider } from '@/liquality/ethereum-swap-provider'
+import { EthereumScraperSwapFindProvider } from '@/liquality/ethereum-scraper-swap-find-provider'
+import { EthereumGasNowFeeProvider } from '@/liquality/ethereum-gas-now-fee-provider'
+import { EthereumRpcFeeProvider } from '@/liquality/ethereum-rpc-fee-provider'
 
-import { EthereumErc20Provider } from '@liquality/ethereum-erc20-provider'
-import { EthereumErc20SwapProvider } from '@liquality/ethereum-erc20-swap-provider'
-import { EthereumErc20ScraperSwapFindProvider } from '@liquality/ethereum-erc20-scraper-swap-find-provider'
+import { EthereumErc20Provider } from '@/liquality/ethereum-erc20-provider'
+import { EthereumErc20SwapProvider } from '@/liquality/ethereum-erc20-swap-provider'
+import { EthereumErc20ScraperSwapFindProvider } from '@/liquality/ethereum-erc20-scraper-swap-find-provider'
 
 
 import {

@@ -1,4 +1,4 @@
-import { Network } from '@liquality/types'
+import { Network } from '@/liquality/types'
 
 export interface EthereumNetwork extends Network {
   networkId: number

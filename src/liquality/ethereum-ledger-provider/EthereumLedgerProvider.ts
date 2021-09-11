@@ -1,7 +1,7 @@
-import { LedgerProvider } from '@liquality/ledger-provider'
-import { Address, ethereum, SendOptions, Transaction, BigNumber } from '@liquality/types'
-import { EthereumNetwork } from '@liquality/ethereum-networks'
-import { addressToString } from '@liquality/utils'
+import { LedgerProvider } from '@/liquality/ledger-provider'
+import { Address, ethereum, SendOptions, Transaction, BigNumber } from '@/liquality/types'
+import { EthereumNetwork } from '@/liquality/ethereum-networks'
+import { addressToString } from '@/liquality/utils'
 import {
   ensure0x,
   remove0x,
@@ -9,7 +9,7 @@ import {
   buildTransaction,
   normalizeTransactionObject,
   hexToNumber
-} from '@liquality/ethereum-utils'
+} from '@/liquality/ethereum-utils'
 import { toRpcSig } from 'ethereumjs-util'
 
 import HwAppEthereum from '@ledgerhq/hw-app-eth'

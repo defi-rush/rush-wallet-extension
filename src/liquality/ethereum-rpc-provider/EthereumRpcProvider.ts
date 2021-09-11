@@ -1,4 +1,4 @@
-import { JsonRpcProvider } from '@liquality/jsonrpc-provider'
+import { JsonRpcProvider } from '@/liquality/jsonrpc-provider'
 import {
   numberToHex,
   hexToNumber,
@@ -6,11 +6,11 @@ import {
   normalizeTransactionObject,
   remove0x,
   buildTransaction
-} from '@liquality/ethereum-utils'
-import { Address, Block, ethereum, SendOptions, Transaction, ChainProvider, BigNumber } from '@liquality/types'
-import { sleep, addressToString } from '@liquality/utils'
-import { InvalidDestinationAddressError, TxNotFoundError, BlockNotFoundError } from '@liquality/errors'
-import { padHexStart } from '@liquality/crypto'
+} from '@/liquality/ethereum-utils'
+import { Address, Block, ethereum, SendOptions, Transaction, ChainProvider, BigNumber } from '@/liquality/types'
+import { sleep, addressToString } from '@/liquality/utils'
+import { InvalidDestinationAddressError, TxNotFoundError, BlockNotFoundError } from '@/liquality/errors'
+import { padHexStart } from '@/liquality/crypto'
 
 const GAS_LIMIT_MULTIPLIER = 1.5
 

@@ -1,6 +1,6 @@
 import qs from 'qs'
 import cryptoassets from '../../utils/cryptoassets'
-import { currencyToUnit } from '@liquality/cryptoassets'
+import { currencyToUnit } from '@/liquality/cryptoassets'
 
 export const handlePaymentUri = async ({ dispatch }, { data }) => {
   const { uri } = data

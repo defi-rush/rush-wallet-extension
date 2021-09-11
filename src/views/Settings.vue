@@ -48,7 +48,7 @@
 <script>
 import { mapState, mapActions, mapGetters } from 'vuex'
 import { version } from '../../package.json'
-import { isEthereumChain } from '@liquality/cryptoassets'
+import { isEthereumChain } from '@/liquality/cryptoassets'
 import buildConfig from '@/build.config'
 import { downloadFile, getWalletStateLogs } from '@/utils/export'
 import NavBar from '@/components/NavBar.vue'

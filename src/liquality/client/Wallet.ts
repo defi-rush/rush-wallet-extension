@@ -1,5 +1,5 @@
-import { InvalidProviderResponseError, UnimplementedMethodError } from '@liquality/errors'
-import { Address, WalletProvider } from '@liquality/types'
+import { InvalidProviderResponseError, UnimplementedMethodError } from '@/liquality/errors'
+import { Address, WalletProvider } from '@/liquality/types'
 import { isArray } from 'lodash'
 
 export default class Wallet implements WalletProvider {

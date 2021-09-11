@@ -2,11 +2,11 @@ import Vue from 'vue'
 import { random, findKey, mapKeys, mapValues } from 'lodash-es'
 import axios from 'axios'
 import { assets as cryptoassets } from '@/utils/chains'
-import { EthereumNetworks } from '@liquality/ethereum-networks'
-import { Client } from '@liquality/client'
-import { EthereumRpcProvider } from '@liquality/ethereum-rpc-provider'
-import { EthereumJsWalletProvider } from '@liquality/ethereum-js-wallet-provider'
-import { EthereumErc20Provider } from '@liquality/ethereum-erc20-provider'
+import { EthereumNetworks } from '@/liquality/ethereum-networks'
+import { Client } from '@/liquality/client'
+import { EthereumRpcProvider } from '@/liquality/ethereum-rpc-provider'
+import { EthereumJsWalletProvider } from '@/liquality/ethereum-js-wallet-provider'
+import { EthereumErc20Provider } from '@/liquality/ethereum-erc20-provider'
 
 export const CHAIN_LOCK = {}
 

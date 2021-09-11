@@ -1,6 +1,6 @@
 import BN from 'bignumber.js'
 import cryptoassets from './cryptoassets'
-import { unitToCurrency } from '@liquality/cryptoassets'
+import { unitToCurrency } from '@/liquality/cryptoassets'
 import { chains } from '@/utils/chains'
 import { isERC20, isEthereumChain } from './asset'
 

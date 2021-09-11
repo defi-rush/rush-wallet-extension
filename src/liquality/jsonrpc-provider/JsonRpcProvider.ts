@@ -1,6 +1,6 @@
-import { NodeProvider, AxiosRequestConfig, AxiosResponse } from '@liquality/node-provider'
-import { Debug } from '@liquality/debug'
-import { NodeError } from '@liquality/errors'
+import { NodeProvider, AxiosRequestConfig, AxiosResponse } from '@/liquality/node-provider'
+import { Debug } from '@/liquality/debug'
+import { NodeError } from '@/liquality/errors'
 
 import JSONBigInt from 'json-bigint'
 import { has } from 'lodash'

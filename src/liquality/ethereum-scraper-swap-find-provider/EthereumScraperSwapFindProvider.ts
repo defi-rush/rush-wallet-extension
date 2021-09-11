@@ -1,14 +1,14 @@
-import { NodeProvider } from '@liquality/node-provider'
+import { NodeProvider } from '@/liquality/node-provider'
 import {
   numberToHex,
   normalizeTransactionObject,
   validateAddress,
   validateExpiration,
   remove0x
-} from '@liquality/ethereum-utils'
-import { addressToString, validateValue, validateSecretHash, validateSecretAndHash } from '@liquality/utils'
-import { PendingTxError } from '@liquality/errors'
-import { SwapProvider, SwapParams, Transaction, ethereum } from '@liquality/types'
+} from '@/liquality/ethereum-utils'
+import { addressToString, validateValue, validateSecretHash, validateSecretAndHash } from '@/liquality/utils'
+import { PendingTxError } from '@/liquality/errors'
+import { SwapProvider, SwapParams, Transaction, ethereum } from '@/liquality/types'
 import * as scraper from './types'
 
 export default class EthereumScraperSwapFindProvider extends NodeProvider implements Partial<SwapProvider> {

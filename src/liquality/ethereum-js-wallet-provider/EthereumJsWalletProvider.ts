@@ -1,14 +1,14 @@
-import { WalletProvider } from '@liquality/wallet-provider'
-import { EthereumNetwork } from '@liquality/ethereum-networks'
-import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@liquality/types'
-import { addressToString } from '@liquality/utils'
+import { WalletProvider } from '@/liquality/wallet-provider'
+import { EthereumNetwork } from '@/liquality/ethereum-networks'
+import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@/liquality/types'
+import { addressToString } from '@/liquality/utils'
 import {
   remove0x,
   buildTransaction,
   numberToHex,
   hexToNumber,
   normalizeTransactionObject
-} from '@liquality/ethereum-utils'
+} from '@/liquality/ethereum-utils'
 
 import { mnemonicToSeed } from 'bip39'
 import hdkey from 'hdkey'

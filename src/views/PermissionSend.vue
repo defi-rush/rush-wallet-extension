@@ -75,7 +75,7 @@
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
 import cryptoassets from '@/utils/cryptoassets'
-import { unitToCurrency } from '@liquality/cryptoassets'
+import { unitToCurrency } from '@/liquality/cryptoassets'
 import FeeSelector from '@/components/FeeSelector'
 import CustomFees from '@/components/CustomFees'
 import { prettyBalance, prettyFiatBalance } from '@/utils/coinFormatter'

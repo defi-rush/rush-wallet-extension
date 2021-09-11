@@ -1,4 +1,4 @@
-import { unitToCurrency } from '@liquality/cryptoassets'
+import { unitToCurrency } from '@/liquality/cryptoassets'
 import { assets as cryptoassets } from '@/utils/chains'
 import { createClient } from './factory/client'
 

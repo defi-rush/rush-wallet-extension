@@ -1,6 +1,6 @@
-import { Block as BlockSchema, Transaction as TransactionSchema } from '@liquality/schema'
-import { Block, Transaction, IClient } from '@liquality/types'
-import { Provider } from '@liquality/provider'
+import { Block as BlockSchema, Transaction as TransactionSchema } from '@/liquality/schema'
+import { Block, Transaction, IClient } from '@/liquality/types'
+import { Provider } from '@/liquality/provider'
 import {
   DuplicateProviderError,
   InvalidProviderError,
@@ -8,7 +8,7 @@ import {
   UnimplementedMethodError,
   UnsupportedMethodError,
   InvalidProviderResponseError
-} from '@liquality/errors'
+} from '@/liquality/errors'
 
 import { find, findLast, findLastIndex, isFunction } from 'lodash'
 import debug from 'debug'

@@ -1,4 +1,4 @@
-import { ChainId } from '@liquality/cryptoassets'
+import { ChainId } from '@/liquality/cryptoassets'
 
 export const rskFishToken = {
   version: 13,

@@ -1,4 +1,4 @@
-import { InvalidProviderResponseError } from '@liquality/errors'
+import { InvalidProviderResponseError } from '@/liquality/errors'
 import {
   SendOptions,
   Block,
@@ -8,7 +8,7 @@ import {
   FeeProvider,
   BigNumber,
   Address
-} from '@liquality/types'
+} from '@/liquality/types'
 import { isBoolean, isNumber, isString, isObject } from 'lodash'
 
 export default class Chain implements ChainProvider, FeeProvider {

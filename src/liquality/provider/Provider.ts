@@ -1,4 +1,4 @@
-import { IClient } from '@liquality/types'
+import { IClient } from '@/liquality/types'
 
 export default abstract class Provider {
   client: IClient

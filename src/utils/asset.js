@@ -1,7 +1,7 @@
 import {
   chains,
   isEthereumChain as _isEthereumChain
-} from '@liquality/cryptoassets'
+} from '@/liquality/cryptoassets'
 import cryptoassets from '@/utils/cryptoassets'
 import * as ethers from 'ethers'
 import tokenABI from './tokenABI.json'

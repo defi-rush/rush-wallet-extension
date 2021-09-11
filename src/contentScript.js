@@ -4,7 +4,7 @@ import Script from './broker/Script'
 import { providerManager, ethereumProvider, overrideEthereum } from './inject'
 import buildConfig from './build.config'
 import { ChainNetworks } from './store/utils'
-import { isEthereumChain } from '@liquality/cryptoassets'
+import { isEthereumChain } from '@/liquality/cryptoassets'
 import { chains } from '@/utils/chains'
 
 ;(new Script()).start()

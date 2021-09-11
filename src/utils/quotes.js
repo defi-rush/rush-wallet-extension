@@ -1,5 +1,5 @@
 import BN from 'bignumber.js'
-import { unitToCurrency } from '@liquality/cryptoassets'
+import { unitToCurrency } from '@/liquality/cryptoassets'
 import cryptoassets from './cryptoassets'
 import { SwapProviderType, getSwapProviderConfig } from './swaps'
 

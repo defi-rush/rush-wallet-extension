@@ -1,6 +1,6 @@
-import { sha256 } from '@liquality/crypto'
-import { UnimplementedMethodError } from '@liquality/errors'
-import { SwapParams, SwapProvider, Transaction } from '@liquality/types'
+import { sha256 } from '@/liquality/crypto'
+import { UnimplementedMethodError } from '@/liquality/errors'
+import { SwapParams, SwapProvider, Transaction } from '@/liquality/types'
 
 export default class Swap implements SwapProvider {
   client: any

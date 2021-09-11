@@ -1,6 +1,6 @@
-import { Provider } from '@liquality/provider'
-import { Network, WalletProvider as IWalletProvider, Address } from '@liquality/types'
-import { WalletError } from '@liquality/errors'
+import { Provider } from '@/liquality/provider'
+import { Network, WalletProvider as IWalletProvider, Address } from '@/liquality/types'
+import { WalletError } from '@/liquality/errors'
 
 import { isEqual } from 'lodash'
 

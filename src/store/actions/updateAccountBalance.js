@@ -16,14 +16,7 @@ export const updateAccountBalance = async ({ state, commit, getters }, { network
           accountId
         }
       )
-      let addresses = []
-      if (type.includes('ledger')) {
-        addresses = account.addresses.map(a => new Address({
-          address: `${a}`
-        }))
-      } else {
-        addresses = await _client.wallet.getUsedAddresses()
-      }
+      let addresses = await _client.wallet.getUsedAddresses()
       const balance = addresses.length === 0
         ? 0
         : (await _client.chain.getBalance(

@@ -185,14 +185,10 @@
       </div>
     </div>
     </div>
-     <!-- Modals for ledger prompts -->
     <OperationErrorModal :open="sendErrorModalOpen"
                          :account="account"
                          @close="closeSendErrorModal"
                          :error="sendErrorMessage" />
-    <LedgerSignRequestModal :open="signRequestModalOpen"
-                            @close="closeSignRequestModal" />
-    <LedgerBridgeModal :open="bridgeModalOpen" @close="closeBridgeModal" />
   </div>
 </template>
 
@@ -219,10 +215,8 @@ import {
 import SpinnerIcon from '@/assets/icons/spinner.svg'
 import DetailsContainer from '@/components/DetailsContainer'
 import SendInput from './SendInput'
-import LedgerSignRequestModal from '@/components/LedgerSignRequestModal'
 import OperationErrorModal from '@/components/OperationErrorModal'
 import CustomFees from '@/components/CustomFees'
-import LedgerBridgeModal from '@/components/LedgerBridgeModal'
 import { BG_PREFIX } from '@/broker/utils'
 
 export default {
@@ -233,9 +227,7 @@ export default {
     DetailsContainer,
     SendInput,
     OperationErrorModal,
-    LedgerSignRequestModal,
     CustomFees,
-    LedgerBridgeModal
   },
   data () {
     return {
@@ -415,37 +407,11 @@ export default {
       await this._updateSendFees()
     },
     async tryToSend () {
-      if (this.account?.type.includes('ledger') && !this.usbBridgeTransportCreated) {
-        this.loading = true
-        this.bridgeModalOpen = true
-        const unsubscribe = this.$store.subscribe(async ({ type, payload }) => {
-          if (type === `${BG_PREFIX}app/SET_USB_BRIDGE_TRANSPORT_CREATED` &&
-          payload.created === true) {
-            this.bridgeModalOpen = false
-            await this.send()
-            if (unsubscribe) {
-              unsubscribe()
-            }
-          }
-        })
-
-        setTimeout(() => {
-          if (unsubscribe) {
-            this.bridgeModalOpen = false
-            this.loading = false
-            unsubscribe()
-          }
-        }, 25000)
-      } else {
-        await this.send()
-      }
+      await this.send()
     },
     async send () {
       this.sendErrorMessage = ''
       this.loading = true
-      if (this.account?.type.includes('ledger')) {
-        this.signRequestModalOpen = true
-      }
 
       try {
         const amountToSend = this.maxOptionActive ? this.available : this.amount

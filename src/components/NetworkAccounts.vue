@@ -18,10 +18,6 @@
           </template>
           <template #detail>
             <div class="detail-content">
-              <div class="ledger-tag"
-                   v-if="account.type && account.type.includes('ledger')">
-              Ledger
-              </div>
               <div :id="account.assets[0]">
                 {{ prettyBalance(account.balances[account.assets[0]], account.assets[0]) }} {{account.assets[0]}}
               </div>
@@ -95,9 +91,6 @@ export default {
 }
 </script>
 <style lang="scss">
-.ledger-tag {
-  color: #4763CD;
-}
 .detail-content {
   display: flex;
   align-items: center;

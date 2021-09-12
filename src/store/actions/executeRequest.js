@@ -50,18 +50,7 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
       }
       call = methodFunc(...request.args)
     }
-
-    const { usbBridgeTransportCreated } = rootState.app
-    if (account?.type.includes('ledger') && !usbBridgeTransportCreated) {
-      dispatch('app/startBridgeListener').then((bridgeEmiter) => {
-        bridgeEmiter.once('TRANSPORT_CREATED', () => {
-          resolve(call)
-        })
-        dispatch('app/openUSBBridgeWindow')
-      })
-    } else {
-      resolve(call)
-    }
+    resolve(call)
   })
   return result
 }

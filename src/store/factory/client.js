@@ -13,10 +13,6 @@ import { EthereumErc20ScraperSwapFindProvider } from '@/liquality/ethereum-erc20
 
 import { createRuchClient } from './RushClient'
 
-import {
-  EthereumLedgerBridgeProvider,
-  EthereumLedgerBridgeApp,
-} from '@/utils/ledger-bridge-provider'
 import { chains } from '@/utils/chains'
 
 import { isERC20 } from '@/utils/asset'
@@ -43,32 +39,15 @@ function createEthereumClient (
   const { rskLegacyDerivation } = store.state
   let coinType = ethereumNetwork.coinType
 
-  if (walletType === 'rsk_ledger') {
-    coinType = rskLegacyCoinType
-  } else if (ethereumNetwork.name === 'rsk_mainnet' || ethereumNetwork.name === 'rsk_testnet') {
+  if (ethereumNetwork.name === 'rsk_mainnet' || ethereumNetwork.name === 'rsk_testnet') {
     coinType = rskLegacyDerivation ? rskLegacyCoinType : ethereumNetwork.coinType
   }
 
   const derivationPath = `m/44'/${coinType}'/${indexPath}'/0/0`
 
-  if (walletType === 'ethereum_ledger' || walletType === 'rsk_ledger') {
-    const assetData = cryptoassets[asset]
-    const chainData = chains?.[assetData.chain]
-    const { nativeAsset } = chainData || 'ETH'
-    const ethereumLedgerApp = new EthereumLedgerBridgeApp(network, nativeAsset)
-    const ledger = new EthereumLedgerBridgeProvider(
-      {
-        network: ethereumNetwork,
-        derivationPath
-      },
-      ethereumLedgerApp
-    )
-    ethClient.addProvider(ledger)
-  } else {
-    ethClient.addProvider(new EthereumJsWalletProvider(
-      { network: ethereumNetwork, mnemonic, derivationPath }
-    ))
-  }
+  ethClient.addProvider(new EthereumJsWalletProvider(
+    { network: ethereumNetwork, mnemonic, derivationPath }
+  ))
 
   if (isERC20(asset)) {
     const contractAddress = cryptoassets[asset].contractAddress

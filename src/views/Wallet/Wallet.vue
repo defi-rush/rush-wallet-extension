@@ -8,9 +8,6 @@
           </span>
       </span>
     </NavBar>
-    <InfoNotification v-if="showLedgerRequest">
-      <LedgerRequestMessage :item="ledgerItem" />
-    </InfoNotification>
     <div class="wallet-content">
       <WalletStats :loading="loadingBalances"/>
       <AssetsChart />
@@ -25,7 +22,6 @@ import { isERC20 } from '@/utils/asset'
 import AssetsChart from './AssetsChart.vue'
 import NavBar from '@/components/NavBar.vue'
 import InfoNotification from '@/components/InfoNotification.vue'
-import LedgerRequestMessage from '@/components/LedgerRequestMessage.vue'
 import WalletStats from './WalletStats.vue'
 import WalletTabs from './WalletTabs.vue'
 
@@ -36,7 +32,6 @@ export default {
     WalletStats,
     WalletTabs,
     InfoNotification,
-    LedgerRequestMessage
   },
   data () {
     return {
@@ -62,41 +57,9 @@ export default {
   computed: {
     ...mapState(['activeNetwork', 'activeWalletId', 'history']),
     ...mapGetters(['accountItem']),
-    ledgerItem () {
-      return this.history[this.activeNetwork]?.[this.activeWalletId]?.find((item) => this.ledgerSignRequired(item))
-    },
-    showLedgerRequest () {
-      return this.ledgerItem
-    }
   },
   methods: {
-    ...mapActions(['updateBalances']),
-    ledgerSignRequired (item) {
-      if (item && item.fromAccountId && item.toAccountId) {
-      // Check the status and get the account related
-        if (item.status === 'INITIATION_CONFIRMED') {
-        // fund transaction only apply for erc20
-          if (isERC20(item.from)) {
-            const fromAccount = this.accountItem(item.fromAccountId)
-            if (fromAccount?.type.includes('ledger')) {
-              return true
-            }
-          }
-        } else if (item.status === 'READY_TO_CLAIM') {
-          const toAccount = this.accountItem(item.toAccountId)
-          if (toAccount?.type.includes('ledger')) {
-            return true
-          }
-        } else if (item.status === 'GET_REFUND') {
-          const fromAccount = this.accountItem(item.fromAccountId)
-          if (fromAccount?.type.includes('ledger')) {
-            return true
-          }
-        }
-      }
-
-      return false
-    }
+    ...mapActions(['updateBalances'])
   }
 }
 </script>

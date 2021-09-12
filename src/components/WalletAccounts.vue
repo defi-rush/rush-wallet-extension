@@ -23,12 +23,6 @@
           <template #sub-title>
             {{ account.addresses && account.addresses[0] ? shortenAddress(account.addresses[0]) : '' }}
           </template>
-          <template #detail>
-            <div class="ledger-tag"
-                   v-if="account.type && account.type.includes('ledger')">
-              Ledger
-            </div>
-          </template>
           <template #detail-sub v-if="account.totalFiatBalance">
             ${{ formatFiat(account.totalFiatBalance) }}
           </template>
@@ -123,9 +117,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.ledger-tag {
-  color: #4763CD;
-}
+
 .detail-content {
   display: flex;
   align-items: center;

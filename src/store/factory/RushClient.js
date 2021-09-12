@@ -27,7 +27,7 @@ import { RushRpcProvider } from './rush-rpc-provider'
 
 export function createRuchClient (asset, network, mnemonic, walletType, indexPath, proxyAddress) {
   const isTestnet = network === 'testnet'
-  const ethereumNetwork = ChainNetworks.localhost[network]
+  const ethereumNetwork = ChainNetworks.rush[network]
   const infuraApi = 'http://localhost:8545'
   const scraperApi = isTestnet ? 'https://liquality.io/eth-ropsten-api' : 'https://liquality.io/eth-mainnet-api'
   const feeProvider = isTestnet ? new EthereumRpcFeeProvider() : new EthereumGasNowFeeProvider()

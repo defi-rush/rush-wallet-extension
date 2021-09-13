@@ -1,11 +1,7 @@
 import { ethers } from 'ethers'
-import { EthereumJsWalletProvider } from '@/liquality/ethereum-js-wallet-provider'
-
 import { WalletProvider } from '@/liquality/wallet-provider'
 import { EthereumNetwork } from '@/liquality/ethereum-networks'
-import hdkey from 'hdkey'
 
-import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@/liquality/types'
 import {
   remove0x,
   buildTransaction,
@@ -14,6 +10,14 @@ import {
   normalizeTransactionObject
 } from '@/liquality/ethereum-utils'
 
+import { mnemonicToSeed } from 'bip39'
+import hdkey from 'hdkey'
+
+import { Transaction as EthJsTransaction } from 'ethereumjs-tx'
+import Common from 'ethereumjs-common'
+import { chains as BaseChains } from 'ethereumjs-common/dist/chains'
+
+import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from '@/liquality/types'
 import { hashPersonalMessage, ecsign, toRpcSig, privateToAddress, privateToPublic } from 'ethereumjs-util'
 
 import { addressToString } from '@/liquality/utils'
@@ -30,13 +34,141 @@ const proxyABI = [
 const rushWalletInterface = new ethers.utils.Interface(proxyABI)
 
 /**
+ * overrides EthereumJsWalletProvider
  * 创建 client 的时候会 addProvider，所以合约钱包的作用就是截取请求，统一发给 proxyAddress
  */
-export class RushJsWalletProvider extends EthereumJsWalletProvider {
-  constructor({ proxyAddress, wallet, ...restOptions }) {
-    super(restOptions);
+export class RushJsWalletProvider extends WalletProvider {
+  constructor(options) {
+    const { network, mnemonic, derivationPath, hardfork = 'istanbul', proxyAddress, wallet } = options
+    super({ network })
+
+    this._derivationPath = derivationPath
+    this._mnemonic = mnemonic
+    this._network = network
+    this._hardfork = hardfork
+
     this._proxyAddress = proxyAddress;
     this.wallet = ethers.Wallet.fromMnemonic(wallet.mnemonic);
+  }
+
+  async node() {
+    const seed = await mnemonicToSeed(this._mnemonic)
+    return hdkey.fromMasterSeed(seed)
+  }
+
+  async hdKey() {
+    const node = await this.node()
+    return node.derive(this._derivationPath)
+  }
+
+  async signMessage(message) {
+    const hdKey = await this.hdKey()
+    const msgHash = hashPersonalMessage(Buffer.from(message))
+
+    const { v, r, s } = ecsign(msgHash, hdKey.privateKey)
+
+    return remove0x(toRpcSig(v, r, s))
+  }
+
+  async getAddresses() {
+    const hdKey = await this.hdKey()
+    const address = privateToAddress(hdKey.privateKey).toString('hex')
+    const publicKey = privateToPublic(hdKey.privateKey).toString('hex')
+    return [
+      new Address({
+        address,
+        derivationPath: this._derivationPath,
+        publicKey
+      })
+    ]
+  }
+
+  async getUnusedAddress() {
+    const addresses = await this.getAddresses()
+    return addresses[0]
+  }
+
+  async getUsedAddresses() {
+    throw new Error('getUsedAddresses 已被废弃')
+    // return this.getAddresses()
+  }
+
+  async signTransaction(txData) {
+    const hdKey = await this.hdKey()
+
+    let common
+    if (!(this._network.name === 'local')) {
+      const baseChain = this._network.name in BaseChains ? this._network.name : 'mainnet'
+      common = Common.forCustomChain(
+        baseChain,
+        {
+          ...this._network
+        },
+        this._hardfork
+      )
+    }
+
+    const tx = new EthJsTransaction(txData, { common })
+    tx.sign(hdKey.privateKey)
+
+    return tx.serialize().toString('hex')
+  }
+
+  async sendSweepTransaction(address, _gasPrice) {
+    const addresses = await this.getAddresses()
+
+    const balance = await this.client.chain.getBalance(addresses)
+
+    const [gasPrice] = await Promise.all([_gasPrice ? Promise.resolve(_gasPrice) : this.getMethod('getGasPrice')()])
+
+    const fees = gasPrice.times(21000).times('1000000000')
+    const amountToSend = balance.minus(fees)
+
+    const sendOptions = {
+      to: address,
+      value: amountToSend,
+      data: null,
+      fee: gasPrice
+    }
+
+    return this.sendTransaction(sendOptions)
+  }
+
+  async updateTransactionFee(tx, newGasPrice) {
+    const transaction =
+      typeof tx === 'string' ? await this.getMethod('getTransactionByHash')(tx) : tx
+
+    const txOptions = {
+      from: transaction._raw.from,
+      to: transaction._raw.to,
+      value: new BigNumber(transaction._raw.value),
+      gasPrice: new BigNumber(newGasPrice),
+      data: transaction._raw.input,
+      nonce: hexToNumber(transaction._raw.nonce)
+    }
+
+    const txData = await buildTransaction(txOptions)
+    const gas = await this.getMethod('estimateGas')(txData)
+    txData.gas = numberToHex(gas)
+
+    const serializedTx = await this.signTransaction(txData)
+    const newTxHash = await this.getMethod('sendRawTransaction')(serializedTx)
+
+    const txWithHash = {
+      ...txData,
+      input: txData.data,
+      hash: newTxHash
+    }
+
+    return normalizeTransactionObject(txWithHash)
+  }
+
+  async isWalletAvailable() {
+    return true
+  }
+
+  async getConnectedNetwork() {
+    return this._network
   }
 
   async getProxyAddresses() {
@@ -45,15 +177,6 @@ export class RushJsWalletProvider extends EthereumJsWalletProvider {
       derivationPath: this._derivationPath
     })
     return [ address ]
-  }
-
-  async signMessage(message) {
-    // TODO 合约钱包的的签名需要调用特定的合约方法来实现
-    return super.signMessage(message)
-    // const hdKey = await this.hdKey()
-    // const msgHash = hashPersonalMessage(Buffer.from(message))
-    // const { v, r, s } = ecsign(msgHash, hdKey.privateKey)
-    // return remove0x(toRpcSig(v, r, s))
   }
 
   getProxyAddress() {

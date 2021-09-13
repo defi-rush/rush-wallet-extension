@@ -10,7 +10,7 @@
         <!-- <li id="testnet_network" @click="switchNetwork('testnet')">Testnet</li> -->
       </ul>
     </div>
-    <HeadMenu />
+    <!-- <HeadMenu /> -->
   </div>
 </template>
 

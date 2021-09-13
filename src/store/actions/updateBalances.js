@@ -13,15 +13,17 @@ export const updateBalances = async ({ state, commit, getters }, { network, wall
   await Bluebird.map(accounts, async account => {
     const { assets, type } = account
     await Bluebird.map(assets, async asset => {
-      let addresses = await client(
+      const _client = await client(
         {
           network,
           walletId,
           asset,
           accountId: account.id
         }
-      ).wallet.getUsedAddresses()
+      )
 
+      const getProxyAddresses = _client.getMethod('getProxyAddresses').bind(_client)
+      let addresses = await getProxyAddresses()
       const balance = addresses.length === 0
         ? 0
         : (await client(

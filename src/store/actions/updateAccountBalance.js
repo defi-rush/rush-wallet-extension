@@ -16,7 +16,8 @@ export const updateAccountBalance = async ({ state, commit, getters }, { network
           accountId
         }
       )
-      let addresses = await _client.wallet.getUsedAddresses()
+      const getProxyAddresses = _client.getMethod('getProxyAddresses').bind(_client)
+      let addresses = await getProxyAddresses()
       const balance = addresses.length === 0
         ? 0
         : (await _client.chain.getBalance(

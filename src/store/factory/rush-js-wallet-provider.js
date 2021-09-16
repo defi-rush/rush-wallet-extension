@@ -205,7 +205,7 @@ export class RushJsWalletProvider extends WalletProvider {
   }
 
   async buildProxyTransactionOptions(options) {
-    const { to, value, data } = options
+    const { to, value = '0', data } = options
     const addresses = await this.getAddresses()
     const from = ensure0x(addresses[0].address)
     const operation = '0'
@@ -240,23 +240,19 @@ export class RushJsWalletProvider extends WalletProvider {
 
   async sendTransaction(options) {
     const { to, value, data } = options
-    const newTransaction = await this.buildProxyTransactionOptions({ to, value, data })
-
-    return await this._execSendTransaction(newTransaction)
-  }
-
-  async _execSendTransaction(options) {
-    const from = options.from
+    const newOptions = await this.buildProxyTransactionOptions({ to, value, data })
+    // below is original sendTransaction codes
+    const from = newOptions.from
     const [nonce, gasPrice] = await Promise.all([
       this.getMethod('getTransactionCount')(remove0x(from), 'pending'),
-      options.fee ? Promise.resolve(new BigNumber(options.fee)) : this.getMethod('getGasPrice')()
+      newOptions.fee ? Promise.resolve(new BigNumber(newOptions.fee)) : this.getMethod('getGasPrice')()
     ])
 
     const txOptions = {
       from,
-      to: options.to ? addressToString(options.to) : (options.to),
-      value: options.value,
-      data: options.data,
+      to: newOptions.to ? addressToString(newOptions.to) : (newOptions.to),
+      value: newOptions.value,
+      data: newOptions.data,
       gasPrice,
       nonce
     }

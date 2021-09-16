@@ -2,6 +2,7 @@ import { ethers } from 'ethers'
 import { WalletProvider } from '@/liquality/wallet-provider'
 import { EthereumNetwork } from '@/liquality/ethereum-networks'
 import {
+  ensure0x,
   remove0x,
   buildTransaction,
   numberToHex,
@@ -20,6 +21,8 @@ import { Network, Address, SendOptions, ethereum, Transaction, BigNumber } from 
 import { hashPersonalMessage, ecsign, toRpcSig, privateToAddress, privateToPublic } from 'ethereumjs-util'
 
 import { addressToString } from '@/liquality/utils'
+
+const GAS_LIMIT_MULTIPLIER = 1.5
 
 const proxyABI = [
   'event ExecutionFailure(bytes32 txHash, uint256 payment)',
@@ -201,10 +204,10 @@ export class RushJsWalletProvider extends WalletProvider {
     return signatures
   }
 
-  async sendTransaction(options) {
+  async buildProxyTransactionOptions(options) {
     const { to, value, data } = options
-    const addresses = await this.getMethod('getAddresses')()
-    const from = addresses[0].address
+    const addresses = await this.getAddresses()
+    const from = ensure0x(addresses[0].address)
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
     const baseGas = '0'
@@ -213,7 +216,7 @@ export class RushJsWalletProvider extends WalletProvider {
     const refundReceiver = '0x0000000000000000000000000000000000000000'
     const signatures = await this._signPreValidated() // ethers.utils.arrayify('0x')
 
-    const txData = [
+    const proxyTxData = [
       to,
       ethers.BigNumber.from(value.toString()),  // TODO 原本的 value 是一个很奇怪的BigNumber，会出错，所以这里包一下
       data,
@@ -226,12 +229,18 @@ export class RushJsWalletProvider extends WalletProvider {
       signatures
     ]
 
-    const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
+    const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', proxyTxData)
     const newTransaction = {
       from,
       to: this.getProxyAddress(),
       data: toProxyData
     }
+    return newTransaction
+  }
+
+  async sendTransaction(options) {
+    const { to, value, data } = options
+    const newTransaction = await this.buildProxyTransactionOptions({ to, value, data })
 
     return await this._execSendTransaction(newTransaction)
   }
@@ -266,5 +275,15 @@ export class RushJsWalletProvider extends WalletProvider {
       hash: txHash
     }
     return normalizeTransactionObject(txWithHash)
+  }
+
+  async estimateGas(transaction) {
+    const { to, value, data } = transaction
+    const newTransaction = await this.buildProxyTransactionOptions({ to, value, data })
+    const rpcFunc = this.getMethod('rpc')
+    const result = await rpcFunc('eth_estimateGas', newTransaction)
+    const gas = hexToNumber(result)
+    if (gas === 21000) return gas
+    return Math.ceil(gas * GAS_LIMIT_MULTIPLIER)
   }
 }

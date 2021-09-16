@@ -14,24 +14,11 @@ import { InvalidDestinationAddressError, TxNotFoundError, BlockNotFoundError } f
 import { padHexStart } from '@/liquality/crypto'
 
 const GAS_LIMIT_MULTIPLIER = 1.5
-
-const proxyABI = [
-  'event ExecutionFailure(bytes32 txHash, uint256 payment)',
-  'event ExecutionSuccess(bytes32 txHash, uint256 payment)',
-  'function payETH(address to, uint256 amount)',
-  'function execTransaction(address to, uint256 value, bytes data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, bytes signatures) payable returns (bool success)',
-  'function requiredTxGas(address to, uint256 value, bytes calldata data, uint8 operation) external returns (uint256)',
-  'function encodeTransactionData(address to, uint256 value, bytes calldata data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, uint256 _nonce) view returns (bytes memory)',
-]
-
-const rushWalletInterface = new ethers.utils.Interface(proxyABI)
-
 export class RushRpcProvider extends JsonRpcProvider {
 
   constructor(options) {
     super(options.uri, options.username, options.password)
     this._usedAddressCache = {}
-    this._proxyAddress = options.proxyAddress
   }
 
   async rpc(method, ...params) {
@@ -210,58 +197,8 @@ export class RushRpcProvider extends JsonRpcProvider {
       .reduce((acc, balance) => acc.plus(balance), new BigNumber(0))
   }
 
-  async _signPreValidated() {
-    /**
-     * Pre-Validated Signatures: signature type == 1
-     * {32-bytes hash validator}{32-bytes ignored}{1-byte signature type}
-     * 最简单的签名:
-     * 1. msg.sender 是 owner
-     * 2. 交易 dataHash 已经被其他 owner 存到 approvedHashes, 任何人都可以发起交易
-     */
-    // const addresses = await this.getAddresses()
-    let address = (await this.client.getMethod('getAddresses')())[0]
-    console.log(address)
-    if (typeof address === 'object' && address.address) address = address.address
-    const signatures = '0x' + [
-      '000000000000000000000000' + address.slice(2),
-      '0000000000000000000000000000000000000000000000000000000000000000',
-      '01'
-    ].join('');
-    return signatures
-  }
-
   async estimateGas(transaction) {
-    // TODO 这里要覆盖一下 transaction 里的 to 和 data
-    const { from, to, value = '0', data } = transaction
-    const operation = '0'
-    const safeTxGas = ethers.BigNumber.from('0')
-    const baseGas = '0'
-    const gasPrice = '0'
-    const gasToken = '0x0000000000000000000000000000000000000000'
-    const refundReceiver = '0x0000000000000000000000000000000000000000'
-    const signatures = await this._signPreValidated()
-
-    const txData = [
-      to,
-      ethers.BigNumber.from(value.toString()),  // TODO 原本的 value 是一个很奇怪的BigNumber，会出错，所以这里包一下
-      data,
-      operation,
-      safeTxGas,
-      baseGas,
-      gasPrice,
-      gasToken,
-      refundReceiver,
-      signatures
-    ]
-
-    const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
-    const newTransaction = {
-      from: from,
-      to: this.getProxyAddress(),
-      data: toProxyData
-    }
-
-    const result = await this.rpc('eth_estimateGas', newTransaction)
+    const result = await this.rpc('eth_estimateGas', transaction)
     const gas = hexToNumber(result)
     if (gas === 21000) return gas
     return Math.ceil(gas * GAS_LIMIT_MULTIPLIER)
@@ -303,9 +240,5 @@ export class RushRpcProvider extends JsonRpcProvider {
       await sleep(500) // Give node a chance to mine
       await this.stopMiner()
     }
-  }
-
-  getProxyAddress() {
-    return this._proxyAddress
   }
 }

@@ -23,7 +23,6 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
   const isTestnet = network === 'testnet'
   const ethereumNetwork = ChainNetworks.rush[network]
   const infuraApi = 'http://localhost:8545'
-  const scraperApi = isTestnet ? 'https://liquality.io/eth-ropsten-api' : 'https://liquality.io/eth-mainnet-api'
   const feeProvider = isTestnet ? new EthereumRpcFeeProvider() : new EthereumGasNowFeeProvider()
 
   const ethClient = new Client()
@@ -34,17 +33,11 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
 
   ethClient.addProvider(rushRpcProvider)
 
-  const rskLegacyCoinType = ethereumNetwork.name === 'rsk_mainnet' ? '137' : '37310'
-  const { rskLegacyDerivation, wallets, activeWalletId } = store.state
+  const { wallets, activeWalletId } = store.state
   const wallet = wallets.find(wallet => wallet.id === activeWalletId)
   let coinType = ethereumNetwork.coinType
 
-  if (ethereumNetwork.name === 'rsk_mainnet' || ethereumNetwork.name === 'rsk_testnet') {
-    coinType = rskLegacyDerivation ? rskLegacyCoinType : ethereumNetwork.coinType
-  }
-
   const derivationPath = `m/44'/${coinType}'/${indexPath}'/0/0`
-
   ethClient.addProvider(new RushJsWalletProvider(
     { network: ethereumNetwork, mnemonic, derivationPath, proxyAddress, wallet}
   ))
@@ -53,10 +46,8 @@ export function createRuchClient (asset, network, mnemonic, walletType, indexPat
     const contractAddress = cryptoassets[asset].contractAddress
     ethClient.addProvider(new EthereumErc20Provider(contractAddress))
     ethClient.addProvider(new EthereumErc20SwapProvider())
-    if (scraperApi) ethClient.addProvider(new EthereumErc20ScraperSwapFindProvider(scraperApi))
   } else {
     ethClient.addProvider(new EthereumSwapProvider())
-    if (scraperApi) ethClient.addProvider(new EthereumScraperSwapFindProvider(scraperApi))
   }
   ethClient.addProvider(feeProvider)
 

@@ -202,7 +202,9 @@ export class RushJsWalletProvider extends WalletProvider {
   }
 
   async sendTransaction(options) {
-    const { from, to, value, data } = options
+    const { to, value, data } = options
+    const addresses = await this.getMethod('getAddresses')()
+    const from = addresses[0].address
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
     const baseGas = '0'
@@ -235,8 +237,7 @@ export class RushJsWalletProvider extends WalletProvider {
   }
 
   async _execSendTransaction(options) {
-    const addresses = await this.getAddresses()
-    const from = addresses[0].address
+    const from = options.from
     const [nonce, gasPrice] = await Promise.all([
       this.getMethod('getTransactionCount')(remove0x(from), 'pending'),
       options.fee ? Promise.resolve(new BigNumber(options.fee)) : this.getMethod('getGasPrice')()

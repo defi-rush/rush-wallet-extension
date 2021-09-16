@@ -210,6 +210,26 @@ export class RushRpcProvider extends JsonRpcProvider {
       .reduce((acc, balance) => acc.plus(balance), new BigNumber(0))
   }
 
+  async _signPreValidated() {
+    /**
+     * Pre-Validated Signatures: signature type == 1
+     * {32-bytes hash validator}{32-bytes ignored}{1-byte signature type}
+     * 最简单的签名:
+     * 1. msg.sender 是 owner
+     * 2. 交易 dataHash 已经被其他 owner 存到 approvedHashes, 任何人都可以发起交易
+     */
+    // const addresses = await this.getAddresses()
+    let address = (await this.client.getMethod('getAddresses')())[0]
+    console.log(address)
+    if (typeof address === 'object' && address.address) address = address.address
+    const signatures = '0x' + [
+      '000000000000000000000000' + address.slice(2),
+      '0000000000000000000000000000000000000000000000000000000000000000',
+      '01'
+    ].join('');
+    return signatures
+  }
+
   async estimateGas(transaction) {
     // TODO 这里要覆盖一下 transaction 里的 to 和 data
     const { to, value = '0', data } = transaction
@@ -219,7 +239,7 @@ export class RushRpcProvider extends JsonRpcProvider {
     const gasPrice = '0'
     const gasToken = '0x0000000000000000000000000000000000000000'
     const refundReceiver = '0x0000000000000000000000000000000000000000'
-    const signatures = ethers.utils.arrayify('0x')
+    const signatures = await this._signPreValidated()
 
     const txData = [
       to,

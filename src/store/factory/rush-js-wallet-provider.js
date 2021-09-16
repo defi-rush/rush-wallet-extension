@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { WalletProvider } from '@/liquality/wallet-provider'
 import { EthereumNetwork } from '@/liquality/ethereum-networks'
-
 import {
   remove0x,
   buildTransaction,
@@ -195,7 +194,7 @@ export class RushJsWalletProvider extends WalletProvider {
     let address = addresses[0]
     if (typeof address === 'object' && address.address) address = address.address
     const signatures = '0x' + [
-      '000000000000000000000000' + address.slice(2),
+      '000000000000000000000000' + remove0x(address),
       '0000000000000000000000000000000000000000000000000000000000000000',
       '01'
     ].join('')
@@ -203,7 +202,7 @@ export class RushJsWalletProvider extends WalletProvider {
   }
 
   async sendTransaction(options) {
-    const { to, value, data } = options
+    const { from, to, value, data } = options
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
     const baseGas = '0'
@@ -226,15 +225,13 @@ export class RushJsWalletProvider extends WalletProvider {
     ]
 
     const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
-    const toProxyOptions = {
+    const newTransaction = {
+      from,
       to: this.getProxyAddress(),
       data: toProxyData
     }
 
-    return await this._execSendTransaction({
-      ...options,
-      ...toProxyOptions,
-    })
+    return await this._execSendTransaction(newTransaction)
   }
 
   async _execSendTransaction(options) {
@@ -255,6 +252,7 @@ export class RushJsWalletProvider extends WalletProvider {
     }
 
     const txData = buildTransaction(txOptions)
+
     const gas = await this.getMethod('estimateGas')(txData)
     txData.gas = numberToHex(+gas)
 

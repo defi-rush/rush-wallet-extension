@@ -232,7 +232,7 @@ export class RushRpcProvider extends JsonRpcProvider {
 
   async estimateGas(transaction) {
     // TODO 这里要覆盖一下 transaction 里的 to 和 data
-    const { to, value = '0', data } = transaction
+    const { from, to, value = '0', data } = transaction
     const operation = '0'
     const safeTxGas = ethers.BigNumber.from('0')
     const baseGas = '0'
@@ -256,6 +256,7 @@ export class RushRpcProvider extends JsonRpcProvider {
 
     const toProxyData = rushWalletInterface.encodeFunctionData('execTransaction', txData)
     const newTransaction = {
+      from: from,
       to: this.getProxyAddress(),
       data: toProxyData
     }

@@ -18,12 +18,12 @@ import cryptoassets from '@/utils/cryptoassets'
 import { ChainNetworks } from '@/store/utils'
 import store from '../../store'
 import { RushRpcProvider } from './rush-rpc-provider'
+import { CHAIN_ID_RPC_MAPPING } from '@/constants/chains'
 
-export function createRuchClient (asset, network, mnemonic, walletType, indexPath, proxyAddress) {
-  const isTestnet = network === 'testnet'
-  const ethereumNetwork = ChainNetworks.rush[network]
-  const infuraApi = 'http://localhost:8545'
-  const feeProvider = isTestnet ? new EthereumRpcFeeProvider() : new EthereumGasNowFeeProvider()
+export function createRuchClient ({asset, mnemonic, indexPath, proxyAddress, chainId = 1}) {
+  const ethereumNetwork = ChainNetworks.rush['mainnet']
+  const infuraApi = CHAIN_ID_RPC_MAPPING[chainId]
+  const feeProvider = new EthereumGasNowFeeProvider()
 
   const ethClient = new Client()
   const rushRpcProvider = new RushRpcProvider({

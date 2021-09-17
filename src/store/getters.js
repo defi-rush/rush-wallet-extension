@@ -52,7 +52,8 @@ export default {
       }
 
       const { mnemonic, proxyAddress } = state.wallets.find(w => w.id === walletId)
-      const client = createClient(asset, network, mnemonic, accountType, accountIndex, proxyAddress)
+      const { chainId = 1 } = getters.activeProxyAddress || {}
+      const client = createClient(asset, network, mnemonic, accountType, accountIndex, proxyAddress, chainId)
       clientCache[cacheKey] = client
 
       return client

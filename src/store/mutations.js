@@ -20,7 +20,10 @@ export default {
     state.encryptedWallets = encryptedWallets
     state.keySalt = keySalt
     // state.wallets = [wallet]
-    state.wallets.push(wallet)
+    state.wallets = [
+      ...state.wallets,
+      wallet
+    ]
     if (!state.accounts[wallet.id]) {
       Vue.set(state.accounts, wallet.id, {
         mainnet: [],

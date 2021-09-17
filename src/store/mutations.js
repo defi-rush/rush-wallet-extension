@@ -19,7 +19,8 @@ export default {
   CREATE_WALLET (state, { keySalt, encryptedWallets, wallet, rskLegacyDerivation }) {
     state.encryptedWallets = encryptedWallets
     state.keySalt = keySalt
-    state.wallets = [wallet]
+    // state.wallets = [wallet]
+    state.wallets.push(wallet)
     if (!state.accounts[wallet.id]) {
       Vue.set(state.accounts, wallet.id, {
         mainnet: [],
@@ -28,6 +29,28 @@ export default {
     }
     state.rskLegacyDerivation = rskLegacyDerivation
   },
+
+  // <proxy address mutations?>
+  ADD_PROXY_ADDRESS (state, { proxyAddress, chainId }) {
+    if (!state.proxyAddresses.find(item => (item.proxyAddress === proxyAddress && item.chainId === chainId))) {
+      state.proxyAddresses.push({
+        proxyAddress, chainId
+      })
+    } else {
+      console.log('ADD_PROXY_ADDRESS rejected: existing proxy wallet with same proxyAddress and chainId')
+    }
+  },
+  RESET_PROXY_ADDRESSES (state) {
+    state.proxyAddresses = []
+  },
+  SET_ACTIVE_PROXY_ADDRESS_INDEX (state, value) {
+    state.activeProxyAddressIndex = value
+  },
+  RESET_ACTIVE_PROXY_ADDRESS_INDEX (state, value) {
+    state.activeProxyAddressIndex = -1
+  },
+  // </proxy address mutations?>
+
   ACCEPT_TNC (state) {
     state.termsAcceptedAt = Date.now()
   },
@@ -268,4 +291,7 @@ export default {
   CLEAR_PENDING_PROXY_ADDRESS (state) {
     state.pendingProxyAddress = ''
   },
+  UPDATE_PENDING_CHAIN_ID (state, value) {
+    state.pendingChainId = value
+  }
 }

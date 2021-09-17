@@ -13,7 +13,10 @@ export default {
   unlockedAt: null,
   // </do not keep these in localStorage>
 
+  pendingChainId: null,     // 用于在创建wallet的中途记录 chainId
   pendingProxyAddress: '',  // 用于在创建wallet的中途记录 proxyAddress
+  proxyAddresses: [],
+  activeProxyAddressIndex: -1,
 
   brokerReady: true,
 

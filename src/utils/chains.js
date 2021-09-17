@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { assets as originalAssets, chains } from '@/liquality/cryptoassets'
+import { assets as originalAssets, chains as originalChains } from '@/liquality/cryptoassets'
 import { chain_rpc_mapping, chain_id_mapping } from '@/constants/chains'
 
 const assets = {}
@@ -11,10 +11,19 @@ for (const key in originalAssets) {
   }
 }
 
+const chains = {}
+_.forEach(['ethereum', 'bsc', 'polygon'], chainName => {
+  chains[chainName] = {
+    ...originalChains[chainName],
+    rpc: chain_rpc_mapping[chainName],
+    chainId: chain_id_mapping[chainName]
+  }
+})
+
 chains['rush'] = {
   ...chains['ethereum'],
   name: 'rush',
-  code: 'ETH',  // TODO 这个有啥用，貌似是symbol
+  code: 'ETH',
   nativeAsset: 'ETH',
   fees: {
     unit: 'gwei'
@@ -22,15 +31,4 @@ chains['rush'] = {
   safeConfirmations: 3
 }
 
-const availableChains =  _.chain(chains)
-                          .pick(['ethereum', 'bsc', 'polygon', 'rush'])
-                          .map((obj, chainName) => {
-                            return {
-                              ...obj,
-                              rpc: chain_rpc_mapping[chainName],
-                              chainId: chain_id_mapping[chainName]
-                            }
-                          })
-                          .value()
-
-export { assets, availableChains as chains }
+export { assets, chains }

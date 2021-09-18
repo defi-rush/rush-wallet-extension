@@ -423,6 +423,9 @@ textarea {
     &:hover {
       background: #f0f7f9;
     }
+    &.active {
+      color: red;
+    }
   }
 }
 

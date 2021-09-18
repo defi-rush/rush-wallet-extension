@@ -6,7 +6,10 @@
       <ChevronUpIcon v-if="showDropdown" />
       <ChevronDownIcon v-else />
       <ul class="menu_list" id="list_of_proxy_address" v-if="showDropdown" v-click-away="hideDropdown">
-        <li v-for="(item, index) in proxyAddresses" :key="index" @click="switchProxyAddress(index)">{{ formatProxyAddress(item) }}</li>
+        <li
+          v-for="(item, index) in proxyAddresses" :key="index"
+          :class="{ active: index === activeProxyAddressIndex }"
+          @click="switchProxyAddress(index)">{{ formatProxyAddress(item) }}</li>
       </ul>
     </div>
     <!-- <HeadMenu /> -->
@@ -73,7 +76,6 @@ export default {
     async switchProxyAddress(index) {
       await this.changeActiveProxyAddressIndex({ index })
       this.showDropdown = false
-
     }
   }
 }

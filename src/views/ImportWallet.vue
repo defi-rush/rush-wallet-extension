@@ -7,11 +7,11 @@
     <template v-if="currStep === 1">
       <div class="import-wallet_top" id="import-wallet_top">
         <h2>Input Proxy Address</h2>
-        <p>Enter Rush Wallet proxy address.</p>
+        <p>Enter Rush Wallet proxy address and select chain for it.</p>
       </div>
       <div class="import-wallet_bottom">
         <form class="form import-wallet_address" autocomplete="off">
-          <div>
+          <div class="form-item">
             <input
               type="text"
               class="form-control form-control-sm"
@@ -20,6 +20,15 @@
               required
               v-model="proxyAddress"
               @input="updatePendingProxyAddress"/>
+          </div>
+          <div class="form-item">
+            <div class="select-chain">
+              <div
+                v-for="opt in chainOptions" :key="opt.name"
+                class="select-option" :class="{ active: opt.chainId === chainId }"
+                @click.stop="chainId = opt.chainId"
+              >{{ opt.name }}</div>
+            </div>
           </div>
         </form>
       </div>
@@ -39,21 +48,21 @@
       <div class="import-wallet_bottom">
         <div class="btn-group" id="word_button_group">
           <button
-                      :class="{ active: numWords === 12 }"
-                      class="btn btn-option"
-                      id="twelve_words_option"
-                      @click="setMnemonicLength(12)"
-                    >
-                      12 words
-                    </button>
+            :class="{ active: numWords === 12 }"
+            class="btn btn-option"
+            id="twelve_words_option"
+            @click="setMnemonicLength(12)"
+          >
+            12 words
+          </button>
             <button
-                      :class="{ active: numWords === 24 }"
-                      class="btn btn-option"
-                      id="twenty_four_words_option"
-                      @click="setMnemonicLength(24)"
-                    >
-                      24 words
-                    </button>
+              :class="{ active: numWords === 24 }"
+              class="btn btn-option"
+              id="twenty_four_words_option"
+              @click="setMnemonicLength(24)"
+            >
+              24 words
+            </button>
         </div>
         <form class="form import-wallet_seed" autocomplete="off">
           <div v-for="(e, n) in numWords" :key="n"><input type="text" class="form-control form-control-sm" id="import_wallet_word" v-model="wordList[n]" autocomplete="off" required /></div>
@@ -74,26 +83,35 @@
 import _ from 'lodash'
 import { mapState } from 'vuex'
 import LogoWallet from '@/assets/icons/rush/logo-white.svg'
+import { chains } from '@/utils/chains'
 
 export default {
   components: {
     LogoWallet
   },
   data: function () {
+    const chainOptions = _.map(chains, item => {
+      const { name, chainId } = item
+      return {
+        name, chainId
+      }
+    })
+
     return {
       currStep: 1, //  1: proxyAddress, 2: passphrase
       wordList: Array(12).fill(''),
       numWords: 12,
-      proxyAddress: ''
+      proxyAddress: '',
+      chainId: 1,
+      chainOptions,
     }
   },
   mounted() {
     if (this.pendingProxyAddress) {
       this.proxyAddress = this.pendingProxyAddress
+      this.chainId = this.pendingChainId
       this.currStep = 2
     }
-  },
-  updated: function () {
   },
   watch: {
     wordList: function (newList, oldList) {
@@ -106,7 +124,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['wallets', 'activeWalletId', 'pendingProxyAddress']),
+    ...mapState(['wallets', 'activeWalletId', 'pendingProxyAddress', 'pendingChainId']),
     wallet: function () {
       return this.wallets.find(wallet => wallet.id === this.activeWalletId)
     },
@@ -121,10 +139,16 @@ export default {
     updatePendingProxyAddress: _.debounce(function () {
       this.$store.commit('UPDATE_PENDING_PROXY_ADDRESS', this.proxyAddress)
     }, 200),
+    updatePendingChainId (e) {
+      console.log('@@@ updatePendingChainId', e, this.chainId)
+      this.$store.commit('UPDATE_PENDING_CHAIN_ID', this.chainId)
+    },
     next () {
       const passphrase = this.wordList.join(' ')
       const proxyAddress = this.proxyAddress
-      this.$router.push({ name: 'OnboardingSetup', params: { passphrase, proxyAddress } })
+      const chainId = this.chainId
+      console.log('------ chainId', chainId)
+      this.$router.push({ name: 'OnboardingSetup', params: { passphrase, proxyAddress, chainId } })
     },
     setMnemonicLength (words) {
       this.numWords = words
@@ -222,21 +246,23 @@ export default {
     margin-bottom: 10px;
     text-align: left;
     counter-reset: wordIndex;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    div {
+    div.form-item {
       display: block;
       flex: 1;
-      padding-bottom: 6px;
+      padding-bottom: 15px;
       text-align: left;
 
       &::before {
         display: block;
         font-size: $font-size-tiny;
-        content: 'Proxy Address';
+        content: '';
         font-weight: 700;
+      }
+      &:nth-child(1):before {
+        content: 'Proxy Address';
+      }
+      &:nth-child(2):before {
+        content: 'Select Chain';
       }
 
       input {
@@ -244,6 +270,22 @@ export default {
         font-weight: 700;
       }
     }
+  }
+}
+.select-chain {
+  padding-top: 10px;
+}
+.select-option {
+  width: 100%;
+  cursor: pointer;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 8px 15px;
+  text-align: left;
+  border: 1px solid #eeeeee;
+  margin-bottom: 10px;
+  &.active {
+    border-color: blue;
   }
 }
 </style>

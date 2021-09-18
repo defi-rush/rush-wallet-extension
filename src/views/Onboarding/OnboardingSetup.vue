@@ -29,17 +29,27 @@ import Congratulations from './SeedPhrase/Congratulations.vue'
 import OnboardingPassword from './OnboardingPassword'
 import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 
+import { chains } from '@/utils/chains'
+
 export default {
   data () {
+    const chainOptions = _.map(chains, item => {
+      const { name, chainId } = item
+      return {
+        name, chainId
+      }
+    })
     return {
       mnemonic: null,
       currentStep: 'beginning',
-      password: null
+      password: null,
+      chainOptions,
     }
   },
   props: [
     'passphrase',
-    'proxyAddress'
+    'proxyAddress',
+    'chainId'
   ],
   components: {
     ConfirmSeed,
@@ -59,7 +69,7 @@ export default {
     },
     logo () {
       return LogoWallet
-    }
+    },
   },
   methods: {
     ...mapActions(['setupWallet', 'createWallet', 'unlockWallet']),
@@ -72,12 +82,15 @@ export default {
     },
 
     async confirmMnemonic () {
-
       await this.verifyOwnerOfProxyAddress(this.mnemonic, this.proxyAddress)
-
       this.currentStep = 'congrats'
       await this.setupWallet({ key: this.password })
-      await this.createWallet({ key: this.password, mnemonic: this.mnemonic, proxyAddress: this.proxyAddress }) // mnemonic prop can be null to generate new seed
+      await this.createWallet({
+        key: this.password,
+        mnemonic: this.mnemonic,
+        proxyAddress: this.proxyAddress,
+        chainId: this.chainId
+      }) // mnemonic prop can be null to generate new seed
       this.$store.commit('CLEAR_PENDING_PROXY_ADDRESS')
       setTimeout(() => {
         this.unlockWallet({ key: this.password })

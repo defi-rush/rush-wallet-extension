@@ -1,13 +1,12 @@
 <template>
   <div class="head">
     <router-link to="/wallet" class="head_logo" id="wallet_header_logo"><LogoIcon /></router-link>
-    <div id="head_network" class="head_network" @click.stop="showNetworks = !showNetworks">
-      {{ activeNetwork }}
-      <ChevronUpIcon v-if="showNetworks" />
+    <div id="head_select-chains" class="head_select-chains" @click.stop="showDropdown = !showDropdown">
+      {{ formatProxyAddress(activeProxyAddress) }}
+      <ChevronUpIcon v-if="showDropdown" />
       <ChevronDownIcon v-else />
-      <ul class="menu_list" id="list_of_networks" v-if="showNetworks" v-click-away="hideNetworks">
-        <li id="mainnet_network" @click="switchNetwork('mainnet')">Mainnet</li>
-        <!-- <li id="testnet_network" @click="switchNetwork('testnet')">Testnet</li> -->
+      <ul class="menu_list" id="list_of_proxy_address" v-if="showDropdown" v-click-away="hideDropdown">
+        <li v-for="(item, index) in proxyAddresses" :key="index" @click="switchProxyAddress(index)">{{ formatProxyAddress(item) }}</li>
       </ul>
     </div>
     <!-- <HeadMenu /> -->
@@ -15,13 +14,29 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import _ from 'lodash'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 import clickAway from '@/directives/clickAway'
 import LogoIcon from '@/assets/icons/rush/logo.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import HeadMenu from '@/components/HeadMenu'
+import { CHAIN_ID_MAPPING } from '@/constants/chains'
+
+const getChainNameById = (chainId) => {
+  let res
+  _.forEach(CHAIN_ID_MAPPING, (cid, chainName) => {
+    if (chainId === cid) {
+      res = chainName
+    }
+  })
+  return res
+}
+
+const getMaskedAddress = (address = '') => {
+  return address.substr(0, 6) + '...' + address.substr(address.length - 4)
+}
 
 export default {
   directives: {
@@ -35,23 +50,30 @@ export default {
   },
   data () {
     return {
-      showNetworks: false
+      showDropdown: false,
     }
   },
   computed: {
-    ...mapState(['wallets', 'activeWalletId', 'activeNetwork']),
+    ...mapState(['wallets', 'activeWalletId', 'activeNetwork', 'activeProxyAddressIndex', 'proxyAddresses']),
+    ...mapGetters(['activeProxyAddress']),
     wallet: function () {
       return this.wallets.find(wallet => wallet.id === this.activeWalletId)
     }
   },
   methods: {
-    ...mapActions(['changeActiveNetwork']),
-    hideNetworks () {
-      this.showNetworks = false
+    ...mapActions(['changeActiveProxyAddressIndex']),
+    formatProxyAddress(item) {
+      const { chainId, proxyAddress } = item || {}
+      if (!chainId || !proxyAddress) return 'Unknown Proxy address'
+      return `${getMaskedAddress(proxyAddress)} - ${getChainNameById(chainId)}`
     },
-    async switchNetwork (network) {
-      await this.changeActiveNetwork({ network })
-      this.showNetworks = false
+    hideDropdown () {
+      this.showDropdown = false
+    },
+    async switchProxyAddress(index) {
+      await this.changeActiveProxyAddressIndex({ index })
+      this.showDropdown = false
+
     }
   }
 }
@@ -71,7 +93,7 @@ export default {
     height: 12px;
   }
 
-  &_network {
+  &_select-chains {
     height: 36px;
     display: flex;
     font-size: $font-size-tiny;

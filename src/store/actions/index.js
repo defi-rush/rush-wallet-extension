@@ -1,4 +1,5 @@
 export * from './changeActiveWalletId'
+export * from './changeActiveProxyAddressIndex'
 export * from './changeActiveNetwork'
 export * from './changePassword'
 export * from './checkPendingActions'

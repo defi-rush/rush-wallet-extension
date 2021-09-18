@@ -205,7 +205,14 @@ export default {
   },
   activeChain (state, getters) {
     if (!getters.activeProxyAddress) return null
-    const { chainName, chainId } = getters.activeProxyAddress
+    const { chainId } = getters.activeProxyAddress
     return find(chains, { chainId })
+  },
+  activeWallet (state, getters) {
+    if (!getters.activeProxyAddress) return null
+    const { proxyAddress } = getters.activeProxyAddress
+    if (!proxyAddress) return null
+    const wallet = find(state.wallets, { proxyAddress })
+    return wallet
   }
 }

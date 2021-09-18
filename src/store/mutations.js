@@ -19,11 +19,7 @@ export default {
   CREATE_WALLET (state, { keySalt, encryptedWallets, wallet, rskLegacyDerivation }) {
     state.encryptedWallets = encryptedWallets
     state.keySalt = keySalt
-    // state.wallets = [wallet]
-    state.wallets = [
-      ...state.wallets,
-      wallet
-    ]
+    state.wallets.push(wallet)
     if (!state.accounts[wallet.id]) {
       Vue.set(state.accounts, wallet.id, {
         mainnet: [],
@@ -72,7 +68,7 @@ export default {
   LOCK_WALLET (state) {
     state.key = null
     state.unlockedAt = null
-    state.wallets = null
+    // state.wallets = []
   },
   UNLOCK_WALLET (state, { key, wallets, unlockedAt }) {
     state.key = key

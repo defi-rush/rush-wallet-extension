@@ -292,5 +292,11 @@ export default {
   },
   UPDATE_PENDING_CHAIN_ID (state, value) {
     state.pendingChainId = value
-  }
+  },
+  START_UPDATING_BALANCE(state) {
+    state.loadingBalances = true
+  },
+  COMPLETE_UPDATING_BALANCE(state) {
+    state.loadingBalances = false
+  } 
 }

@@ -18,5 +18,5 @@ export const changeActiveProxyAddressIndex = async ({ state, commit, dispatch, g
   }
 
   dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
-  dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
+  dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId, useCache: false })
 }

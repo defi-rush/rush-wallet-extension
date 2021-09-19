@@ -32,11 +32,11 @@ export default {
   },
   data () {
     return {
-      loadingBalances: false
+      // loadingBalances: false
     }
   },
   async created () {
-    this.loadingBalances = true
+    // this.loadingBalances = true
     try {
       await this.updateBalances(
         {
@@ -48,11 +48,11 @@ export default {
       // TODO: manage error
       console.error(error)
     } finally {
-      this.loadingBalances = false
+      // this.loadingBalances = false
     }
   },
   computed: {
-    ...mapState(['activeNetwork', 'activeWalletId', 'history']),
+    ...mapState(['activeNetwork', 'activeWalletId', 'history', 'loadingBalances']),
     ...mapGetters(['accountItem']),
   },
   methods: {

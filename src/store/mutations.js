@@ -30,10 +30,10 @@ export default {
   },
 
   // <proxy address mutations?>
-  ADD_PROXY_ADDRESS (state, { proxyAddress, chainId }) {
+  ADD_PROXY_ADDRESS (state, { proxyAddress, chainId, walletId }) {
     if (!state.proxyAddresses.find(item => (item.proxyAddress === proxyAddress && item.chainId === chainId))) {
       state.proxyAddresses.push({
-        proxyAddress, chainId
+        proxyAddress, chainId, walletId
       })
     } else {
       console.log('ADD_PROXY_ADDRESS rejected: existing proxy wallet with same proxyAddress and chainId')

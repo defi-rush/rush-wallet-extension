@@ -210,9 +210,9 @@ export default {
   },
   activeWallet (state, getters) {
     if (!getters.activeProxyAddress) return null
-    const { proxyAddress } = getters.activeProxyAddress
-    if (!proxyAddress) return null
-    const wallet = find(state.wallets, { proxyAddress })
+    const { walletId } = getters.activeProxyAddress
+    if (!walletId) return null
+    const wallet = find(state.wallets, { id: walletId })
     return wallet
   }
 }

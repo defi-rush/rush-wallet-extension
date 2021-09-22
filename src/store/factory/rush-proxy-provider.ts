@@ -142,7 +142,6 @@ export class RushProxyProvider extends Provider {
     const gas = await this.getMethod('estimateGas')(txData)
     txData.gas = numberToHex(+gas)
 
-    console.log('@@@ sendProxyTransaction.txData', txData)
     const serializedTx = await this.getMethod('signTransaction')(txData)
     const txHash = await this.getMethod('sendRawTransaction')(serializedTx)
 
@@ -160,7 +159,6 @@ export class RushProxyProvider extends Provider {
     const rpcFunc = this.getMethod('rpc')
     const result = await rpcFunc('eth_estimateGas', newTransaction)
     const gas = hexToNumber(result)
-    console.log('@@@ estimateProxyGas.gas', gas)
     if (gas === 21000) return gas
     return Math.ceil(gas * GAS_LIMIT_MULTIPLIER)
   }

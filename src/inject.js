@@ -88,7 +88,7 @@ async function handleRequest (req) {
     const value = req.params[0].value
     const data = req.params[0].data
     const gas = req.params[0].gas
-    const result = await eth.getMethod('chain.sendTransaction')({ to, value, data, gas })
+    const result = await eth.getMethod('chain.sendProxyTransaction')({ to, value, data, gas })
     return '0x' + result.hash
   }
   if(req.method === 'eth_accounts') {
@@ -98,7 +98,7 @@ async function handleRequest (req) {
     const to = req.params[0].to
     const value = req.params[0].value
     const data = req.params[0].data
-    return await eth.getMethod('chain.estimateGas')({ to, value, data })
+    return await eth.getMethod('chain.estimateProxyGas')({ to, value, data })
   }
   const method = eth.getMethod('jsonrpc')
   return method(req.method, ...req.params)

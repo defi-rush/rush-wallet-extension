@@ -6,7 +6,8 @@ import { createPopup } from '../../broker/utils'
 const CONFIRM_REQUIRED = [
   /^chain.buildTransaction$/,
   /^chain.buildBatchTransaction$/,
-  /^chain.sendTransaction$/,
+  // /^chain.sendTransaction$/,  // TODO 使用 rush-proxy-provider 的 sendProxyTransaction 来替换
+  /^chain.sendProxyTransaction$/, 
   /^chain.sendBatchTransaction$/,
   /^chain.updateTransactionFee$/,
   /^wallet.signMessage*$/,
@@ -14,7 +15,8 @@ const CONFIRM_REQUIRED = [
 
 const ALLOWED = [
   ...CONFIRM_REQUIRED,
-  /^chain.estimateGas$/,
+  // /^chain.estimateGas$/,  // TODO 使用 rush-proxy-provider 的 estimateProxyGas 来替换
+  /^chain.estimateProxyGas$/,
   /^wallet.getConnectedNetwork$/,
   /^wallet.getAddresses*$/,
   /^wallet.getProxyAddresses*$/,

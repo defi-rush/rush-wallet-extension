@@ -11,8 +11,8 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
   const account = accountItem(accountId)
   let call
   const result = await new Promise((resolve, reject) => {
-    if (request.method === 'chain.sendTransaction') {
-      call = dispatch('sendTransaction', {
+    if (request.method === 'chain.sendProxyTransaction') {
+      call = dispatch('sendProxyTransaction', {
         network,
         walletId,
         asset,
@@ -36,9 +36,9 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
       let methodFunc
       if (request.method.includes('.')) {
         const [namespace, fnName] = request.method.split('.')
-        if (fnName === 'estimateGas') {
-          // 单独处理 chain.estimateGas 请求，转发到 client 里的 provider 方法
-          methodFunc = client.getMethod('estimateGas').bind(client)
+        if (fnName === 'estimateProxyGas') {
+          // 单独处理 chain.estimateProxyGas 请求，转发到 client 里的 provider 方法
+          methodFunc = client.getMethod('estimateProxyGas').bind(client)
         } else if (fnName === 'getProxyAddresses') {
           // 这里直接调用 RushJsWalletProvider.getProxyAddresses 返回 proxyAddress
           methodFunc = client.getMethod('getProxyAddresses').bind(client)

@@ -10,6 +10,7 @@ export default {
   // <do not keep these in localStorage>
   key: null,
   wallets: [],
+  ownerKeys: [],
   unlockedAt: null,
   // </do not keep these in localStorage>
 

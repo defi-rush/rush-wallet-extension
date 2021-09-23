@@ -298,5 +298,16 @@ export default {
   },
   COMPLETE_UPDATING_BALANCE(state) {
     state.loadingBalances = false
-  } 
+  },
+  // owner keys
+  ADD_OWNER_KEY(state, { ownerKey }) {
+    state.ownerKeys.push(ownerKey)
+  },
+  REMOVE_OWNER_KEY(state, { publicKey }) {
+    const index = state.ownerKeys.findIndex(w => w.publicKey === publicKey)
+    if (index >= 0) {
+      // 存在，则删除
+      state.ownerKeys.splice(index, 1)
+    }
+  }
 }

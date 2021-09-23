@@ -31,6 +31,10 @@ import Warning from '@/views/Onboarding/SeedPhrase/Warning.vue'
 import LoginPhrase from '@/views/Onboarding/SeedPhrase/LoginPhrase.vue'
 import PhraseReveal from '@/views/Onboarding/SeedPhrase/PhraseReveal'
 
+import OwnerKeys from '@/views/OwnerKeys/OwnerKeys'
+import AddOwnerKey from '@/views/OwnerKeys/AddOwnerKey'
+
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -91,6 +95,16 @@ const routes = [
         redirect: 'assets'
       }
     ]
+  },
+  {
+    path: '/owner-keys',
+    name: 'OwnerKeys',
+    component: OwnerKeys
+  },
+  {
+    path: '/owner-keys/add',
+    name: 'AddOwnerKey',
+    component: AddOwnerKey
   },
   // Details
   {

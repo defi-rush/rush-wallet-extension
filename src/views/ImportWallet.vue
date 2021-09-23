@@ -147,7 +147,6 @@ export default {
       const passphrase = this.wordList.join(' ')
       const proxyAddress = this.proxyAddress
       const chainId = this.chainId
-      console.log('------ chainId', chainId)
       this.$router.push({ name: 'OnboardingSetup', params: { passphrase, proxyAddress, chainId } })
     },
     setMnemonicLength (words) {

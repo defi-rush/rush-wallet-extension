@@ -51,8 +51,9 @@ export default {
         if (cachedClient) return cachedClient
       }
 
-      const { mnemonic, proxyAddress } = state.wallets.find(w => w.id === walletId)
-      const { chainId = 1 } = getters.activeProxyAddress || {}
+      // TODO 这里的 proxyAddress 应该从 getters.activeProxyAddress 里拿
+      const { mnemonic } = state.wallets.find(w => w.id === walletId)
+      const { chainId = 1, proxyAddress } = getters.activeProxyAddress || {}
       const client = createClient(asset, network, mnemonic, accountType, accountIndex, proxyAddress, chainId)
       clientCache[cacheKey] = client
 

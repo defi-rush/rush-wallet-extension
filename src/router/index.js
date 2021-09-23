@@ -31,6 +31,7 @@ import Warning from '@/views/Onboarding/SeedPhrase/Warning.vue'
 import LoginPhrase from '@/views/Onboarding/SeedPhrase/LoginPhrase.vue'
 import PhraseReveal from '@/views/Onboarding/SeedPhrase/PhraseReveal'
 
+import AddProxyAddress from '@/views/ProxyAddress/Add'
 import OwnerKeys from '@/views/OwnerKeys/OwnerKeys'
 import AddOwnerKey from '@/views/OwnerKeys/AddOwnerKey'
 
@@ -96,6 +97,13 @@ const routes = [
       }
     ]
   },
+  // proxy addresses
+  {
+    path: '/proxy-address/add',
+    component: AddProxyAddress,
+    name: 'AddProxyAddress'
+  },
+  // owner keys
   {
     path: '/owner-keys',
     name: 'OwnerKeys',

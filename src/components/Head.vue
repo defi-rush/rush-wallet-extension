@@ -9,7 +9,11 @@
         <li
           v-for="(item, index) in proxyAddresses" :key="index"
           :class="{ active: index === activeProxyAddressIndex }"
-          @click="switchProxyAddress(index)">{{ formatProxyAddress(item) }}</li>
+          @click="switchProxyAddress(index)"
+        >{{ formatProxyAddress(item) }}</li>
+        <li @click="$router.push('/proxy-address/add')">
+          <CreateIcon class="create-icon" /> Add Proxy Address
+        </li>
       </ul>
     </div>
     <!-- <HeadMenu /> -->
@@ -26,6 +30,7 @@ import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import HeadMenu from '@/components/HeadMenu'
 import { CHAIN_ID_MAPPING } from '@/constants/chains'
+import CreateIcon from '@/assets/icons/create_icon.svg'
 
 const getChainNameById = (chainId) => {
   let res
@@ -49,7 +54,8 @@ export default {
     ChevronUpIcon,
     ChevronDownIcon,
     LogoIcon,
-    HeadMenu
+    HeadMenu,
+    CreateIcon
   },
   data () {
     return {

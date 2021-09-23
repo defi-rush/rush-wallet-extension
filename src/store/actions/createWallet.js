@@ -11,6 +11,7 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
   const { networks, defaultAssets } = buildConfig
   let id = uuidv4()
   let wallet
+  let ownerPublicKey
   const existed = state.wallets.find(w => w.mnemonic === mnemonic && w.proxyAddress === proxyAddress)
   if (existed) {
     id = existed.id
@@ -24,6 +25,7 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
       key
     )
     // TODO to remove rsk sometime
+    ownerPublicKey = await dispatch('addOwnerKey', { mnemonic })
     const rskLegacyDerivation = await shouldApplyRskLegacyDerivation(state.accounts, mnemonic)
     commit('CREATE_WALLET', { keySalt, encryptedWallets, wallet, rskLegacyDerivation })
 
@@ -61,7 +63,7 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
     commit('CHANGE_ACTIVE_WALLETID', { walletId: id })
   }
 
-  commit('ADD_PROXY_ADDRESS', { proxyAddress, chainId, walletId: id })
+  commit('ADD_PROXY_ADDRESS', { proxyAddress, chainId, walletId: id, ownerPublicKey })
   if (+state.activeProxyAddressIndex < 0) {
     // activeProxyAddressIndex 是空的，则 SET_ACTIVE_PROXY_ADDRESS_INDEX
     commit('SET_ACTIVE_PROXY_ADDRESS_INDEX', 0)

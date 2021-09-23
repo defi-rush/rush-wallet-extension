@@ -12,6 +12,6 @@ export const addOwnerKey = async ({ state, commit }, { mnemonic, ownerKeyName = 
     const publicKey = await _wallet.getAddress()
     const ownerKey = { name, mnemonic, publicKey }
     commit('ADD_OWNER_KEY', { ownerKey })
-    return true
+    return publicKey
   }
 }

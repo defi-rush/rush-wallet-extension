@@ -55,6 +55,10 @@
             <label for="name">Proxy Address</label>
             <input type="text" v-model="proxyAddress" class="form-control form-control-sm" id="proxyAddress" placeholder="Input proxy address" autocomplete="off" required>
           </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" v-model="name" class="form-control form-control-sm" id="name" placeholder="Input proxy address name" autocomplete="off" required>
+          </div>
         </fieldset>
       </div>
       <div class="wrapper_bottom">
@@ -102,7 +106,6 @@ export default {
       CHAIN_ID_MAPPING,
       chainId: 1,
       chainOptions,
-      // proxyAddress, chainId, ownerPublicKey
     }
   },
   computed: {
@@ -137,7 +140,8 @@ export default {
       const payload = { 
         chainId: this.chainId,
         proxyAddress: this.proxyAddress,
-        ownerPublicKey: this.ownerKey.publicKey
+        ownerPublicKey: this.ownerKey.publicKey,
+        name: this.name
       }
       this.$store.commit('ADD_PROXY_ADDRESS', payload)
       this.$router.back()

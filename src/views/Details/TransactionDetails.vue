@@ -161,15 +161,13 @@ export default {
     addressLink () {
       return getAddressExplorerLink(
         this.item.toAddress,
-        this.item.from,
-        this.activeNetwork
+        this.item.from
       )
     },
     transactionLink () {
       return getTransactionExplorerLink(
         this.item.txHash,
-        this.item.from,
-        this.activeNetwork
+        this.item.from
       )
     },
     canUpdateFee () {

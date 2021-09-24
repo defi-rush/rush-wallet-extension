@@ -9,64 +9,20 @@ import buildConfig from '../build.config'
 
 const EXPLORERS = {
   ethereum: {
-    testnet: {
-      tx: 'https://ropsten.etherscan.io/tx/0x',
-      address: 'https://ropsten.etherscan.io/address/'
-    },
-    mainnet: {
-      tx: 'https://etherscan.io/tx/0x',
-      address: 'https://etherscan.io/address/'
-    }
-  },
-  localhost: {
-    testnet: {
-      tx: 'https://ropsten.etherscan.io/tx/0x',
-      address: 'https://ropsten.etherscan.io/address/'
-    },
-    mainnet: {
-      tx: 'https://etherscan.io/tx/0x',
-      address: 'https://etherscan.io/address/'
-    }
-  },
-  rush: {
-    testnet: {
-      tx: 'https://ropsten.etherscan.io/tx/0x',
-      address: 'https://ropsten.etherscan.io/address/'
-    },
-    mainnet: {
-      tx: 'https://etherscan.io/tx/0x',
-      address: 'https://etherscan.io/address/'
-    }
-  },
-  rsk: {
-    testnet: {
-      tx: 'https://explorer.testnet.rsk.co/tx/0x',
-      address: 'https://explorer.testnet.rsk.co/address/'
-    },
-    mainnet: {
-      tx: 'https://explorer.rsk.co/tx/0x',
-      address: 'https://explorer.rsk.co/address/'
-    }
+    tx: 'https://etherscan.io/tx/0x',
+    address: 'https://etherscan.io/address/'
   },
   bsc: {
-    testnet: {
-      tx: 'https://testnet.bscscan.com/tx/',
-      address: 'https://testnet.bscscan.com/address/'
-    },
-    mainnet: {
-      tx: 'https://bscscan.com/tx/',
-      address: 'https://bscscan.com/address/'
-    }
+    tx: 'https://bscscan.com/tx/',
+    address: 'https://bscscan.com/address/'
   },
   polygon: {
-    testnet: {
-      tx: 'https://polygonscan.com/tx/0x',
-      address: 'https://polygonscan.com/address/'
-    },
-    mainnet: {
-      tx: 'https://polygonscan.com/tx/0x',
-      address: 'https://polygonscan.com/address/'
-    }
+    tx: 'https://polygonscan.com/tx/0x',
+    address: 'https://polygonscan.com/address/'
+  },
+  localhost: {
+    tx: 'https://etherscan.io/tx/0x',
+    address: 'https://etherscan.io/address/'
   },
 }
 
@@ -106,15 +62,15 @@ export const getAssetColorStyle = asset => {
   return { color: '#000000' }
 }
 
-export const getTransactionExplorerLink = (hash, asset, network) => {
+export const getTransactionExplorerLink = (hash, asset) => {
   const transactionHash = getExplorerTransactionHash(asset, hash)
   const chain = cryptoassets[asset].chain
-  return `${EXPLORERS[chain][network].tx}${transactionHash}`
+  return `${EXPLORERS[chain].tx}${transactionHash}`
 }
 
-export const getAddressExplorerLink = (address, asset, network) => {
+export const getAddressExplorerLink = (address, asset) => {
   const chain = cryptoassets[asset].chain
-  return `${EXPLORERS[chain][network].address}${address}`
+  return `${EXPLORERS[chain].address}${address}`
 }
 
 export const getAssetIcon = (asset, extension = 'svg') => {

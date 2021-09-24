@@ -139,8 +139,7 @@ export default {
       if (this.account) {
         return getAddressExplorerLink(
           this.address,
-          this.asset,
-          this.activeNetwork
+          this.asset
         )
       }
 

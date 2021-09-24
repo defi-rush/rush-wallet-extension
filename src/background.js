@@ -15,6 +15,12 @@ store.subscribe(async ({ type, payload }, state) => {
       store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
       store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
       break
+    
+    case 'SET_ACTIVE_PROXY_ADDRESS_INDEX':
+      // TODO 这里 updateBalances 应该是传入 activeOwnerKey，通过对应的助记词来获取钱包
+      store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
+      store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId, useCache: false })
+      break
 
     case 'UNLOCK_WALLET':
       store.dispatch('trackAnalytics', {

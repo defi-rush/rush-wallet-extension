@@ -10,20 +10,6 @@ import { uniq, find } from 'lodash-es'
 
 const clientCache = {}
 
-const TESTNET_CONTRACT_ADDRESSES = {
-  DAI: '0xad6d458402f60fd3bd25163575031acdce07538d',
-  SOV: '0x6a9A07972D07E58f0daF5122D11e069288A375fB',
-  PWETH: '0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa'
-}
-const TESTNET_ASSETS = ['ETH', 'RBTC', 'DAI', 'BNB', 'SOV', 'NEAR', 'MATIC', 'PWETH', 'ARBETH'].reduce((assets, asset) => {
-  return Object.assign(assets, {
-    [asset]: {
-      ...cryptoassets[asset],
-      contractAddress: TESTNET_CONTRACT_ADDRESSES[asset]
-    }
-  })
-}, {})
-
 export default {
   client (state, getters) {
     return ({
@@ -64,9 +50,7 @@ export default {
   },
   cryptoassets (state) {
     const { activeNetwork, activeWalletId } = state
-
-    const baseAssets = state.activeNetwork === 'testnet' ? TESTNET_ASSETS : cryptoassets
-
+    const baseAssets = cryptoassets
     const customAssets = state.customTokens[activeNetwork]?.[activeWalletId]?.reduce((assets, token) => {
       return Object.assign(assets, {
         [token.symbol]: {

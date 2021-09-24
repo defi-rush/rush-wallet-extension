@@ -28,7 +28,6 @@ export default {
   client (state, getters) {
     return ({
       network,
-      walletId,
       asset,
       accountId,
       useCache = true,
@@ -38,12 +37,11 @@ export default {
       const account = accountId ? getters.accountItem(accountId) : null
       const accountType = account?.type || walletType
       const accountIndex = account?.index || index
+      const { chainId = 1, proxyAddress, ownerPublicKey } = getters.activeProxyAddress || {}
       const cacheKey = [
         asset,
-        network,
-        walletId,
-        accountType,
-        accountIndex
+        proxyAddress,
+        chainId
       ].join('-')
 
       if (useCache) {
@@ -51,9 +49,10 @@ export default {
         if (cachedClient) return cachedClient
       }
 
-      // TODO 这里的 proxyAddress 应该从 getters.activeProxyAddress 里拿
-      const { mnemonic } = state.wallets.find(w => w.id === walletId)
-      const { chainId = 1, proxyAddress } = getters.activeProxyAddress || {}
+      // TODO 这里的 mnemonic 应该从 getters.activeProxyAddress 对应的 ownerKey 里拿
+      // const { mnemonic } = state.wallets.find(w => w.id === walletId)
+      const ownerKey = state.ownerKeys.find(i => i.publicKey === ownerPublicKey)
+      const { mnemonic } = ownerKey
       const client = createClient(asset, network, mnemonic, accountType, accountIndex, proxyAddress, chainId)
       clientCache[cacheKey] = client
 
@@ -208,6 +207,11 @@ export default {
     if (!getters.activeProxyAddress) return null
     const { chainId } = getters.activeProxyAddress
     return find(chains, { chainId })
+  },
+  activeOwnerKey(state, getters) {
+    if (!getters.activeProxyAddress) return null
+    const { ownerPublicKey } = getters.activeProxyAddress
+    return find(state.ownerKeys, { publicKey: ownerPublicKey })
   },
   activeWallet (state, getters) {
     if (!getters.activeProxyAddress) return null

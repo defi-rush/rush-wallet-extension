@@ -15,7 +15,7 @@ const getAssetFiatBalance = ({ fiatRates, asset, balance }) => {
  * 
  * 检测当前 chainId， 更新 assets 以及 assetBalances
  */
-export const updateProxyAddressAccountBalances = async ({ state, getters, commit }, { useCache = true } = {}) => {
+export const updateProxyAddressAccountBalances = async ({ state, getters, commit }, { useCache = false } = {}) => {
   const { client } = getters
   commit('START_UPDATING_BALANCE')
 

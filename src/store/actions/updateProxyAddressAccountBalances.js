@@ -1,15 +1,5 @@
 import _ from 'lodash'
 import Bluebird from 'bluebird'
-import { unitToCurrency } from '@/liquality/cryptoassets'
-import { cryptoToFiat } from '@/utils/coinFormatter'
-
-const getAssetFiatBalance = ({ fiatRates, asset, balance }) => {
-  if (fiatRates && fiatRates[asset.symbol] && balance) {
-    const amount = unitToCurrency(asset, balance)
-    return cryptoToFiat(amount, fiatRates[asset])
-  }
-  return null
-}
 
 /**
  * 

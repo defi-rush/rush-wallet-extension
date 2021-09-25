@@ -18,8 +18,11 @@ store.subscribe(async ({ type, payload }, state) => {
     
     case 'SET_ACTIVE_PROXY_ADDRESS_INDEX':
       // TODO 这里 updateBalances 应该是传入 activeOwnerKey，通过对应的助记词来获取钱包
-      store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
-      store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId, useCache: false })
+      // store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
+      // store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId, useCache: false })
+
+      store.dispatch('updateProxyAddressAccountAssets')
+      store.dispatch('updateProxyAddressAccountBalances', { useCache: false })
       break
 
     case 'UNLOCK_WALLET':
@@ -32,16 +35,16 @@ store.subscribe(async ({ type, payload }, state) => {
         }
       })
       store.dispatch('checkAnalyticsOptIn')
-      store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
-      store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
+      // store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
+      // store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
       store.dispatch('updateFiatRates', { assets: store.getters.allNetworkAssets })
+
+      store.dispatch('updateProxyAddressAccountAssets')
+      store.dispatch('updateProxyAddressAccountBalances', { useCache: false })
       store.dispatch('checkPendingActions', { walletId: state.activeWalletId })
 
-      store.commit('app/SET_USB_BRIDGE_TRANSPORT_CREATED', { created: false })
-      store.commit('app/SET_USB_BRIDGE_CREATED', { created: false })
-
       asyncLoop(
-        () => store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId }),
+        () => store.dispatch('updateProxyAddressAccountBalances', { useCache: false }),
         () => random(400000, 600000)
       )
 

@@ -8,11 +8,10 @@ import { shouldApplyRskLegacyDerivation } from '../utils'
 
 export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic, proxyAddress, chainId }) => {
   // 这里多加一步，输入助记词之后需要再加入 proxyAddress，然后和wallet 一起encrypt
-  const { defaultAssets } = buildConfig
   let id = uuidv4()
   let wallet
   let ownerPublicKey
-  const existed = state.wallets.find(w => w.mnemonic === mnemonic && w.proxyAddress === proxyAddress)
+  const existed = state.wallets.find(w => w.mnemonic === mnemonic)
   if (existed) {
     id = existed.id
   } else {
@@ -29,7 +28,6 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
     const rskLegacyDerivation = await shouldApplyRskLegacyDerivation(state.accounts, mnemonic)
     commit('CREATE_WALLET', { keySalt, encryptedWallets, wallet, rskLegacyDerivation })
     // commit('CREATE_ACCOUNT', { network, walletId: id, account: _account })
-    dispatch('updateProxyAddressAccount')
   }
   if (!state.activeWalletId) {
     // 如果是初始化钱包的时候，activeWalletId 是空的，则 CHANGE_ACTIVE_WALLETID
@@ -41,6 +39,8 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
     // activeProxyAddressIndex 是空的，则 SET_ACTIVE_PROXY_ADDRESS_INDEX
     dispatch('changeActiveProxyAddressIndex', { index: 0 })
   }
+  dispatch('updateProxyAddressAccountAssets')
+  dispatch('updateProxyAddressAccountBalances', { useCache: false })
 
   return wallet
 }

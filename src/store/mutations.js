@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import _ from 'lodash'
 
 const ensureNetworkWalletTree = (ref, network, walletId, initialValue) => {
   if (!ref[network]) Vue.set(ref, network, {})
@@ -47,6 +48,15 @@ export default {
   },
   RESET_ACTIVE_PROXY_ADDRESS_INDEX (state, value) {
     state.activeProxyAddressIndex = -1
+  },
+  RESET_PROXY_ADDRESS_ACCOUNT_TOTAL_FIAT_BALANCE(state) {
+    state.proxyAddressAccount.totalFiatBalance = 0
+  },
+  UPDATE_PROXY_ADDRESS_ACCOUNT_ASSETS(state, assets) {
+    state.proxyAddressAccount.assets = [...assets]
+  },
+  UPDATE_PROXY_ADDRESS_ACCOUNT_ASSET_BALANCE(state, { symbol, balance }) {
+    Vue.set(state.proxyAddressAccount.balances, symbol, balance)
   },
   // </proxy address mutations?>
 

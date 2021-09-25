@@ -203,5 +203,22 @@ export default {
     if (!walletId) return null
     const wallet = find(state.wallets, { id: walletId })
     return wallet
+  },
+  proxyAddressAccountFiatBalances(state) {
+    const result = {
+      fiatBalances: {},
+      totalFiatBalance: BN(0)
+    }
+    const { assets, balances } = state.proxyAddressAccount || {}
+    const { fiatRates } = state
+    _.forEach(balances, (balance, symbol) => {
+      const asset = _.find(assets, { symbol })
+      if (asset && fiatRates && fiatRates[asset.symbol] && balance) {
+        const fiatBalance = cryptoToFiat(unitToCurrency(asset, balance), fiatRates[asset.symbol])
+        result.fiatBalances[symbol] = fiatBalance
+        result.totalFiatBalance = result.totalFiatBalance.plus(fiatBalance || 0)
+      }
+    })
+    return result
   }
 }

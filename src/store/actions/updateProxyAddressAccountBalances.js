@@ -40,7 +40,6 @@ export const updateProxyAddressAccountBalances = async ({ state, getters, commit
           useCache
         }
       ).chain.getBalance(addresses)).toNumber()
-    console.log('@@@ updateProxyAddressAccountBalances', asset.symbol, { asset, balance })
     commit('UPDATE_PROXY_ADDRESS_ACCOUNT_ASSET_BALANCE', { symbol: asset.symbol, balance })
 
   }, { concurrency: 1 })

@@ -140,7 +140,6 @@ export default {
       this.$store.commit('UPDATE_PENDING_PROXY_ADDRESS', this.proxyAddress)
     }, 200),
     updatePendingChainId (e) {
-      console.log('@@@ updatePendingChainId', e, this.chainId)
       this.$store.commit('UPDATE_PENDING_CHAIN_ID', this.chainId)
     },
     next () {

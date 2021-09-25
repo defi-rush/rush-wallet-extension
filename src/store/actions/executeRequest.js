@@ -13,7 +13,7 @@ export const executeRequest = async ({ getters, dispatch, state, rootState }, { 
   const result = await new Promise((resolve, reject) => {
     if (request.method === 'chain.sendProxyTransaction') {
       call = dispatch('sendProxyTransaction', {
-        network,
+        network: 'mainnet',
         walletId,
         asset,
         to: request.args[0].to,

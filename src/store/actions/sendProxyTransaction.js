@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { createHistoryNotification } from '../../broker/notification'
 import BN from 'bignumber.js'
 
-export const sendProxyTransaction = async ({ dispatch, commit, getters }, { network, walletId, accountId, asset, to, amount, data, fee, gas }) => {
+export const sendProxyTransaction = async ({ dispatch, commit, getters }, { network, walletId, accountId, asset, to, amount = 0, data, fee, gas }) => {
   const client = getters.client(
     {
       network,

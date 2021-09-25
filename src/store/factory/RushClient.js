@@ -9,8 +9,6 @@ import { EthereumErc20Provider } from '@/liquality/ethereum-erc20-provider'
 import { EthereumErc20SwapProvider } from '@/liquality/ethereum-erc20-swap-provider'
 import { RushProxyProvider } from './rush-proxy-provider'
 
-import { isERC20 } from '@/utils/asset'
-import cryptoassets from '@/utils/cryptoassets'
 import { ChainNetworks } from '@/store/utils'
 import { CHAIN_ID_RPC_MAPPING } from '@/constants/chains'
 
@@ -28,9 +26,9 @@ export function createRuchClient ({asset, mnemonic, indexPath, proxyAddress, cha
   ethClient.addProvider(new EthereumJsWalletProvider(
     { network: ethereumNetwork, mnemonic, derivationPath }
   ))
-
-  if (isERC20(asset)) {
-    const contractAddress = cryptoassets[asset].contractAddress
+  
+  if (asset.type === 'erc20') {
+    const contractAddress = asset.contractAddress
     ethClient.addProvider(new EthereumErc20Provider(contractAddress))
     ethClient.addProvider(new EthereumErc20SwapProvider())
   } else {

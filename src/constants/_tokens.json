@@ -11,6 +11,7 @@
     "symbol": "eth",
     "name": "Ethereum",
     "logoURI": "https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880",
+    "decimals": 18,
     "contract": {
       "56": {
         "address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",

@@ -3,9 +3,7 @@
      <span v-if="loading">Loading ...</span>
       <div v-else>
         <div>
-            <span class="wallet-stats_total">
-                {{ total }}
-            </span>
+            <span class="wallet-stats_total">{{ totalFiatBalance }}</span>
             <span>USD</span>
         </div>
         <span id="total_assets">
@@ -47,7 +45,10 @@ export default {
   },
   props: ['loading'],
   computed: {
-    ...mapGetters(['totalFiatBalance', 'accountsData']),
+    ...mapGetters(['totalFiatBalance', 'accountsData', 'proxyAddressAccountFiatBalances']),
+    totalFiatBalance() {
+      return formatFiat(this.proxyAddressAccountFiatBalances.totalFiatBalance)
+    },
     total () {
       return formatFiat(this.totalFiatBalance)
     }

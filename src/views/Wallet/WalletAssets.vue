@@ -1,18 +1,21 @@
 <template>
-  <WalletAccounts @item-selected="onAccountSelected"
-                  :accounts="accountsData"/>
+  <!-- <WalletAccounts @item-selected="onAccountSelected"
+                  :accounts="accountsData"/> -->
+  <ProxyAddressAccount @item-selected="onAccountSelected" :fiatBalances="proxyAddressAccountFiatBalances"/>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import WalletAccounts from '@/components/WalletAccounts'
+import ProxyAddressAccount from '@/components/ProxyAddressAccount'
 
 export default {
   computed: {
-    ...mapGetters(['accountsData'])
+    ...mapGetters(['proxyAddressAccountFiatBalances'])
   },
   components: {
-    WalletAccounts
+    // WalletAccounts,
+    ProxyAddressAccount
   },
   methods: {
     onAccountSelected ({ account, asset }) {

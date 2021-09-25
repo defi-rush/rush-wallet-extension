@@ -38,12 +38,7 @@ export default {
   async created () {
     // this.loadingBalances = true
     try {
-      await this.updateBalances(
-        {
-          network: this.activeNetwork,
-          walletId: this.activeWalletId
-        }
-      )
+      await this.updateProxyAddressAccountBalances()
     } catch (error) {
       // TODO: manage error
       console.error(error)
@@ -56,7 +51,7 @@ export default {
     ...mapGetters(['accountItem']),
   },
   methods: {
-    ...mapActions(['updateBalances'])
+    ...mapActions(['updateBalances', 'updateProxyAddressAccountBalances'])
   }
 }
 </script>

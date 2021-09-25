@@ -2,19 +2,14 @@
 export default {
   defaultAssets: [
     'ETH',
+    'WETH',
     'DAI',
     'USDC',
     'USDT',
     'WBTC',
     'UNI',
-    'RBTC',
-    'SOV',
     'BNB',
-    'NEAR',
-    'MATIC',
-    'PWETH',
-    'ARBETH',
-    'FISH'
+    'MATIC'
   ],
   infuraApiKey: 'da99ebc8c0964bb8bb757b6f8cc40f1f',
   exploraApis: {

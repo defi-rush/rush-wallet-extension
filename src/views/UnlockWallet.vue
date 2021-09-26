@@ -6,7 +6,6 @@
     <div class="wallet-title-container">
       <WalletTitle class="wallet-title"/>
       <p class="wallet-desc">
-        The atomic swap enabled multi-crypto wallet
       </p>
     </div>
     <form class="form d-flex flex-column h-100" autocomplete="off" @submit.prevent="unlock">

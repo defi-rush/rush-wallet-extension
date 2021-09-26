@@ -5,8 +5,6 @@
     </div>
     <div class="splash_tagline">
       <WalletText class="splash_tagline_wallet" />
-      <p>The atomic swap enabled <br/>
-      multi-crypto wallet</p>
     </div>
     <div class="footer-container">
       <router-link to="/onboarding/import"><p class="text-center" id="import_with_seed_phrase_option">Import with seed phrase</p></router-link>

@@ -144,7 +144,7 @@ export default {
         name: this.name
       }
       this.$store.commit('ADD_PROXY_ADDRESS', payload)
-      this.$router.back()
+      this.$router.push('/wallet')
     }
   }
 }

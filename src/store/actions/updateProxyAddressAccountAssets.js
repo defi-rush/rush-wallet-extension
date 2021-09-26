@@ -4,11 +4,11 @@ import { CHAIN_ID_MAPPING } from '@/constants/chains'
 
 const TOKEN_LIST = require('@/constants/_tokens.json')
 const LOCALHOST_CHAIN_IDS = [31337, 71337]
-const ETHERUM_TEST_CHAIN_IDS = [3]
+const ETHERUM_TEST_CHAIN_IDS = [4]
 
 const nativeTokenMapping = {
   eth: 1,
-  rinkeby: 3,
+  rinkeby: 4,
   bnb: 56,
   matic: 137
 }

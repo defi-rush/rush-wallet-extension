@@ -141,9 +141,16 @@ window[injectionName] = {
   },
   on: (method, callback) => {
     if (method === 'chainChanged') {
-      window.addEventListener('rushChainChanged', ({ detail }) => {
+      window.addEventListener('rushActiveChainIdChanged', ({ detail }) => {
         const result = JSON.parse(detail)
-        callback('0x' + result.chainIds['${chain}'].toString(16))
+        callback('0x' + result.chainIds[0].toString(16))
+      })
+    }
+
+    if (method === 'accountsChanged') {
+      window.addEventListener('rushActiveProxyAddressAccountChanged', ({ detail }) => {
+        const result = JSON.parse(detail)
+        callback('0x' + result.accounts[0].toString(16))
       })
     }
   },

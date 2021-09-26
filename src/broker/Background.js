@@ -46,19 +46,35 @@ class Background {
 
   subscribeToWalletChanges () {
     this.store.subscribe((mutation, state) => {
-      if (mutation.type === 'CHANGE_ACTIVE_NETWORK') {
-        this.externalConnections.forEach(connection => {
-          connection.postMessage({
-            id: 'rushChainChanged',
-            data: { chainIds: this.getChainIds(state.activeNetwork) }
-          })
-        })
-      }
+      // if (mutation.type === 'CHANGE_ACTIVE_NETWORK') {
+      //   this.externalConnections.forEach(connection => {
+      //     connection.postMessage({
+      //       id: 'rushChainChanged',
+      //       data: { chainIds: this.getChainIds(state.activeNetwork) }
+      //     })
+      //   })
+      // }
       if (mutation.type === 'SET_ETHEREUM_INJECTION_CHAIN') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
             id: 'rushEthereumOverrideChanged',
             data: { chain: state.injectEthereumChain, chainIds: this.getChainIds(state.activeNetwork) }
+          })
+        })
+      }
+      if (mutation.type === 'CHANGE_ACTIVE_CHAIN_ID') {
+        this.externalConnections.forEach(connection => {
+          connection.postMessage({
+            id: 'rushActiveChainIdChanged',
+            data: { chainIds: [ state.activeChainId ] }
+          })
+        })
+      }
+      if (mutation.type === 'CHANGE_ACTIVE_PROXY_ADDRESS_ACCOUNT') {
+        this.externalConnections.forEach(connection => {
+          connection.postMessage({
+            id: 'rushActiveProxyAddressAccountChanged',
+            data: { accounts: [ state.activeProxyAddressAccount ] }
           })
         })
       }

@@ -9,7 +9,7 @@
           id="onboarding_home_text_container">
         <p class="c7" id="h.gjdgxs">
           <span class="c14 c3">
-            THIS IS THE BETA VERSION OF THE LIQUALITY PLATFORM WHICH IS STILL
+            THIS IS THE BETA VERSION OF THE RUSH WALLET WHICH IS STILL
             BEING ACTIVELY DEVELOPED. YOU ACKNOWLEDGE THE INFORMATION AVAILABLE
             IS NOT INTENDED TO BE RELIED ON OR USED IN A PRODUCTION ENVIRONMENT.
             YOU ACKNOWLEDGE AND ACCEPT THAT THE SITE OR SERVICES (A) MAY CONTAIN
@@ -37,54 +37,6 @@
         <p class="c9 text-center">Last revised on: December 6, 2018</p>
         <p class="c7 c10">
           <span class="c2"></span>
-        </p>
-        <p class="c7">
-          <span>Welcome to ConsenSys AG’s</span>
-          <span>Liquality</span>
-          <span>(“</span>
-          <span class="c3">Liquality</span>
-          <span>”, “</span>
-          <span class="c3">Company</span>
-          <span>”, “</span>
-          <span class="c3">we</span>
-          <span>”, “</span>
-          <span class="c3">our</span>
-          <span>”, or “</span>
-          <span class="c3">us</span>
-          <span>
-            ”). Liquality is a client-based platform that would enable users to
-            swap consumer tokens on a peer-to-peer basis without an
-            intermediary. These terms of use (“
-          </span>
-          <span class="c3">Terms</span>
-          <span>”, “</span>
-          <span class="c3">Terms of Use</span>
-          <span>” or the “</span>
-          <span class="c3">Agreement</span>
-          <span>”) govern your use of the website located at</span>
-          <span class="c15">
-            <a class="c16" href="https://liquality.io/">
-              https://liquality.io/
-            </a>
-          </span>
-          <span>&nbsp;(the “</span>
-          <span class="c3">Site</span>
-          <span>
-            ”), platform, and all related tools, applications, data, software,
-            and other services provided by us (the “
-          </span>
-          <span class="c3">Service</span>
-          <span class="c2">
-            ”). Certain features of the Site and Services may be subject to
-            additional guidelines, terms, or rules, which will be posted on the
-            Site in connection with such features. &nbsp;All such additional
-            terms, guidelines, and rules are incorporated by reference into
-            these Terms and constitute a legally binding agreement between you
-            and Company in relation to your use of the Service. Any personal
-            information submitted in connection with your use of the Service is
-            subject to our Privacy Policy, which is hereby incorporated by
-            reference into these Terms.
-          </span>
         </p>
         <p class="c7 c10">
           <span class="c2"></span>
@@ -727,7 +679,7 @@
         </p>
         <p class="c4">
           <span>Subject Line: Copyright Notification:</span>
-          <span>Liquality</span>
+          <span>RUSH WALLET</span>
         </p>
         <ol class="c12 lst-kix_list_1-0" start="12">
           <li class="c4 c13" id="h.35nkun2">
@@ -1108,22 +1060,9 @@
             conditions set forth in these Terms shall be binding upon assignees.
           </span>
         </p>
-        <p class="c0" id="h.3j2qqm3">
-          <span class="c3">
-            13.7&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Contact.
-          </span>
-          <span>
-            We welcome your comments or questions about these Terms. Please
-            contact us at:
-          </span>
-          <a class="" href="mailto:info@liquality.io">
-            info@liquality.io
-          </a>
-          <span class="c2">.</span>
-        </p>
         <div class="analytics-optin">
           <div class="analytics-optin-title">
-            Help us improve Liquality to better serve you
+            Help us improve Rush wallet to better serve you
           </div>
           <div class="analytics-optin-message">
             Share where you click. There is no identifying or personal data shared with us. You can change these permissions at any time in your settings.
@@ -1140,7 +1079,7 @@
                 @click="setAnalyticsOption(true)"
               />
               <label class="custom-control-label" for="optin_anaylitics_accept">
-                Sure, I'll help improve Liquality
+                Sure, I'll help improve Rush Wallet
               </label>
             </div>
             <div class="custom-control custom-radio">

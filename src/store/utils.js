@@ -143,6 +143,15 @@ export const ChainNetworks = {
     testnet: EthereumNetworks.polygon_testnet,
     mainnet: EthereumNetworks.polygon_mainnet
   },
+  rinkeby: {
+    mainnet: {
+      chainId: 4,
+      coinType: "60",
+      isTestnet: false,
+      name: "rinkeby",
+      networkId: 4
+    }
+  },
   localhost: {
     testnet: {
       chainId: 31337,
@@ -156,22 +165,6 @@ export const ChainNetworks = {
       coinType: "60",
       isTestnet: false,
       name: "localhost",
-      networkId: 31337
-    }
-  },
-  rush: {
-    testnet: {
-      chainId: 31337,
-      coinType: "60",
-      isTestnet: true,
-      name: "rush",
-      networkId: 31337
-    },
-    mainnet: {
-      chainId: 31337,
-      coinType: "60",
-      isTestnet: false,
-      name: "rush",
       networkId: 31337
     }
   }

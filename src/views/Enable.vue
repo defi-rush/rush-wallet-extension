@@ -12,10 +12,10 @@
       <p class="text-primary text-center mb-4">Make sure you trust this site</p>
       <div class="main-content">
       <div class="list-items">
-        <NetworkAccounts @item-selected="onAccountSelected"
+        <!-- <NetworkAccounts @item-selected="onAccountSelected"
                          :search="search"
                          :account-id="accountId"
-                         :accounts="accounts"/>
+                         :accounts="accounts"/> -->
       </div>
     </div>
       <div class="wrapper_bottom">
@@ -24,7 +24,7 @@
           <button class="btn btn-primary btn-lg btn-icon"
                   id="connect_request_button"
                   @click="reply(true)"
-                  :disabled="loading || !accountId">
+                  :disabled="loading || !activeProxyAddress">
             <SpinnerIcon class="btn-loading" v-if="loading" />
             <template v-else>Connect</template>
           </button>
@@ -52,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['accountsData']),
+    ...mapGetters(['accountsData', 'activeProxyAddress']),
     accounts () {
       return this.accountsData.filter(a => a.chain === this.chain)
     },

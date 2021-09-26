@@ -7,8 +7,8 @@ const LOCALHOST_CHAIN_IDS = [31337, 71337]
 
 const nativeTokenMapping = {
   eth: 1,
-  bsc: 56,
-  polygon: 137
+  bnb: 56,
+  matic: 137
 }
 /**
  * 

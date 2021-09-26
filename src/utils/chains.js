@@ -20,17 +20,30 @@ _.forEach(['ethereum', 'bsc', 'polygon'], chainName => {
   }
 })
 
-chains['rush'] = {
+chains['localhost'] = {
   ...chains['ethereum'],
-  name: 'rush',
+  name: 'localhost',
   code: 'ETH',
   nativeAsset: 'ETH',
   fees: {
     unit: 'gwei'
   },
   safeConfirmations: 3,
-  rpc: CHAIN_RPC_MAPPING['rush'],
-  chainId: CHAIN_ID_MAPPING['rush']
+  rpc: CHAIN_RPC_MAPPING['localhost'],
+  chainId: CHAIN_ID_MAPPING['localhost']
+}
+
+chains['rinkeby'] = {
+  ...chains['ethereum'],
+  name: 'rinkeby',
+  code: 'ETH',
+  nativeAsset: 'ETH',
+  fees: {
+    unit: 'gwei'
+  },
+  safeConfirmations: 3,
+  rpc: CHAIN_RPC_MAPPING['rinkeby'],
+  chainId: CHAIN_ID_MAPPING['rinkeby']
 }
 
 export { assets, chains }

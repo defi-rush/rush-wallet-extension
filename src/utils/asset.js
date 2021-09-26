@@ -100,12 +100,12 @@ export const tokenDetailProviders = {
       return await fetchTokenDetails(contractAddress, `https://mainnet.infura.io/v3/${buildConfig.infuraApiKey}`)
     }
   },
-  localhost: {
+  rinkeby: {
     async getDetails (contractAddress) {
       return await fetchTokenDetails(contractAddress, `https://mainnet.infura.io/v3/${buildConfig.infuraApiKey}`)
     }
   },
-  rush: {
+  localhost: {
     async getDetails (contractAddress) {
       return await fetchTokenDetails(contractAddress, `https://mainnet.infura.io/v3/${buildConfig.infuraApiKey}`)
     }

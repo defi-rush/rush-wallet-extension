@@ -4,9 +4,11 @@ import { CHAIN_ID_MAPPING } from '@/constants/chains'
 
 const TOKEN_LIST = require('@/constants/_tokens.json')
 const LOCALHOST_CHAIN_IDS = [31337, 71337]
+const ETHERUM_TEST_CHAIN_IDS = [3]
 
 const nativeTokenMapping = {
   eth: 1,
+  rinkeby: 3,
   bnb: 56,
   matic: 137
 }
@@ -17,7 +19,7 @@ const nativeTokenMapping = {
 export const updateProxyAddressAccountAssets = async ({ getters, commit }) => {
   const { activeProxyAddress } = getters
   let chainId = activeProxyAddress.chainId
-  if (!chainId || LOCALHOST_CHAIN_IDS.indexOf(chainId) >= 0) {
+  if (!chainId || LOCALHOST_CHAIN_IDS.indexOf(chainId) >= 0 || ETHERUM_TEST_CHAIN_IDS.indexOf(chainId) >= 0) {
     chainId = 1
   }
   const { defaultAssets } = buildConfig

@@ -127,6 +127,10 @@ export const ChainNetworks = {
     testnet: EthereumNetworks.ropsten,
     mainnet: EthereumNetworks.ethereum_mainnet
   },
+  rinkeby: {
+    testnet: EthereumNetworks.ropsten,
+    mainnet: EthereumNetworks.ropsten
+  },
   rsk: {
     testnet: EthereumNetworks.rsk_testnet,
     mainnet: EthereumNetworks.rsk_mainnet

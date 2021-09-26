@@ -6,6 +6,7 @@ import buildConfig from './build.config'
 import { ChainNetworks } from './store/utils'
 import { isEthereumChain } from '@/liquality/cryptoassets'
 import { chains } from '@/utils/chains'
+import { CHAIN_NATIVE_ASSET_MAPPING } from '@/constants/chains'
 
 ;(new Script()).start()
 
@@ -20,17 +21,18 @@ function injectEthereum (state, chain) {
     networkId: chainId,
     chainId,
   }
+  const nativeAsset = CHAIN_NATIVE_ASSET_MAPPING[chainId || 1]
+
   inject(ethereumProvider({
     chain,
-    asset: chains[chain].nativeAsset,
+    asset: nativeAsset,
     network
   }))
 }
 
 chrome.storage.local.get(['rush-wallet'], (storage) => {
   const state = storage['rush-wallet']
-
-  injectEthereum(state, 'rush')  // 这里前段的全局变量 只有 rush
+  injectEthereum(state, 'rush')
 
   if (state.injectEthereum && state.injectEthereumChain) {
     inject(overrideEthereum(state.injectEthereumChain))

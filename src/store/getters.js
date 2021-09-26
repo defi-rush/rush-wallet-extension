@@ -6,7 +6,7 @@ import { Object } from 'core-js'
 import BN from 'bignumber.js'
 import { cryptoToFiat } from '@/utils/coinFormatter'
 import { Networks } from './utils'
-import { uniq, find } from 'lodash-es'
+import { uniq, find, map } from 'lodash-es'
 
 const clientCache = {}
 
@@ -72,9 +72,10 @@ export default {
     return enabledAssets[activeNetwork][activeWalletId]
   },
   allNetworkAssets (state) {
-    return Networks.reduce((result, network) => {
-      return uniq(result.concat(state.enabledAssets[network][state.activeWalletId]))
-    }, [])
+    // return Networks.reduce((result, network) => {
+    //   return uniq(result.concat(state.enabledAssets[network][state.activeWalletId]))
+    // }, [])
+    return uniq(map(state.proxyAddressAccount.assets, 'symbol'))
   },
   activity (state) {
     const { history, activeNetwork, activeWalletId } = state

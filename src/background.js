@@ -37,9 +37,9 @@ store.subscribe(async ({ type, payload }, state) => {
       store.dispatch('checkAnalyticsOptIn')
       // store.dispatch('initializeAddresses', { network: state.activeNetwork, walletId: state.activeWalletId })
       // store.dispatch('updateBalances', { network: state.activeNetwork, walletId: state.activeWalletId })
-      store.dispatch('updateFiatRates', { assets: store.getters.allNetworkAssets })
 
       store.dispatch('updateProxyAddressAccountAssets')
+      store.dispatch('updateFiatRates', { assets: store.getters.allNetworkAssets })
       store.dispatch('updateProxyAddressAccountBalances', { useCache: false })
       store.dispatch('checkPendingActions', { walletId: state.activeWalletId })
 

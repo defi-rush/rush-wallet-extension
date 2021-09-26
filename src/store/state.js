@@ -18,10 +18,17 @@ export default {
   pendingProxyAddress: '',  // 用于在创建wallet的中途记录 proxyAddress
   proxyAddresses: [],
   activeProxyAddressIndex: -1,
+
+  // <这里仅仅是为了计算是否要计算 chainChanged 和 accountsChanged>
+  activeChainId: null,
+  activeProxyAddressAccount: null,
+  // </这里仅仅是为了计算是否要计算 chainChanged 和 accountsChanged>
+
   proxyAddressAccount: {
     assets: [],
     balances: {}
   },
+
   brokerReady: true,
 
   encryptedWallets: null,

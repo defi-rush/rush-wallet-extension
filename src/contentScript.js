@@ -35,7 +35,10 @@ chrome.storage.local.get(['rush-wallet'], (storage) => {
   injectEthereum(state, 'rush')
 
   if (state.injectEthereum && state.injectEthereumChain) {
-    inject(overrideEthereum(state.injectEthereumChain))
+    // 如果勾选，则inject window.ethereum 并且覆盖
+    injectEthereum(state, 'ethereum')
+    inject(overrideEthereum('ethereum'))
+    // inject(overrideEthereum(state.injectEthereumChain))
   }
 })
 

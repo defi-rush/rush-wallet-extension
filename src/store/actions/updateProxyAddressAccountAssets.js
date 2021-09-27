@@ -4,7 +4,9 @@ import { CHAIN_ID_MAPPING } from '@/constants/chains'
 
 const TOKEN_LIST = require('@/constants/_tokens.json')
 const LOCALHOST_CHAIN_IDS = [31337, 71337]
-const ETHERUM_TEST_CHAIN_IDS = [4]
+const OTHER_CHAIN_MAPPING = {
+  eth: [4]
+}
 
 const nativeTokenMapping = {
   eth: 1,
@@ -19,7 +21,7 @@ const nativeTokenMapping = {
 export const updateProxyAddressAccountAssets = async ({ getters, commit }) => {
   const { activeProxyAddress } = getters
   let chainId = activeProxyAddress.chainId
-  if (!chainId || LOCALHOST_CHAIN_IDS.indexOf(chainId) >= 0 || ETHERUM_TEST_CHAIN_IDS.indexOf(chainId) >= 0) {
+  if (!chainId || LOCALHOST_CHAIN_IDS.indexOf(chainId) >= 0) {
     chainId = 1
   }
   const { defaultAssets } = buildConfig
@@ -29,7 +31,9 @@ export const updateProxyAddressAccountAssets = async ({ getters, commit }) => {
     const token = _.find(TOKEN_LIST, ({ symbol }) => symbol.toUpperCase() === assetSymbol.toUpperCase())
     if (token) {
       let asset
-      if (nativeTokenMapping[token.symbol.toLowerCase()] === chainId) {
+      const isNativeCurrency = nativeTokenMapping[token.symbol.toLowerCase()] === chainId || 
+                               (OTHER_CHAIN_MAPPING[token.symbol.toLowerCase()] || []).indexOf(chainId) >= 0
+      if (isNativeCurrency) {
         // is native token
         asset = {
           ...token,

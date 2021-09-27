@@ -10,21 +10,24 @@
             {{accountsData.length}} Asset{{ accountsData.length === 1 ? '' : 's' }}
         </span>
          <div class="wallet-actions">
-          <router-link to="/assets/send"
+          <!-- <router-link to="/assets/send"
                        class="wallet-actions-item send-action" id="send_action">
             <SendIcon/>
             Send
-          </router-link>
+          </router-link> -->
+          <div class="walet-actions-item" @click="updateBalances">
+            <RefreshIcon/>Refresh
+          </div>
           <!-- <router-link to="/assets/swap.send"
                        class="wallet-actions-item swap-action" id="swap_action">
             <SwapIcon/>
             Swap
           </router-link> -->
-          <router-link to="/assets/receive"
+          <!-- <router-link to="/assets/receive"
                        class="wallet-actions-item receive-action" id="receive_action">
             <ReceiveIcon/>
             Receive
-          </router-link>
+          </router-link> -->
         </div>
       </div>
     </div>
@@ -35,13 +38,15 @@ import { mapGetters } from 'vuex'
 import SendIcon from '@/assets/icons/send_o.svg'
 import ReceiveIcon from '@/assets/icons/receive_o.svg'
 import SwapIcon from '@/assets/icons/swap_o.svg'
+import RefreshIcon from '@/assets/icons/refresh.svg'
 import { formatFiat } from '@/utils/coinFormatter'
 
 export default {
   components: {
     SendIcon,
     ReceiveIcon,
-    SwapIcon
+    SwapIcon,
+    RefreshIcon
   },
   props: ['loading'],
   computed: {
@@ -51,6 +56,11 @@ export default {
     },
     total () {
       return formatFiat(this.totalFiatBalance)
+    }
+  },
+  methods: {
+    updateBalances() {
+      this.$store.dispatch('updateProxyAddressAccountBalances')
     }
   }
 }

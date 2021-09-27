@@ -1,15 +1,15 @@
 import _ from 'lodash'
-import { assets as originalAssets, chains as originalChains } from '@/liquality/cryptoassets'
+import { assets, chains as originalChains } from '@/liquality/cryptoassets'
 import { CHAIN_RPC_MAPPING, CHAIN_ID_MAPPING } from '@/constants/chains'
 
-const assets = {}
-for (const key in originalAssets) {
-  const assetData = originalAssets[key]
-  assets[key] = { ...assetData }
-  if (assetData.chain === 'ethereum') {
-    assets[key].chain = 'rush'
-  }
-}
+// const assets = {}
+// for (const key in originalAssets) {
+//   const assetData = originalAssets[key]
+//   assets[key] = { ...assetData }
+//   if (assetData.chain === 'ethereum') {
+//     assets[key].chain = 'rush'
+//   }
+// }
 
 const chains = {}
 _.forEach(['ethereum', 'bsc', 'polygon'], chainName => {

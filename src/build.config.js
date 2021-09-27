@@ -22,5 +22,5 @@ export default {
   },
   discordUrl: 'https://discord.gg/Xsqw7PW8wk',
   networks: ['mainnet'],
-  chains: ['rush']
+  chains: ['ethereum']
 }

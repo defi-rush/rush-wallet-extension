@@ -180,6 +180,7 @@ function proxyEthereum(chain) {
   }
   const injectionName = window.providerManager.getInjectionName(chain)
   window.ethereum = new Proxy(window[injectionName], overrideHandler)
+  window.isMetaMask = true
 }
 
 function overrideEthereum(chain) {

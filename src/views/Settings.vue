@@ -6,7 +6,7 @@
     <div class="settings">
       <div class="setting-item" id="settings_item_default_wallet">
         <div class="setting-item_title flex-fill mb-2">Default Web3 Wallet
-          <span class="setting-item_sub">Set Liquality as the default dapp wallet. Other wallets cannot interact with dapps while this is enabled.</span>
+          <span class="setting-item_sub">Set Rush Wallet as the default dapp wallet. Other wallets cannot interact with dapps while this is enabled.</span>
         </div>
         <div class="setting-item_control" id="default_web3_wallet_toggle_button">
           <toggle-button  :css-colors="true" :value="injectEthereum" @change="e => toggleInjectEthereum(e.value)" />
@@ -22,7 +22,7 @@
                          @chain-changed="updateInjectEthereumChain" />
         </div>
       </div>
-      <div class="setting-item" id="settings_item_default_wallet_analytics">
+      <!-- <div class="setting-item" id="settings_item_default_wallet_analytics">
         <div class="setting-item_title flex-fill mb-2">Analytics
           <span class="setting-item_sub">Share where you click. No identifying data is collected.</span>
         </div>
@@ -40,7 +40,7 @@
       </div>
       <div class="settings-footer">
          <div class="text-muted" id="settings_app_version">Version {{ appVersion }}</div>
-        </div>
+        </div> -->
     </div>
   </div>
 </template>
@@ -70,7 +70,8 @@ export default {
       'analyticsEnabled'
     ]),
     ethereumChains () {
-      return buildConfig.chains.filter(isEthereumChain)
+      // return buildConfig.chains.filter(isEthereumChain)
+      return ['ethereum']
     },
     appVersion () {
       return version

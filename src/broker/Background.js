@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { ChainNetworks } from '../store/utils'
 import buildConfig from '../build.config'
 import { BG_PREFIX, handleConnection, removeConnectId, getRootURL } from './utils'
@@ -58,7 +59,7 @@ class Background {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
             id: 'rushEthereumOverrideChanged',
-            data: { chain: state.injectEthereumChain, chainIds: this.getChainIds(state.activeNetwork) }
+            data: { chain: state.injectEthereumChain, chainIds: [ state.activeChainId ] }
           })
         })
       }
@@ -100,6 +101,7 @@ class Background {
   }
 
   onExternalConnection (connection) {
+    console.log('~~~ onExternalConnection', connection)
     this.externalConnections.push(connection)
 
     connection.onMessage.addListener(message => this.onExternalMessage(connection, message))
@@ -175,9 +177,10 @@ class Background {
       const { asset } = data
       chain = assets[asset].chain
     }
-    const { externalConnections, activeWalletId } = this.store.state
-    const allowed = Object.keys(externalConnections[activeWalletId] || {}).includes(origin) &&
-                    Object.keys(externalConnections[activeWalletId]?.[origin] || {}).includes(chain)
+    const { externalConnections, activeProxyAddressAddress, activeChainId, activeWalletId } = this.store.state
+    // const allowed = Object.keys(externalConnections[activeWalletId] || {}).includes(origin) &&
+    //                 Object.keys(externalConnections[activeWalletId]?.[origin] || {}).includes(chain)
+    const allowed = externalConnections[activeProxyAddressAddress]?.[activeChainId]?.[origin] || false
 
     switch (type) {
       case 'ENABLE_REQUEST':

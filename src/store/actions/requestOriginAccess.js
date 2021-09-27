@@ -13,8 +13,13 @@ export const requestOriginAccess = async ({ state, dispatch, commit }, { origin,
       emitter.$once(`origin:${origin}`, (allowed, accountId, chain) => {
         commit('app/SET_ORIGIN_ACCESS_ACTIVE', { active: false }, { root: true })
         if (allowed) {
-          const { activeWalletId } = state
-          commit('ADD_EXTERNAL_CONNECTION', { origin, activeWalletId, accountId, chain })
+          const { activeProxyAddressAddress, activeChainId } = state
+          commit('ADD_EXTERNAL_CONNECTION', { 
+            origin, 
+            proxyAddressAddress: activeProxyAddressAddress, 
+            chainId: activeChainId
+            // origin, activeWalletId, accountId, chain 
+          })
           resolve(true)
         } else {
           reject(new Error('User denied'))

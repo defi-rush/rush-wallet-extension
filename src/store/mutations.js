@@ -11,6 +11,11 @@ const ensureOriginWalletTree = (ref, walletId, origin, initialValue) => {
   if (!ref[walletId][origin]) Vue.set(ref[walletId], origin, initialValue)
 }
 
+const ensureOriginConnectionTree = ({ ref, proxyAddressAddress, chainId, initialValue = {} }) => {
+  if (!ref[proxyAddressAddress]) Vue.set(ref, proxyAddressAddress, {})
+  if (!ref[proxyAddressAddress][chainId]) Vue.set(ref[proxyAddressAddress], chainId, initialValue)
+}
+
 export default {
   SETUP_WALLET (state, { key }) {
     state.key = key
@@ -281,11 +286,28 @@ export default {
   SET_USB_BRIDGE_WINDOWS_ID (state, { id }) {
     state.usbBridgeWindowsId = id
   },
-  ADD_EXTERNAL_CONNECTION (state, { origin, activeWalletId, accountId, chain }) {
-    ensureOriginWalletTree(state.externalConnections, activeWalletId, origin, {})
+  ADD_EXTERNAL_CONNECTION (state, { origin, proxyAddressAddress, chainId, activeWalletId, accountId, chain }) {
+    // ensureOriginWalletTree(state.externalConnections, activeWalletId, origin, {})
+    // const accounts = state.externalConnections[activeWalletId]?.[origin]?.[chain] || []
+    // Vue.set(state.externalConnections[activeWalletId][origin], chain, [...new Set([...accounts, accountId])])
 
-    const accounts = state.externalConnections[activeWalletId]?.[origin]?.[chain] || []
-    Vue.set(state.externalConnections[activeWalletId][origin], chain, [...new Set([...accounts, accountId])])
+    ensureOriginConnectionTree({
+      ref: state.externalConnections,
+      proxyAddressAddress, 
+      chainId, 
+      initialValue: {}
+    })
+    Vue.set(state.externalConnections[proxyAddressAddress][chainId], origin, true)
+
+  },
+  DISCONNECT_EXTERNAL_CONNECTION(state, { origin, proxyAddressAddress, chainId }) {
+    ensureOriginConnectionTree({
+      ref: state.externalConnections,
+      proxyAddressAddress, 
+      chainId, 
+      initialValue: {}
+    })
+    Vue.set(state.externalConnections[proxyAddressAddress][chainId], origin, false)
   },
   SET_ANALYTICS_PREFERENCES (state, payload) {
     state.analytics = {

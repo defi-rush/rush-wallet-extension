@@ -73,8 +73,8 @@ class Background {
       if (mutation.type === 'CHANGE_ACTIVE_PROXY_ADDRESS_ACCOUNT') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
-            id: 'rushActiveProxyAddressAccountChanged',
-            data: { accounts: [ state.activeProxyAddressAccount ] }
+            id: 'rushActiveProxyAddressChanged',
+            data: { accounts: [ state.activeProxyAddressAddress ] }
           })
         })
       }

@@ -148,7 +148,7 @@ window[injectionName] = {
     }
 
     if (method === 'accountsChanged') {
-      window.addEventListener('rushActiveProxyAddressAccountChanged', ({ detail }) => {
+      window.addEventListener('rushActiveProxyAddressChanged', ({ detail }) => {
         const result = JSON.parse(detail)
         callback('0x' + result.accounts[0].toString(16))
       })

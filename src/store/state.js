@@ -21,7 +21,7 @@ export default {
 
   // <这里仅仅是为了计算是否要计算 chainChanged 和 accountsChanged>
   activeChainId: null,
-  activeProxyAddressAccount: null,
+  activeProxyAddressAddress: null,
   // </这里仅仅是为了计算是否要计算 chainChanged 和 accountsChanged>
 
   proxyAddressAccount: {

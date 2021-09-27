@@ -53,7 +53,7 @@ export default {
     state.activeChainId = value
   },
   CHANGE_ACTIVE_PROXY_ADDRESS_ACCOUNT(state, value) {
-    state.activeProxyAddressAccount = value
+    state.activeProxyAddressAddress = value
   },
   RESET_PROXY_ADDRESS_ACCOUNT_TOTAL_FIAT_BALANCE(state) {
     state.proxyAddressAccount.totalFiatBalance = 0

@@ -20,6 +20,10 @@ const EXPLORERS = {
     tx: 'https://polygonscan.com/tx/0x',
     address: 'https://polygonscan.com/address/'
   },
+  rinkeby: {
+    tx: 'https://rinkeby.etherscan.io/tx/0x',
+    address: 'https://rinkeby.etherscan.io/address/'
+  },
   localhost: {
     tx: 'https://etherscan.io/tx/0x',
     address: 'https://etherscan.io/address/'

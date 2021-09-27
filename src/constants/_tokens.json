@@ -108,6 +108,11 @@
         "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
         "symbol": "USDC",
         "decimals": 6
+      },
+      "4": {
+        "address": "0xab5400b26149a3ff5918efcdeb2c37903042e9ee",
+        "symbol": "USDC",
+        "decimals": 6
       }
     }
   },
@@ -292,6 +297,11 @@
     "contract": {
       "1": {
         "address": "0x6b175474e89094c44da98b954eedeac495271d0f",
+        "symbol": "DAI",
+        "decimals": 18
+      },
+      "4": {
+        "address": "0xc7ad46e0b8a400bb3c915120d284aafba8fc4735",
         "symbol": "DAI",
         "decimals": 18
       },

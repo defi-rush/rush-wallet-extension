@@ -30,7 +30,7 @@ export const requestPermission = async ({ state, dispatch, commit }, { origin, d
     await dispatch('requestUnlockWallet')
     if (!state.unlockedAt) throw new Error('Wallet is locked. Unlock the wallet first.')
     if (!state.activeWalletId) throw new Error('No active wallet found. Create a wallet first.')
-
+    if (!state.activeProxyAddressAddress) throw new Error('No active proxy address found. Select a proxyAddress first.')
     let { asset, method, args } = data
 
     if (!ALLOWED.some(re => re.test(method))) throw new Error('Method not allowed')

@@ -106,7 +106,7 @@ async function handleRequest (req) {
 
 
 window[injectionName] = {
-  isLiquality: true,
+  isRushWallet: true,
   isEIP1193: true,
   networkVersion: '${network.networkId}',
   chainId: '0x${network.chainId.toString(16)}',
@@ -199,7 +199,7 @@ if (!window.ethereum) {
   let retries = 0
   const interval = setInterval(() => {
     retries++
-    if (window.ethereum && !window.ethereum.isLiquality) {
+    if (window.ethereum && !window.ethereum.isRushWallet) {
       overrideEthereum('${chain}')
       clearInterval(interval)
     }

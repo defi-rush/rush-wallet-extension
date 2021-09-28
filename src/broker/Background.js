@@ -101,7 +101,6 @@ class Background {
   }
 
   onExternalConnection (connection) {
-    console.log('~~~ onExternalConnection', connection)
     this.externalConnections.push(connection)
 
     connection.onMessage.addListener(message => this.onExternalMessage(connection, message))

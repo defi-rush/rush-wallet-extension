@@ -29,21 +29,14 @@ import Congratulations from './SeedPhrase/Congratulations.vue'
 import OnboardingPassword from './OnboardingPassword'
 import LogoWallet from '@/assets/icons/rush/logo-white.svg?inline'
 
-import { chains } from '@/utils/chains'
+import { CHAINS } from '@/constants/chains'
 
 export default {
   data () {
-    const chainOptions = _.map(chains, item => {
-      const { name, chainId } = item
-      return {
-        name, chainId
-      }
-    })
     return {
       mnemonic: null,
       currentStep: 'beginning',
       password: null,
-      chainOptions,
     }
   },
   props: [

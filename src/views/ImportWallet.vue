@@ -24,10 +24,10 @@
           <div class="form-item">
             <div class="select-chain">
               <div
-                v-for="opt in chainOptions" :key="opt.name"
+                v-for="opt in chainOptions" :key="opt.chainName"
                 class="select-option" :class="{ active: opt.chainId === chainId }"
                 @click.stop="chainId = opt.chainId"
-              >{{ opt.name }}</div>
+              >{{ opt.chainName }}</div>
             </div>
           </div>
         </form>
@@ -84,26 +84,20 @@ import _ from 'lodash'
 import { mapState } from 'vuex'
 import LogoWallet from '@/assets/icons/rush/logo-white.svg'
 import { chains } from '@/utils/chains'
+import { CHAINS } from '@/constants/chains'
 
 export default {
   components: {
     LogoWallet
   },
   data: function () {
-    const chainOptions = _.map(chains, item => {
-      const { name, chainId } = item
-      return {
-        name, chainId
-      }
-    })
-
     return {
       currStep: 1, //  1: proxyAddress, 2: passphrase
       wordList: Array(12).fill(''),
       numWords: 12,
       proxyAddress: '',
       chainId: 1,
-      chainOptions,
+      chainOptions: [...CHAINS],
     }
   },
   mounted() {

@@ -21,7 +21,7 @@
                   @click="selectChain(item.chainId)"
                   :class="{active: chainId === item.chainId }"
                 >
-                  <div class="chain__name">{{ item.name }}</div>
+                  <div class="chain__name">{{ item.chainName }}</div>
                 </a>
               </li>
             </ul>
@@ -80,8 +80,7 @@ import NavBar from '@/components/NavBar.vue'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import { shortenAddress } from '@/utils/address'
-import { chains } from '@/utils/chains'
-import { getChain } from '@/constants/chains'
+import { CHAINS, getChain } from '@/constants/chains'
 
 export default {
   components: {
@@ -90,12 +89,7 @@ export default {
     ChevronUpIcon
   },
   data () {
-    const chainOptions = _.map(chains, item => {
-      const { name, chainId } = item
-      return {
-        name, chainId
-      }
-    })
+    const chainOptions = [...CHAINS]
     return {
       chainDropdownOpen: false,
       ownerKeyDropdownOpen: false,

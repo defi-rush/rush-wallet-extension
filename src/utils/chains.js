@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import { assets, chains as originalChains } from '@/liquality/cryptoassets'
-import { CHAIN_RPC_MAPPING, CHAIN_ID_MAPPING } from '@/constants/chains'
+import { getRpcUrl, getChainId } from '@/constants/chains'
 
 // const assets = {}
 // for (const key in originalAssets) {
@@ -15,8 +15,8 @@ const chains = {}
 _.forEach(['ethereum', 'bsc', 'polygon'], chainName => {
   chains[chainName] = {
     ...originalChains[chainName],
-    rpc: CHAIN_RPC_MAPPING[chainName],
-    chainId: CHAIN_ID_MAPPING[chainName]
+    rpc: getRpcUrl({ chainName: chainName }),
+    chainId: getChainId({ chainName: chainName })
   }
 })
 
@@ -29,8 +29,8 @@ chains['localhost'] = {
     unit: 'gwei'
   },
   safeConfirmations: 3,
-  rpc: CHAIN_RPC_MAPPING['localhost'],
-  chainId: CHAIN_ID_MAPPING['localhost']
+  rpc: getRpcUrl({ chainName: 'localhost' }),
+  chainId: getChainId({ chainName: 'localhost' })
 }
 
 chains['rinkeby'] = {
@@ -42,8 +42,8 @@ chains['rinkeby'] = {
     unit: 'gwei'
   },
   safeConfirmations: 3,
-  rpc: CHAIN_RPC_MAPPING['rinkeby'],
-  chainId: CHAIN_ID_MAPPING['rinkeby']
+  rpc: getRpcUrl({ chainName: 'rinkeby' }),
+  chainId: getChainId({ chainName: 'rinkeby' })
 }
 
 export { assets, chains }

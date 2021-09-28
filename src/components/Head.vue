@@ -29,18 +29,9 @@ import LogoIcon from '@/assets/icons/rush/logo.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import HeadMenu from '@/components/HeadMenu'
-import { CHAIN_ID_MAPPING } from '@/constants/chains'
+import { getChain } from '@/constants/chains'
 import CreateIcon from '@/assets/icons/create_icon.svg'
 
-const getChainNameById = (chainId) => {
-  let res
-  _.forEach(CHAIN_ID_MAPPING, (cid, chainName) => {
-    if (chainId === cid) {
-      res = chainName
-    }
-  })
-  return res
-}
 
 const getMaskedAddress = (address = '') => {
   return address.substr(0, 6) + '...' + address.substr(address.length - 4)
@@ -74,7 +65,8 @@ export default {
     formatProxyAddress(item) {
       const { chainId, proxyAddress } = item || {}
       if (!chainId || !proxyAddress) return 'Unknown Proxy address'
-      return `${getMaskedAddress(proxyAddress)} - ${getChainNameById(chainId)}`
+      const chainObj = getChain({ chainId }) 
+      return `${getMaskedAddress(proxyAddress)} - ${ chainObj ? chainObj.chainName : 'Unknown Chain' }`
     },
     hideDropdown () {
       this.showDropdown = false

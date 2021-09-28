@@ -11,7 +11,7 @@ import { EthereumErc20SwapProvider } from '@/liquality/ethereum-erc20-swap-provi
 import { RushProxyProvider } from './rush-proxy-provider'
 
 import { ChainNetworks } from '@/store/utils'
-import { CHAIN_ID_RPC_MAPPING } from '@/constants/chains'
+import { getRpcUrl } from '@/constants/chains'
 
 const getNetworkByChainId = (chainId) => {
   let result
@@ -26,7 +26,8 @@ const getNetworkByChainId = (chainId) => {
 export function createRuchClient ({asset, mnemonic, indexPath, proxyAddress, chainId = 1}) {
   // const ethereumNetwork = ChainNetworks.ethereum['mainnet']
   const network = getNetworkByChainId(chainId)
-  const infuraApi = CHAIN_ID_RPC_MAPPING[chainId]
+  const infuraApi = getRpcUrl({ chainId })
+  console.log('@@@ infuraApi: ', infuraApi)
   const feeProvider = new EthereumGasNowFeeProvider()
 
   const ethClient = new Client()

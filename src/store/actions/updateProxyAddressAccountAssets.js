@@ -1,6 +1,5 @@
 import _ from 'lodash'
 import buildConfig from '../../build.config'
-import { CHAIN_ID_MAPPING } from '@/constants/chains'
 
 const TOKEN_LIST = require('@/constants/_tokens.json')
 const LOCALHOST_CHAIN_IDS = [31337, 71337]

@@ -81,8 +81,7 @@ import ChevronDownIcon from '@/assets/icons/chevron_down.svg'
 import ChevronUpIcon from '@/assets/icons/chevron_up.svg'
 import { shortenAddress } from '@/utils/address'
 import { chains } from '@/utils/chains'
-import { CHAIN_RPC_MAPPING, CHAIN_ID_MAPPING } from '@/constants/chains'
-import { forIn } from 'lodash'
+import { getChain } from '@/constants/chains'
 
 export default {
   components: {
@@ -103,7 +102,6 @@ export default {
       name: null,
       ownerKey: null,
       proxyAddress: '',
-      CHAIN_ID_MAPPING,
       chainId: 1,
       chainOptions,
     }
@@ -111,13 +109,8 @@ export default {
   computed: {
     ...mapState(['ownerKeys']),
     currentChainName() {
-      let res = ''
-      for (let key in CHAIN_ID_MAPPING) {
-        if (CHAIN_ID_MAPPING[key] === this.chainId) {
-          res = key
-        }
-      }
-      return res
+      const chainObj = getChain({ chainId: this.chainId }) 
+      return chainObj ? chainObj.chainName : 'Unknown chain'
     },
     canAdd () {
       return this.chainId && this.ownerKey && this.proxyAddress

@@ -1,40 +1,9 @@
-
-export const CHAIN_RPC_MAPPING = {
-  'ethereum': 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-  'rinkeby': 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-  'bsc': 'https://bsc-dataseed.binance.org',
-  'polygon': 'https://rpc-mainnet.maticvigil.com',
-  'localhost': 'http://localhost:8545'
-}
-
-export const CHAIN_ID_MAPPING = {
-  'ethereum': 1,
-  'rinkeby': 4,
-  'bsc': 56,
-  'polygon': 137,
-  'localhost': 31337
-}
-export const CHAIN_NATIVE_ASSET_MAPPING = {
-  '1': 'ETH',
-  '4': 'ETH',
-  '56': 'BNB',
-  '137': 'MATIC',
-  '31337': 'ETH'
-}
-
-export const CHAIN_ID_RPC_MAPPING = {
-  '1': 'https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-  '4': 'https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161',
-  '56': 'https://bsc-dataseed.binance.org',
-  '137': 'https://rpc-mainnet.maticvigil.com',
-  '31337': 'http://localhost:8545'
-}
-
-
+import { find } from 'lodash-es'
 
 export const CHAINS = [{
   chainId: 1,
   chainName: 'Ethereum',
+  aliasChainName: 'ethereum',
   nativeCurrency: {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -44,6 +13,7 @@ export const CHAINS = [{
 }, {
   chainId: 137,
   chainName: 'Polygon POS',
+  aliasChainName: 'polygon',
   nativeCurrency: {
     name: 'MATIC',
     symbol: 'MATIC',
@@ -53,6 +23,7 @@ export const CHAINS = [{
 }, {
   chainId: 56,
   chainName: 'Binance Smart Chain',
+  aliasChainName: 'bsc',
   nativeCurrency: {
     name: 'BNB',
     symbol: 'BNB',
@@ -62,6 +33,7 @@ export const CHAINS = [{
 }, {
   chainId: 128,
   chainName: 'Huobi ECO Chain',
+  aliasChainName: 'hero',
   nativeCurrency: {
     name: 'HT',
     symbol: 'HT',
@@ -71,6 +43,7 @@ export const CHAINS = [{
 }, {
   chainId: 4,
   chainName: 'Rinkeby Test Network',
+  aliasChainName: 'rinkeby',
   nativeCurrency: {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -81,6 +54,7 @@ export const CHAINS = [{
   forking: true,
   chainId: 71337,
   chainName: 'hardhat-dev.defirush.io',
+  aliasChainName: 'hardhat-dev.defirush.io',
   nativeCurrency: {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -91,6 +65,7 @@ export const CHAINS = [{
   forking: true,
   chainId: 31337,
   chainName: 'localhost',
+  aliasChainName: 'localhost',
   nativeCurrency: {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -98,3 +73,38 @@ export const CHAINS = [{
   },
   rpcUrl: 'http://localhost:8545',
 }]
+
+export const getChain = ({ chainName, chainId }) => {
+  let chainObj
+  if (chainName) {
+    chainName = chainName.toLowerCase()
+    chainObj = find(CHAINS, item => {
+      return chainName === item.chainName.toLowerCase() || chainName === item.aliasChainName.toLowerCase()
+    })
+  } else if (+chainId) {
+    chainObj = find(CHAINS, item => {
+      return +chainId === +item.chainId
+    })
+  }
+
+  return chainObj
+}
+
+export const getRpcUrl = ({ chainName, chainId }) => {
+  const chainObj = getChain({ chainName, chainId })
+  return chainObj ? chainObj.rpcUrl : ''
+}
+
+export const getChainId = ({ chainName = '' }) => {
+  if (!chainName) return null
+  chainName = chainName.toLowerCase()
+  const chainObj = find(CHAINS, item => {
+    return chainName === item.chainName.toLowerCase() || chainName === item.aliasChainName.toLowerCase()
+  })
+  return chainObj ? chainObj.chainId : null
+}
+
+export const getNativeAssetSymbol = ({ chainName, chainId }) => {
+  const chainObj = getChain({ chainName, chainId })
+  return chainObj && chainObj.nativeCurrency ? chainObj.nativeCurrency.symbol : null
+}

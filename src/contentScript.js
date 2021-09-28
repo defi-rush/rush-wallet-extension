@@ -6,7 +6,7 @@ import buildConfig from './build.config'
 import { ChainNetworks } from './store/utils'
 import { isEthereumChain } from '@/liquality/cryptoassets'
 import { chains } from '@/utils/chains'
-import { CHAIN_NATIVE_ASSET_MAPPING } from '@/constants/chains'
+import { getNativeAssetSymbol } from '@/constants/chains'
 
 ;(new Script()).start()
 
@@ -21,7 +21,7 @@ function injectEthereum (state, chain) {
     networkId: chainId,
     chainId,
   }
-  const nativeAsset = CHAIN_NATIVE_ASSET_MAPPING[chainId || 1]
+  const nativeAsset = getNativeAssetSymbol({ chainId: chainId || 1 })
 
   inject(ethereumProvider({
     chain,

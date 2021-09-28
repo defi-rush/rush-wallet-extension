@@ -1,11 +1,9 @@
 <template>
     <div class="login-wrapper congrats-seed no-outer-pad">
-        <div class="congrats-seed_confetti-wrapper">
-          <div v-for="n in 150" :key="n" :class="`confetti-${n}`"></div>
-        </div>
         <div class="congrats-seed_top">
-            <h1 class="mb-3">Congrats!</h1>
-            <CompletedIcon class="congrats-seed_icon" />
+            <h1 class="mb-3">Well Done!</h1>
+            <!-- <CompletedIcon class="congrats-seed_icon" /> -->
+            <WellDoneIcon class="congrats-seed_icon" />
         </div>
     </div>
 </template>
@@ -13,10 +11,12 @@
 <script>
 
 import CompletedIcon from '@/assets/icons/checkmark-large.svg'
+import WellDoneIcon from '@/assets/icons/well-done.svg'
 
 export default {
   components: {
-    CompletedIcon
+    CompletedIcon,
+    WellDoneIcon
   }
 }
 
@@ -30,15 +30,16 @@ export default {
   &_top {
     z-index: 2;
     position: absolute;
-    top: 178px;
-    left: 112px;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
       h1 {
           color: $color-text-secondary;
       }
   }
   &_icon {
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 200px;
   }
   &_confetti-wrapper {
     position: relative;

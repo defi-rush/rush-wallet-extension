@@ -22,8 +22,6 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex'
-import cryptoassets from '@/utils/cryptoassets'
-import { chains } from '@/utils/chains'
 import NavBar from '@/components/NavBar.vue'
 import RefreshIcon from '@/assets/icons/refresh.svg'
 import { shortenAddress } from '@/utils/address'

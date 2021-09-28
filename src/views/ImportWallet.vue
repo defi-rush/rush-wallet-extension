@@ -83,7 +83,6 @@
 import _ from 'lodash'
 import { mapState } from 'vuex'
 import LogoWallet from '@/assets/icons/rush/logo-white.svg'
-import { chains } from '@/utils/chains'
 import { CHAINS } from '@/constants/chains'
 
 export default {

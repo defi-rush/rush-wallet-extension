@@ -1,11 +1,10 @@
 import { unitToCurrency } from '@/liquality/cryptoassets'
-import { assets as cryptoassets, chains } from '@/utils/chains'
+import { assets as cryptoassets } from '@/utils/chains'
 import { createClient } from './factory/client'
 
 import { Object } from 'core-js'
 import BN from 'bignumber.js'
 import { cryptoToFiat } from '@/utils/coinFormatter'
-import { Networks } from './utils'
 import { uniq, find, map } from 'lodash-es'
 
 const clientCache = {}
@@ -166,17 +165,6 @@ export default {
       return null
     }
   },
-  chainAssets (state, getters) {
-    const { cryptoassets } = getters
-
-    const chainAssets = Object.entries(cryptoassets).reduce((chains, [asset, assetData]) => {
-      const assets = assetData.chain in chains ? chains[assetData.chain] : []
-      return Object.assign({}, chains, {
-        [assetData.chain]: [...assets, asset]
-      })
-    }, {})
-    return chainAssets
-  },
   analyticsEnabled (state) {
     if (state.analytics && state.analytics.acceptedDate != null) {
       return true
@@ -187,11 +175,6 @@ export default {
     const { activeProxyAddressIndex, proxyAddresses } = state
     const currProxyAddress = activeProxyAddressIndex >= 0 && proxyAddresses.length > 0 ? proxyAddresses[activeProxyAddressIndex] : null
     return currProxyAddress || null
-  },
-  activeChain (state, getters) {
-    if (!getters.activeProxyAddress) return null
-    const { chainId } = getters.activeProxyAddress
-    return find(chains, { chainId })
   },
   activeOwnerKey(state, getters) {
     if (!getters.activeProxyAddress) return null

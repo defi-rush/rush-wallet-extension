@@ -1,9 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 import { encrypt } from '../../utils/crypto'
-import buildConfig from '../../build.config'
-import { accountCreator, getNextAccountColor } from '@/utils/accounts'
-// import { assets as cryptoassets } from '@/utils/chains'
-import { chains } from '@/utils/chains'
 import { shouldApplyRskLegacyDerivation } from '../utils'
 
 export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic, proxyAddress, chainId }) => {

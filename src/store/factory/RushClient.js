@@ -27,7 +27,6 @@ export function createRuchClient ({asset, mnemonic, indexPath, proxyAddress, cha
   // const ethereumNetwork = ChainNetworks.ethereum['mainnet']
   const network = getNetworkByChainId(chainId)
   const infuraApi = getRpcUrl({ chainId })
-  console.log('@@@ infuraApi: ', infuraApi)
   const feeProvider = new EthereumGasNowFeeProvider()
 
   const ethClient = new Client()

@@ -61,7 +61,7 @@ class ProviderManager {
 window.providerManager = new ProviderManager()
 `
 
-const ethereumProvider = ({ asset, chain, network }) => `
+const ethereumProvider = ({ asset, chain, network, isMetaMask = false }) => `
 const injectionName = window.providerManager.getInjectionName('${chain}')
 
 async function getAddresses () {
@@ -156,6 +156,9 @@ window[injectionName] = {
   },
   autoRefreshOnNetworkChange: false
 }
+if (${isMetaMask}) {
+  window[injectionName].isMetaMask = true
+}
 `
 
 const overrideEthereum = (chain) => `
@@ -180,7 +183,6 @@ function proxyEthereum(chain) {
   }
   const injectionName = window.providerManager.getInjectionName(chain)
   window.ethereum = new Proxy(window[injectionName], overrideHandler)
-  window.isMetaMask = true
 }
 
 function overrideEthereum(chain) {

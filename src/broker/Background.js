@@ -55,7 +55,7 @@ class Background {
       //     })
       //   })
       // }
-      if (mutation.type === 'SET_ETHEREUM_INJECTION_CHAIN') {
+      if (mutation.type === 'CHANGE_ETHEREUM_INJECTION_CHAIN') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
             id: 'rushEthereumOverrideChanged',

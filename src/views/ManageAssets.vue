@@ -12,14 +12,12 @@
         <div>
           <h4>Can't find this token</h4>
           <p class="manage-assets_customText">Add Custom ERC20 tokens.</p>
-          <a target="_blank" href="https://liquality.io/blog/how-to-use-the-rush-wallet-101/#q-how-can-i-add-custom-tokens-to-my-rush-wallet">Learn how</a>
         </div>
       </div>
        <div v-if="sortedFilteredAssets.length === 0" class="mt-5 d-flex">
         <div class="manage-assets_noneBottom">
           <h5 class="manage-assets_noneBottomText">INQUIRE</h5>
           <a target="_blank" href="https://forms.gle/nsHeZFGgT3y7hwKp6">Enable other tokens</a><br />
-          <a href="mailto:info@liquality.io">Offer liquidity</a>
         </div>
       </div>
       </div>

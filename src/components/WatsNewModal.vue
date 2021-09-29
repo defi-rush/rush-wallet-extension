@@ -11,13 +11,6 @@
           <div class="item-icon">
             <ChartIcon />
           </div>
-          <div class="item-content">
-            Liquality has integrated Uniswap, 1inch, and FastBTC so that you can
-            swap more pairs in one convenient location. <a href="https://liquality.io/blog/liquality-raises-7-million-in-funding-round/"
-               target="_blank">
-              Learn more...
-            </a>
-          </div>
         </div>
       </div>
     </template>
@@ -63,10 +56,10 @@ export default {
     }
   },
   created () {
-    if (this.watsNewModalVersion !== this.appVersion) {
-      this.open = true
-      this.setWatsNewModalShowed({ version: this.appVersion })
-    }
+    // if (this.watsNewModalVersion !== this.appVersion) {
+    //   this.open = true
+    //   this.setWatsNewModalShowed({ version: this.appVersion })
+    // }
   }
 }
 </script>

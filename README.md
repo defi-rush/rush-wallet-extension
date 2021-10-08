@@ -1,4 +1,8 @@
-# Rush Wallet <img align="right" src="https://raw.githubusercontent.com/liquality/chainabstractionlayer/master/liquality-logo.png" height="80px" />
+# Rush Wallet
+
+A browser extension for smart contract wallet.
+
+This project is built from base code of [Liquality](https://github.com/Liquality) because of their well organized code.
 
 ## Getting started
 - Install [NVM](https://github.com/nvm-sh/nvm#installing-and-updating)
@@ -28,7 +32,7 @@ npm run lint
 
 ### Run Integration __tests__
 
-[Wallet](https://liquality.io/wallet.html) Integration __tests__ have been written using [puppeteer](https://developers.google.com/web/tools/puppeteer)
+[Wallet] Integration __tests__ have been written using [puppeteer](https://developers.google.com/web/tools/puppeteer)
 
 #### testNet __tests__
 ```

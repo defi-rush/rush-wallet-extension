@@ -72,6 +72,17 @@ async function getAddresses () {
   return addresses
 }
 
+// function getAddresses () {
+//   return new Promise((resolve, reject) => {
+//     const eth = window.providerManager.getProviderFor('${asset}')
+//     eth.getMethod('wallet.getProxyAddresses')().then((addresses) => {
+//       addresses = (addresses || []).map(a => '0x' + a.address)
+//       window[injectionName].selectedAddress = addresses[0]
+//       resolve(addresses)
+//     })
+//   })
+// }
+
 async function handleRequest (req) {
   const eth = window.providerManager.getProviderFor('${asset}')
   if(req.method.startsWith('metamask_')) return null
@@ -113,7 +124,7 @@ window[injectionName] = {
   enable: async () => {
     const accepted = await window.providerManager.enable('${chain}')
     if (!accepted) throw new Error('User rejected')
-    return getAddresses()
+    return await getAddresses()
   },
   request: async (req) => {
     const params = req.params || []
@@ -141,7 +152,7 @@ window[injectionName] = {
   },
   on: (method, callback) => {
     if (method === 'chainChanged') {
-      window.addEventListener('rushActiveChainIdChanged', ({ detail }) => {
+      window.addEventListener('rushChainChanged', ({ detail }) => {
         const result = JSON.parse(detail)
         callback('0x' + result.chainIds[0].toString(16))
       })
@@ -168,10 +179,20 @@ function proxyEthereum(chain) {
     get: function (target, prop, receiver) {
       if (prop === 'on') {
         return (method, callback) => {
-          window.addEventListener('rushChainChanged', ({ detail }) => {
-            const result = JSON.parse(detail)
-            callback('0x' + result.chainIds[window.ethereumProxyChain].toString(16))
-          })
+          if (method === 'chainChanged') {
+            window.addEventListener('rushChainChanged', ({ detail }) => {
+              const result = JSON.parse(detail)
+              callback('0x' + result.chainIds[window.ethereumProxyChain].toString(16))
+            })
+          }
+      
+          if (method === 'accountsChanged') {
+            window.addEventListener('rushActiveProxyAddressChanged', ({ detail }) => {
+              const result = JSON.parse(detail)
+              callback('0x' + result.accounts[0].toString(16))
+            })
+          }
+
           window.addEventListener('rushEthereumOverrideChanged', ({ detail }) => {
             const result = JSON.parse(detail)
             callback('0x' + result.chainIds[result.chain].toString(16))

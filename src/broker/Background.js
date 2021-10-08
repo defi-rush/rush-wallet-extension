@@ -55,7 +55,7 @@ class Background {
       //     })
       //   })
       // }
-      if (mutation.type === 'CHANGE_ETHEREUM_INJECTION_CHAIN') {
+      if (mutation.type === 'SET_ETHEREUM_INJECTION_CHAIN') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
             id: 'rushEthereumOverrideChanged',
@@ -66,7 +66,7 @@ class Background {
       if (mutation.type === 'CHANGE_ACTIVE_CHAIN_ID') {
         this.externalConnections.forEach(connection => {
           connection.postMessage({
-            id: 'rushActiveChainIdChanged',
+            id: 'rushChainChanged',
             data: { chainIds: [ state.activeChainId ] }
           })
         })
@@ -76,6 +76,19 @@ class Background {
           connection.postMessage({
             id: 'rushActiveProxyAddressChanged',
             data: { accounts: [ state.activeProxyAddressAddress ] }
+          })
+        })
+      }
+      if (mutation.type === 'ADD_EXTERNAL_CONNECTION' || 
+          mutation.type === 'DISCONNECT_EXTERNAL_CONNECTION') {
+        this.externalConnections.forEach(connection => {
+          connection.postMessage({
+            id: 'rushActiveProxyAddressChanged',
+            data: { accounts: [ state.activeProxyAddressAddress ] }
+          })
+          connection.postMessage({
+            id: 'rushChainChanged',
+            data: { chainIds: [ state.activeChainId ] }
           })
         })
       }
@@ -180,7 +193,6 @@ class Background {
     // const allowed = Object.keys(externalConnections[activeWalletId] || {}).includes(origin) &&
     //                 Object.keys(externalConnections[activeWalletId]?.[origin] || {}).includes(chain)
     const allowed = externalConnections[activeProxyAddressAddress]?.[activeChainId]?.[origin] || false
-
     switch (type) {
       case 'ENABLE_REQUEST':
         if (allowed) {

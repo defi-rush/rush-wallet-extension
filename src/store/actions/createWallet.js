@@ -21,7 +21,7 @@ export const createWallet = async ({ state, commit, dispatch }, { key, mnemonic,
     )
     // TODO to remove rsk sometime
     ownerPublicKey = await dispatch('addOwnerKey', { mnemonic })
-    const rskLegacyDerivation = await shouldApplyRskLegacyDerivation(state.accounts, mnemonic)
+    const rskLegacyDerivation = false // await shouldApplyRskLegacyDerivation(state.accounts, mnemonic)
     commit('CREATE_WALLET', { keySalt, encryptedWallets, wallet, rskLegacyDerivation })
     // commit('CREATE_ACCOUNT', { network, walletId: id, account: _account })
   }

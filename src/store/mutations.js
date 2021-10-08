@@ -141,7 +141,7 @@ export default {
   UPDATE_MARKET_DATA (state, { network, marketData }) {
     Vue.set(state.marketData, network, marketData)
   },
-  CHANGE_ETHEREUM_INJECTION_CHAIN (state, { chain }) {
+  SET_ETHEREUM_INJECTION_CHAIN (state, { chain }) {
     state.injectEthereumChain = chain
   },
   ENABLE_ETHEREUM_INJECTION (state) {
@@ -290,7 +290,6 @@ export default {
     // ensureOriginWalletTree(state.externalConnections, activeWalletId, origin, {})
     // const accounts = state.externalConnections[activeWalletId]?.[origin]?.[chain] || []
     // Vue.set(state.externalConnections[activeWalletId][origin], chain, [...new Set([...accounts, accountId])])
-
     ensureOriginConnectionTree({
       ref: state.externalConnections,
       proxyAddressAddress, 

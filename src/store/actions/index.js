@@ -46,3 +46,5 @@ export * from './addOwnerKey'
 export * from './removeOwnerKey'
 export * from './updateProxyAddressAccountAssets'
 export * from './updateProxyAddressAccountBalances'
+
+export * from './owners'

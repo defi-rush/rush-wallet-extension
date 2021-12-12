@@ -336,6 +336,22 @@ export default {
   COMPLETE_UPDATING_BALANCE(state) {
     state.loadingBalances = false
   },
+  // owner
+  START_GETTING_OWNERS(state) {
+    state.owners.pending = true
+  },
+  FINISH_GETTING_OWNERS(state) {
+    state.owners.pending = false
+  },
+  SET_OWNERS(state, payload) {
+    state.owners.ownersList = [...payload]
+    console.log('@@@ SET_OWNERS', payload, state.owners)
+  },
+  // ADD_OWNER(state, { owner }) {
+  //   state.owners.push(owner)
+  // },
+  // REMOVE_OWNER(state, { publicKey }) {
+  // },
   // owner keys
   ADD_OWNER_KEY(state, { ownerKey }) {
     state.ownerKeys.push(ownerKey)

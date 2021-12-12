@@ -39,6 +39,7 @@
     "cryptocurrency-icons": "^0.16.1",
     "date-fns": "^2.24.0",
     "eip55": "^1.0.3",
+    "element-ui": "^2.15.6",
     "ethereumjs-common": "^1.5.2",
     "ethereumjs-tx": "^2.1.2",
     "ethereumjs-util": "^7.1.0",

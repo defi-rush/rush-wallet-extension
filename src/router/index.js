@@ -35,6 +35,9 @@ import AddProxyAddress from '@/views/ProxyAddress/Add'
 import OwnerKeys from '@/views/OwnerKeys/OwnerKeys'
 import AddOwnerKey from '@/views/OwnerKeys/AddOwnerKey'
 
+import Owners from '@/views/Owners/Owners'
+import AddOwner from '@/views/Owners/AddOwner'
+
 
 Vue.use(VueRouter)
 
@@ -102,6 +105,17 @@ const routes = [
     path: '/proxy-address/add',
     component: AddProxyAddress,
     name: 'AddProxyAddress'
+  },
+  // owners
+  {
+    path: '/owners',
+    name: 'Owners',
+    component: Owners
+  },
+  {
+    path: '/owners/add',
+    name: 'AddOwner',
+    component: AddOwner
   },
   // owner keys
   {

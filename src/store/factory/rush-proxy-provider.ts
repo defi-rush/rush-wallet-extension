@@ -39,6 +39,7 @@ const proxyABI = [
   'function execTransaction(address to, uint256 value, bytes data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, bytes signatures) payable returns (bool success)',
   'function requiredTxGas(address to, uint256 value, bytes calldata data, uint8 operation) external returns (uint256)',
   'function encodeTransactionData(address to, uint256 value, bytes calldata data, uint8 operation, uint256 safeTxGas, uint256 baseGas, uint256 gasPrice, address gasToken, address refundReceiver, uint256 _nonce) view returns (bytes memory)',
+  'function getOwners() public view returns (address[] memory)',
 ]
 
 const rushWalletInterface = new ethers.utils.Interface(proxyABI)
@@ -63,6 +64,22 @@ export class RushProxyProvider extends Provider {
 
   getProxyAddress() {
     return this._proxyAddress
+  }
+
+  async getOwners() {
+    const proxyAddresses = this.getProxyAddress()
+    const callFunctionData = rushWalletInterface.encodeFunctionData('getOwners')
+
+    let owners = await this.getMethod('jsonrpc')(
+      'eth_call',
+      {
+        data: [callFunctionData].join('').toLowerCase(),
+        to: ensure0x(proxyAddresses).toLowerCase()
+      },
+      'latest'
+    )
+    owners = rushWalletInterface.decodeFunctionResult('getOwners', owners)
+    return owners
   }
 
   async _signPreValidated() {

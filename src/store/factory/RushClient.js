@@ -23,7 +23,7 @@ const getNetworkByChainId = (chainId) => {
   return result
 }
 
-export function createRuchClient ({asset, mnemonic, indexPath, proxyAddress, chainId = 1}) {
+export function createRuchClient ({asset = {}, mnemonic, indexPath, proxyAddress, chainId = 1}) {
   // const ethereumNetwork = ChainNetworks.ethereum['mainnet']
   const network = getNetworkByChainId(chainId)
   const infuraApi = getRpcUrl({ chainId })
